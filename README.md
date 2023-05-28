@@ -1,8 +1,8 @@
-### eCommerce Backend APIs
+## eCommerce Backend APIs
 
 The objective of this project is to develop an advanced e-commerce platform that facilitates the buying and selling of products. The platform will provide a user-friendly interface for customers to browse and purchase items, while also offering sellers a comprehensive dashboard to manage their product listings, track sales and earnings, and effectively communicate with customers.
 
-## Key Features:
+### Key Features:
 
 User Accounts: The platform will allow users to create individual accounts, enabling them to make purchases, track orders, and manage their personal information.
 
@@ -15,6 +15,10 @@ Sales and Earnings Tracking: The Seller Dashboard will provide real-time sales d
 Order Management: Sellers will be able to efficiently manage their orders through the Seller Dashboard. They can view and process incoming orders, update order statuses (such as shipped or delivered), and generate shipping labels or invoices.
 
 Inventory Management: Sellers will have tools to manage their inventory effectively. They can track stock levels, receive low inventory alerts, and update product availability to ensure seamless transactions and avoid overselling.
+
+## **Documentation**
+
+Visit [API docs](./docs/api-docs.md)) for full API documentation.
 
 ### Technology
 
