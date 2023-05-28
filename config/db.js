@@ -1,5 +1,5 @@
 // Database Lib Import
-require('dotenv').config();
+require("dotenv").config();
 const mongoose = require("mongoose");
 
 // Mongo DB Database Connection

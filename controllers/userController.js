@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 // Basic Lib Import
-const bcrypt = require('bcryptjs');
-const asyncHandler = require('express-async-handler');
-const User = require('../models/userModels');
-const { generateToken } = require('../helper/generateToken');
+const bcrypt = require("bcryptjs");
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModels");
+const { generateToken } = require("../helper/generateToken");
 
 /**
  * @desc    Register new user
@@ -16,14 +16,14 @@ const registerUser = asyncHandler(async (req, res) => {
   const { full_name, email, password } = req.body;
   if (!full_name || !email || !password) {
     res.status(400);
-    throw new Error('Please add all fields.');
+    throw new Error("Please add all fields.");
   }
 
   // Check if user exists
   const userExists = await User.findOne({ email });
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error("User already exists");
   }
 
   // Hash password
@@ -48,7 +48,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error("Invalid user data");
   }
 });
 
@@ -65,16 +65,16 @@ const loginUser = asyncHandler(async (req, res) => {
     // Check for user email
     const user = await User.findOne({ email });
     if (user && (await bcrypt.compare(password, user.password))) {
-      console.log('Gone through this');
+      console.log("Gone through this");
       res.status(200);
       res.send({
         // eslint-disable-next-line no-underscore-dangle
         token: generateToken(user._id),
-        message: 'Logged in successfully',
+        message: "Logged in successfully",
       });
     } else {
       res.status(400);
-      throw new Error('Invalid credentials');
+      throw new Error("Invalid credentials");
     }
   } catch (error) {
     res.status(500);
@@ -106,12 +106,12 @@ const getMe = asyncHandler(async (req, res) => {
 const logoutUser = asyncHandler(async (req, res) => {
   // Update the user's token to invalidate it
   const { user } = req;
-  user.token = '';
+  user.token = "";
 
   // Save the updated user document
   await user.save();
 
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.status(200).json({ message: "Logged out successfully" });
 });
 
 module.exports = {

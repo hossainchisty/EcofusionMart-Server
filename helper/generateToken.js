@@ -1,5 +1,5 @@
 // Basic Lib Imports
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 /**
  * @desc Generate JWT Token
@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
  * */
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '30d',
+    expiresIn: "30d",
   });
 };
 
