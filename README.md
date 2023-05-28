@@ -18,7 +18,7 @@ Inventory Management: Sellers will have tools to manage their inventory effectiv
 
 ## **Documentation**
 
-Visit [API docs](./docs/api-docs.md)) for full API documentation.
+Visit [API docs](./docs/api-docs.md) for full API documentation.
 
 ### Technology
 
