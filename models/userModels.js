@@ -4,16 +4,16 @@ const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema(
   {
-    full_name: {
+    fullName: {
       type: String,
       required: [true, "Please add a name"],
     },
-    phone_number: {
+    phoneNumber: {
       type: Number,
       unique: true,
       required: [true, "Please add an email"],
     },
-    is_verfied: { type: Boolean, required: false },
+    isVerfied: { type: Boolean, required: false },
     otp: { type: String, required: false },
     email: {
       type: String,
@@ -28,6 +28,20 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
+    isSeller: {
+      type: Boolean,
+      default: false
+    },
+    isCustomer: {
+      type: Boolean,
+      default: true
+    },
+    resetPasswordToken: {
+      type: String
+    },
+    resetPasswordExpiry: {
+      type: Date
+    }
   },
   { timestamps: true },
   { versionKey: false }
