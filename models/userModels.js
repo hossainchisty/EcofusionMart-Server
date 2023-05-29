@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable func-names */
 // Basic Lib Imports
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -10,6 +8,9 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a name"],
     },
+    phone_number: { type: Number, required: [true, "Please add an email"] },
+    is_verfied: { type: Boolean, required: false },
+    otp: { type: String, required: false },
     email: {
       type: String,
       required: [true, "Please add an email"],
