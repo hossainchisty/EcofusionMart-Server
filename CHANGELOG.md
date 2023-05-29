@@ -1,4 +1,13 @@
-# 0.1.0 (2023-05-28)
+# [0.2.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.1.0...v0.2.0) (2023-05-29)
+
+
+### Features
+
+* Add review model ([02280b6](https://github.com/hossainchisty/eCommerce-Backend-API/commit/02280b6b425125284386211b08604abc8a5a8ed2))
+
+
+
+# [0.1.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/6343fd03ed4ebc12733553d0766b860b5bf75f1d...v0.1.0) (2023-05-28)
 
 
 ### Features
