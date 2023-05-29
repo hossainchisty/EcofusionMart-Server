@@ -1,3 +1,15 @@
+# [0.3.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.2.0...v0.3.0) (2023-05-29)
+
+
+### Features
+
+* add model for admin ([bd5b14a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bd5b14a0790c835886cb13927a687263c1ff1444))
+* Add order models ([b2ec6f8](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b2ec6f87ce3aa925db4b6f5f6e7088f9c9e3b4bf))
+* Add product model schema definition ([fdc9f7d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fdc9f7d0e809db83ca62030f4c85ad04d28ef8c8))
+* Create cart model schema with required fields. ([83579ba](https://github.com/hossainchisty/eCommerce-Backend-API/commit/83579baf35f1eb896e50e853ee28d088d58620ec))
+
+
+
 # [0.2.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.1.0...v0.2.0) (2023-05-29)
 
 
