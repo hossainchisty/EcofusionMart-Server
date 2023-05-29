@@ -23,6 +23,7 @@ const productSchema = mongoose.Schema({
   images: [
     {
       type: String,
+      required: false,
     },
   ],
   category: {
@@ -51,6 +52,11 @@ const productSchema = mongoose.Schema({
     unique: true,
     index: true,
   },
+  reviews: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Review',
+    default: null
+  }],
 });
 
 productSchema.pre('save', function (next) {
