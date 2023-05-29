@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.3.0...v0.4.0) (2023-05-29)
+
+
+### Features
+
+* Add 'Review' model to productSchema to allow for product reviews. ([2cc8831](https://github.com/hossainchisty/eCommerce-Backend-API/commit/2cc88312136594aaed0bc79f63a98550af10c2c0))
+
+
+
 # [0.3.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.2.0...v0.3.0) (2023-05-29)
 
 
