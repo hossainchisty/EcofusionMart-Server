@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a name"],
     },
-    phone_number: { type: Number, required: [true, "Please add an email"] },
+    phone_number: { type: Number, unique: true, required: [true, "Please add an email"] },
     is_verfied: { type: Boolean, required: false },
     otp: { type: String, required: false },
     email: {
