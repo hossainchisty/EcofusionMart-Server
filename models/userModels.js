@@ -16,13 +16,13 @@ const userSchema = mongoose.Schema(
       unique: false,
       required: [false, "Please add an email"],
     },
-    is_verfied: { type: Boolean, required: false },
+    isVerified: { type: Boolean, required: false },
     otp: { type: String, required: false },
     email: {
       type: String,
       index: true,
       required: [true, "Please add an email"],
-      unique: false,
+      unique: true,
       trim: true,
     },
     avatar: {
