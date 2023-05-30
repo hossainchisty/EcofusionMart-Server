@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.4.0...v0.5.0) (2023-05-30)
+
+
+### Features
+
+* Add cookie-parser middleware for improved user session management" ([33a065d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/33a065d3aa5b199a09a99ba97d0722dd57dc3c65))
+
+
+
 # [0.4.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.3.0...v0.4.0) (2023-05-29)
 
 
