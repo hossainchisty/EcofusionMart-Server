@@ -107,6 +107,41 @@ This documentation provides an overview of the API routes and methods used in th
     }
     ```
 
+- **Password forget**
+
+  - Endpoint: `/api/v1/users/forgot-password`
+  - Method: `POST`
+  - Description: This endpoint allows users who have forgotten their password to request a password reset email. The user needs to provide their registered email address, and if it exists in the system, an email with a reset password token will be sent to that email address.
+  - Request Body:
+    ```json
+    {
+      "email": "johndoe@example.com"
+    }
+    ```
+  - Response Body (Success):
+    ```json
+    {
+      "message": "Password reset email sent. Please check your email."
+    }
+    ```
+
+- **Password reset**
+  - Endpoint: `/api/v1/users/reset-password`
+  - Method: `POST`
+  - Description: This endpoint allows users to reset their password using the reset password token received via email. The user needs to provide the reset token and their new password to reset the password successfully.
+  - Request Body:
+    ```json
+    {
+      "newPassword": "newsecretpassword"
+    }
+    ```
+  - Response Body (Success):
+    ```json
+    {
+      "message": "Password reset successfully."
+    }
+    ```
+
 Author: Hossain Chisty <br>
 Email: hossain.chisty11@gmail.com <br>
 Github: https://github.com/hossainchisty
