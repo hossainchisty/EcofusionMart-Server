@@ -9,10 +9,19 @@ const adminSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    avatar: {
+      type: String,
+      default: 'https://cdn2.iconfinder.com/data/icons/users-6/100/USER6-512.png',
+    },
     password: {
       type: String,
-      required: true,
+      required: [true, "Please add a password"],
     },
+    isAdmin: {
+      index: true,
+      type: Boolean,
+      default: false,
+    }, 
   },
   { timestamps: true },
   { versionKey: false }
