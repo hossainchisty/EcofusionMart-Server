@@ -7,17 +7,15 @@ const userSchema = mongoose.Schema(
     full_name: {
       index: true,
       type: String,
-      required: [true, "Please add a name"],
+      required: [true, "Please add a full name"],
       trim: true,
     },
     phone_number: {
       index: true,
       type: Number,
       unique: false,
-      required: [false, "Please add an email"],
+      required: [false, "Please add an phone number"],
     },
-    isVerified: { type: Boolean, required: false },
-    otp: { type: String, required: false },
     email: {
       type: String,
       index: true,
@@ -41,7 +39,15 @@ const userSchema = mongoose.Schema(
     isCustomer: {
       index: true,
       type: Boolean,
-      default: true,
+      default: false,
+    },
+    isVerified: {
+      type: Boolean,
+      required: false
+    },
+    otp: {
+      type: String,
+      required: false
     },
     verificationToken: {
       type: String
@@ -59,17 +65,6 @@ const userSchema = mongoose.Schema(
   { timestamps: true },
   { versionKey: false }
 );
-
-userSchema.pre("save", async function (next) {
-  const user = this;
-  try {
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    user.password = hashedPassword;
-    next();
-  } catch (error) {
-    return next(error);
-  }
-});
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
   try {
