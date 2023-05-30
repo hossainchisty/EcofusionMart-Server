@@ -1,21 +1,114 @@
-#### API Routers and Methods
+## API Documentation
 
-List all the API routes and HTTP methods used in the project, along with a brief description of what each endpoint does.
+This documentation provides an overview of the API routes and methods used in the project.
 
-#### User Authentication:
+### User Authentication
 
-##### Public Endpoints:
+#### Public Endpoints
 
-- `/api/v1/users/register` - `POST`: Register new user
+- **Register a new user**
 
-- `/api/v1/users/login` - `POST`: Authenticate a user
+  - Endpoint: `/api/v1/users/register`
+  - Method: `POST`
+  - Description: This endpoint allows users to register a new account by providing their registration details, such as name, email, isCustomer/isSeller and password. Upon successful registration, a new user account is created.
 
-##### Private Endpoints:
+  - Request Body:
 
-- `/api/v1/users/logout` - `POST`: Logs out the currently logged-in user by invalidating the JWT token.
+    ```json
+    {
+      "full_name": "John Doe",
+      "email": "johndoe@example.com",
+      "password": "secretpassword",
+      "isCustomer": "true"
+    }
+    ```
 
-- `/api/v1/users/me` - `GET`: Get user data
+  - Response Body (Success):
+    ```json
+    {
+      "message": "Please check your email to verify your account."
+    }
+    ```
+
+- **Email verification**
+
+  - Endpoint: `/api/v1/users/verify`
+  - Method: `POST`
+  - Description: This endpoint handles the email verification process for registered users. Users need to provide their verification token received via email to verify their email address. Once the email is verified, the user can proceed with logging in.
+
+  - Request Body:
+
+    ```json
+    {
+      "token": "verificationtoken"
+    }
+    ```
+
+  - Response Body (Success):
+    ```json
+    {
+      "message": "Email verified successfully"
+    }
+    ```
+
+- **User login**
+
+  - Endpoint: `/api/v1/users/login`
+  - Method: `POST`
+  - Description: This endpoint authenticates a user by validating their credentials (email and password) and generates a JSON Web Token (JWT) as a response. The JWT can be used for subsequent authenticated requests to protected endpoints.
+
+  - Request Body:
+
+    ```json
+    {
+      "email": "johndoe@example.com",
+      "password": "secretpassword"
+    }
+    ```
+
+  - Response Body (Success):
+    ```json
+    {
+      "token": "generatedjwttoken"
+    }
+    ```
+
+#### Private Endpoints
+
+- **User logout**
+
+  - Endpoint: `/api/v1/users/logout`
+  - Method: `POST`
+  - Description: This endpoint logs out the currently logged-in user by invalidating the JWT token. After logging out, the token becomes invalid, and the user needs to reauthenticate to access protected endpoints.
+
+  - No Request Body
+
+  - Response Body (Success):
+    ```json
+    {
+      "message": "User logged out successfully"
+    }
+    ```
+
+- **Get user data**
+
+  - Endpoint: `/api/v1/users/me`
+  - Method: `GET`
+  - Description: This endpoint retrieves the user's data, such as their name, email, and other relevant information. It requires a valid JWT token in the request headers for authentication and authorization.
+
+  - No Request Body
+
+  - Response Body (Success):
+    ```json
+    {
+      "full_name": "John Doe",
+      "email": "johndoe@example.com",
+      "role": "user"
+    }
+    ```
 
 Author: Hossain Chisty <br>
 Email: hossain.chisty11@gmail.com <br>
 Github: https://github.com/hossainchisty
+
+<!-- Todo: Write your info if you are co-author -->
