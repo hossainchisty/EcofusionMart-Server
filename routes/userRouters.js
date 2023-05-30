@@ -5,7 +5,7 @@ const router = express.Router();
 const rateLimit = require("express-rate-limit");
 const {
   registerUser,
-  emailVerifiy,
+  emailVerify,
   loginUser,
   logoutUser,
   getMe,
@@ -25,7 +25,7 @@ const createAccountLimiter = rateLimit({
 // Routing Implement
 // Apply the rate limiting middleware to API calls only
 router.post("/register", registerUser);
-router.post("/verify", emailVerifiy);
+router.post("/verify", emailVerify);
 router.post("/login", loginUser);
 router.post("/logout", protect, logoutUser);
 router.get("/me", protect, getMe);
