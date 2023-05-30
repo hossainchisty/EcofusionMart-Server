@@ -1,4 +1,5 @@
 // Basic Lib Imports
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
 /**
@@ -11,4 +12,17 @@ const generateToken = (id) => {
   });
 };
 
-module.exports = { generateToken };
+
+/**
+ * @desc Generate reset password token and set expiry time
+ * 
+ * */
+const generateResetToken = () => {
+  const resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  const resetPasswordExpiry = Date.now() + 3600000; // Token expires in 1 hour
+
+  return { resetPasswordToken, resetPasswordExpiry };
+};
+
+
+module.exports = { generateToken, generateResetToken };
