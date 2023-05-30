@@ -1,11 +1,11 @@
 // Basic Lib Imports
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema({
   seller: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: "User",
+    required: true,
   },
   name: {
     type: String,
@@ -52,21 +52,20 @@ const productSchema = mongoose.Schema({
     unique: true,
     index: true,
   },
-  reviews: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Review',
-    default: null
-  }],
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
+      default: null,
+    },
+  ],
 });
 
-productSchema.pre('save', function (next) {
+productSchema.pre("save", function (next) {
   const currentDate = new Date().getTime();
   const random = Math.floor(Math.random() * 10000);
   this.SKU = `${random}_${currentDate}`;
   next();
 });
 
-
-module.exports = mongoose.model('Product', productSchema);
-
-
+module.exports = mongoose.model("Product", productSchema);

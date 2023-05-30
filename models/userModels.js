@@ -30,18 +30,18 @@ const userSchema = mongoose.Schema(
     },
     isSeller: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isCustomer: {
       type: Boolean,
-      default: true
+      default: true,
     },
     resetPasswordToken: {
-      type: String
+      type: String,
     },
     resetPasswordExpiry: {
-      type: Date
-    }
+      type: Date,
+    },
   },
   { timestamps: true },
   { versionKey: false }
