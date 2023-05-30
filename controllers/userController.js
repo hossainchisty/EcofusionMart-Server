@@ -1,6 +1,6 @@
 // Basic Lib Import
-const moment = require('moment');
-const crypto = require('crypto');
+const moment = require("moment");
+const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModels");
 const asyncHandler = require("express-async-handler");
@@ -24,11 +24,17 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // Generate verification token
-  const verificationToken = crypto.randomBytes(20).toString('hex');
-  const verificationTokenExpiry = moment().add(1, 'hour'); // Expiration to 1 hour from the current time
+  const verificationToken = crypto.randomBytes(20).toString("hex");
+  const verificationTokenExpiry = moment().add(1, "hour"); // Expiration to 1 hour from the current time
 
   // Validate input fields
-  if (!full_name || !email || !password || (isCustomer && isSeller) || (!isCustomer && !isSeller)) {
+  if (
+    !full_name ||
+    !email ||
+    !password ||
+    (isCustomer && isSeller) ||
+    (!isCustomer && !isSeller)
+  ) {
     let errorMessage = "Please provide all required fields.";
     if (!full_name) {
       errorMessage += " 'full_name' field is required.";
@@ -40,7 +46,8 @@ const registerUser = asyncHandler(async (req, res) => {
       errorMessage += " 'password' field is required.";
     }
     if (isCustomer && isSeller) {
-      errorMessage += " Select either 'isCustomer' or 'isSeller' role, not both.";
+      errorMessage +=
+        " Select either 'isCustomer' or 'isSeller' role, not both.";
     }
     if (!isCustomer && !isSeller) {
       errorMessage += " Select either 'isCustomer' or 'isSeller' role.";
@@ -53,18 +60,19 @@ const registerUser = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   // Create user
-  const usersToCreate = [{
-    full_name,
-    email,
-    avatar,
-    isCustomer,
-    isSeller,
-    verificationToken,
-    verificationTokenExpiry,
-    password: hashedPassword,
-  }];
+  const usersToCreate = [
+    {
+      full_name,
+      email,
+      avatar,
+      isCustomer,
+      isSeller,
+      verificationToken,
+      verificationTokenExpiry,
+      password: hashedPassword,
+    },
+  ];
   const [createdUser] = await User.insertMany(usersToCreate);
-
 
   if (createdUser) {
     // Send verification email
@@ -73,22 +81,22 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // Set token in a cookie
     const token = generateToken(createdUser._id);
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
       secure: false, // TODO: set this to true before production
-      sameSite: 'Strict'
+      sameSite: "Strict",
     });
 
-    return res.status(201).json({ message: "Please check your email to verify your account." });
-
+    return res
+      .status(201)
+      .json({ message: "Please check your email to verify your account." });
   } else {
     return res.status(400).json({ message: "Invalid user data" });
   }
 });
 
-
 /**
- * @desc    User email verification 
+ * @desc    User email verification
  * @route   /api/v1/users/verify
  * @method  POST
  * @param {String} user token
@@ -102,13 +110,15 @@ const emailVerify = asyncHandler(async (req, res) => {
     // Find the user by verification token
     const user = await User.findOne({ verificationToken: token });
     if (!user) {
-      return res.status(404).json({ message: 'Invalid verification token' });
+      return res.status(404).json({ message: "Invalid verification token" });
     }
 
     // Check if the verification token has expired
     const now = moment();
     if (now.isAfter(user.verificationTokenExpiry)) {
-      return res.status(400).json({ message: 'Verification token has expired' });
+      return res
+        .status(400)
+        .json({ message: "Verification token has expired" });
     }
 
     // Update user as verified
@@ -117,12 +127,11 @@ const emailVerify = asyncHandler(async (req, res) => {
     user.isVerified = true;
     await user.save();
 
-    return res.status(200).json({ message: 'User verified successfully' });
+    return res.status(200).json({ message: "User verified successfully" });
   } catch (error) {
     return res.status(500).json({ message: error });
   }
 });
-
 
 /**
  * @desc    Authenticate a user
@@ -152,19 +161,19 @@ const loginUser = asyncHandler(async (req, res) => {
     // User is a customer
     // Set token in a cookie
     const token = generateToken(user._id);
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
       secure: false, // TODO: set this to true before production
-      sameSite: 'Strict'
+      sameSite: "Strict",
     });
     return res.status(200).json({ message: "Customer login successful" });
   } else {
     // Set token in a cookie
     const token = generateToken(user._id);
-    res.cookie('token', token, {
+    res.cookie("token", token, {
       httpOnly: true,
       secure: false, // TODO: set this to true before production
-      sameSite: 'Strict'
+      sameSite: "Strict",
     });
     return res.status(200).json({ message: "Seller login successful" });
   }
@@ -193,7 +202,7 @@ const getMe = asyncHandler(async (req, res) => {
 
 const logoutUser = asyncHandler(async (req, res) => {
   // Clear the token cookie
-  res.clearCookie('token');
+  res.clearCookie("token");
   res.status(200).json({ message: "User logged out successfully" });
 });
 

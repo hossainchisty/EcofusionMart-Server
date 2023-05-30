@@ -43,17 +43,17 @@ const userSchema = mongoose.Schema(
     },
     isVerified: {
       type: Boolean,
-      required: false
+      required: false,
     },
     otp: {
       type: String,
-      required: false
+      required: false,
     },
     verificationToken: {
-      type: String
+      type: String,
     },
     verificationTokenExpiry: {
-      type: Date
+      type: Date,
     },
     resetPasswordToken: {
       type: String,
