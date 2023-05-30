@@ -1,6 +1,7 @@
 // Basic Lib Imports
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 // Database connection with mongoose
@@ -13,6 +14,9 @@ const userRouters = require('./routes/userRouters');
 
 
 const app = express();
+
+// Middleware
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
 
