@@ -1,11 +1,10 @@
 // Basic Lib Import
 const moment = require("moment");
-const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModels");
 const asyncHandler = require("express-async-handler");
-const { generateToken } = require("../helper/generateToken");
-const sendVerificationEmail = require("../services/sendEmail");
+const { generateToken, generateResetToken } = require("../helper/generateToken");
+const { sendVerificationEmail, sendResetPasswordLink } = require("../services/sendEmail");
 
 /**
  * @desc    Register new customer or seller
@@ -180,7 +179,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 /**
- * @desc    Logs out the currently logged-in user by clear cookie token.
+ * @desc     Logs out the currently logged-in user by clearing the authentication token cookie.
  * @route   /api/v1/users/logout
  * @method  POST
  * @access  Private
@@ -194,9 +193,89 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "User logged out successfully" });
 });
 
+/**
+ * @desc    Forgot Password
+ * @route   POST /api/v1/users/forgot-password
+ * @method  POST
+ * @access  Public
+ * @param   {string} email - User's email address
+ * @returns {object} - Success message or error message
+ */
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const { resetPasswordToken, resetPasswordExpiry } = generateResetToken();
+
+    // Update user document with reset password token and expiry
+    await User.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          resetPasswordToken,
+          resetPasswordExpiry
+        }
+      }
+    );
+
+    // Send password reset email
+    const passwordRestLink = `http://127.0.0.1:8000/api/v1/users/reset-password?token=${resetPasswordToken}`;
+    sendResetPasswordLink(user.email, passwordRestLink);
+
+    res.status(200).json({ message: 'Password reset email sent successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error });
+  }
+};
+
+/**
+ * @desc    Reset Password
+ * @route   POST /api/v1/users/reset-password
+ * @method  POST
+ * @access  Public
+ * @param   {string} token - Reset password token received in email
+ * @param   {string} newPassword - User's new password
+ * @returns {object} - Success message or error message
+ */
+const resetPassword = async (req, res) => {
+  const { newPassword } = req.body;
+  const { token } = req.query;
+
+  try {
+    // Find user by the reset password token and ensure it's valid and not expired
+    const user = await User.findOne({
+      resetPasswordToken: token,
+      resetPasswordExpiry: { $gt: Date.now() }
+    });
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid or expired token' });
+    }
+
+    // Update user password
+    user.password = newPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpiry = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   registerUser,
   emailVerify,
   loginUser,
   logoutUser,
+  forgotPassword,
+  resetPassword,
 };
