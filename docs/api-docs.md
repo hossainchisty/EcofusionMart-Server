@@ -10,7 +10,7 @@ This documentation provides an overview of the API routes and methods used in th
 
   - Endpoint: `/api/v1/users/register`
   - Method: `POST`
-  - Description: This endpoint allows users to register a new account by providing their registration details, such as name, email, isCustomer/isSeller and password. Upon successful registration, a new user account is created.
+  - Description: This endpoint allows users to register a new account by providing their registration details, such as name, email, isCustomer/isSeller or isAdmin and password. Upon successful registration, a new user account is created.
 
   - Request Body:
 
