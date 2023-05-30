@@ -4,12 +4,15 @@ const express = require("express");
 const router = express.Router();
 const rateLimit = require("express-rate-limit");
 const {
+  getMe,
+} = require("../controllers/userController");
+
+const {
   registerUser,
   emailVerify,
   loginUser,
   logoutUser,
-  getMe,
-} = require("../controllers/userController");
+} = require("../controllers/authController");
 
 const { protect } = require("../middleware/authMiddleware");
 
