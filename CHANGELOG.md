@@ -1,3 +1,12 @@
+# [0.9.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.8.0...v0.9.0) (2023-05-30)
+
+
+### Features
+
+* Add `isAdmin` field to user schema ([45d0b95](https://github.com/hossainchisty/eCommerce-Backend-API/commit/45d0b959fa821063b67cf1bfb60844b14b5e9666))
+
+
+
 # [0.8.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.7.0...v0.8.0) (2023-05-30)
 
 
@@ -37,18 +46,6 @@
 ### Features
 
 * Add 'Review' model to productSchema to allow for product reviews. ([2cc8831](https://github.com/hossainchisty/eCommerce-Backend-API/commit/2cc88312136594aaed0bc79f63a98550af10c2c0))
-
-
-
-# [0.3.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.2.0...v0.3.0) (2023-05-29)
-
-
-### Features
-
-* add model for admin ([bd5b14a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bd5b14a0790c835886cb13927a687263c1ff1444))
-* Add order models ([b2ec6f8](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b2ec6f87ce3aa925db4b6f5f6e7088f9c9e3b4bf))
-* Add product model schema definition ([fdc9f7d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fdc9f7d0e809db83ca62030f4c85ad04d28ef8c8))
-* Create cart model schema with required fields. ([83579ba](https://github.com/hossainchisty/eCommerce-Backend-API/commit/83579baf35f1eb896e50e853ee28d088d58620ec))
 
 
 
