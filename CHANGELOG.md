@@ -1,3 +1,15 @@
+# [0.8.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.7.0...v0.8.0) (2023-05-30)
+
+
+### Features
+
+* Add forgot password and reset password functionality ([4bdfa94](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4bdfa94ae86bf745d2d79c80bbe071fde3bc5ea9))
+* Add generateResetToken function to generateToken module ([bf963f1](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bf963f13d9fa49a482b8d7a4ecea465503224412))
+* Add winston logger to project ([f860ebe](https://github.com/hossainchisty/eCommerce-Backend-API/commit/f860ebe10617c73560e45ab4f31e35e9f98bf3e3))
+* Update userRouters.js to limit password reset request frequency and correct the number of account creation requests. ([4588e4a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4588e4ae9188c6d5c15f0b38c7b09ce812d7fe40))
+
+
+
 # [0.7.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.6.0...v0.7.0) (2023-05-30)
 
 
@@ -37,15 +49,6 @@
 * Add order models ([b2ec6f8](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b2ec6f87ce3aa925db4b6f5f6e7088f9c9e3b4bf))
 * Add product model schema definition ([fdc9f7d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fdc9f7d0e809db83ca62030f4c85ad04d28ef8c8))
 * Create cart model schema with required fields. ([83579ba](https://github.com/hossainchisty/eCommerce-Backend-API/commit/83579baf35f1eb896e50e853ee28d088d58620ec))
-
-
-
-# [0.2.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.1.0...v0.2.0) (2023-05-29)
-
-
-### Features
-
-* Add review model ([02280b6](https://github.com/hossainchisty/eCommerce-Backend-API/commit/02280b6b425125284386211b08604abc8a5a8ed2))
 
 
 
