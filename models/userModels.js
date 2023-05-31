@@ -61,17 +61,14 @@ const userSchema = mongoose.Schema(
     resetPasswordExpiry: {
       type: Date,
     },
+    earnings: {
+      type: Number,
+      default: 0
+    },
   },
   { timestamps: true },
   { versionKey: false }
 );
 
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  try {
-    return await bcrypt.compare(candidatePassword, this.password);
-  } catch (error) {
-    throw new Error(error);
-  }
-};
 
 module.exports = mongoose.model("User", userSchema);
