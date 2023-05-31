@@ -1,3 +1,21 @@
+# [0.11.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.10.0...v0.11.0) (2023-05-31)
+
+
+### Bug Fixes
+
+* authentication code to use bcrypt for password comparison and hashing. Updated reset password feature to use hashed password instead of plain text. ([7aa410c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/7aa410cf53e6b8ace264d6e94ec8ac1ca4a20004))
+
+
+### Features
+
+* Add createReview function to reviewController ([9f3c4dc](https://github.com/hossainchisty/eCommerce-Backend-API/commit/9f3c4dc47fc6a1783d1182eab43f85a701552ac6))
+* Add route and controller for product pagination listing ([0231fd7](https://github.com/hossainchisty/eCommerce-Backend-API/commit/0231fd73572392c7c9636ea75c3e49b94579eaf5))
+* Add seller and product routes ([5f950b5](https://github.com/hossainchisty/eCommerce-Backend-API/commit/5f950b595b99b46ec53b9eb74d66ed61098b5052))
+* Create seller routes for adding and editing products ([b03138a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b03138a787a13192ff514cbb6a43a92c2ac53127))
+* Implement seller dashboard, add and update product listings ([d83c1e6](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d83c1e6cfd49dca4c9c86201da3d7936c51cc208))
+
+
+
 # [0.10.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.9.0...v0.10.0) (2023-05-31)
 
 
@@ -35,18 +53,6 @@
 ### Features
 
 * Add authentication and registration functionality ([efb8b33](https://github.com/hossainchisty/eCommerce-Backend-API/commit/efb8b3376eb617e55f9e277976caa501ef3c1057))
-
-
-
-# [0.6.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.4.0...v0.6.0) (2023-05-30)
-
-
-### Features
-
-* Add cookie-parser middleware for improved user session management" ([33a065d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/33a065d3aa5b199a09a99ba97d0722dd57dc3c65))
-* Add email verification for user registration ([fd5f4ce](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fd5f4ce50934ed0a7b1588152e1f830102ac509d))
-* Add email verification functionality and enhance user registration ([5009141](https://github.com/hossainchisty/eCommerce-Backend-API/commit/50091417fd0c6de6eaa406552ccd1164343629bf))
-* Add nodemailer email sending functionality to services ([f0449b0](https://github.com/hossainchisty/eCommerce-Backend-API/commit/f0449b026dce4b259d5452d27e16bd4035c8360b))
 
 
 
