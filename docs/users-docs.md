@@ -1,3 +1,5 @@
+### Users Authentication & Authorization 
+
 #### Public Endpoints
 
 - **Register a new user**
