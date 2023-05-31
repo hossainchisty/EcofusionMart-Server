@@ -1,3 +1,13 @@
+# [0.10.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.9.0...v0.10.0) (2023-05-31)
+
+
+### Features
+
+* Add avatar and isAdmin fields to Admin model ([015860c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/015860c9e66e471dc34f76bd05e7c72914255e22))
+* Add earnings field to user model ([97a5c0d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/97a5c0df82c29e02d980e25c7b8f0ad3aec3c5cd))
+
+
+
 # [0.9.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.8.0...v0.9.0) (2023-05-30)
 
 
@@ -37,15 +47,6 @@
 * Add email verification for user registration ([fd5f4ce](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fd5f4ce50934ed0a7b1588152e1f830102ac509d))
 * Add email verification functionality and enhance user registration ([5009141](https://github.com/hossainchisty/eCommerce-Backend-API/commit/50091417fd0c6de6eaa406552ccd1164343629bf))
 * Add nodemailer email sending functionality to services ([f0449b0](https://github.com/hossainchisty/eCommerce-Backend-API/commit/f0449b026dce4b259d5452d27e16bd4035c8360b))
-
-
-
-# [0.4.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.3.0...v0.4.0) (2023-05-29)
-
-
-### Features
-
-* Add 'Review' model to productSchema to allow for product reviews. ([2cc8831](https://github.com/hossainchisty/eCommerce-Backend-API/commit/2cc88312136594aaed0bc79f63a98550af10c2c0))
 
 
 
