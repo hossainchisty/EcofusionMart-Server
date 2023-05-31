@@ -4,11 +4,11 @@ This documentation provides an overview of the API routes and methods used in th
 
 ### User Registration and Login
 
-Visit [API docs](./docs/users-docs.md) for full API documentation.
+Visit [API docs](./users-docs.md) for full API documentation.
 
 ### Product Listings
 
-Visit [API docs](./docs/product-docs.md) for full API documentation.
+Visit [API docs](./product-docs.md) for full API documentation.
 
 Author: Hossain Chisty <br>
 Email: hossain.chisty11@gmail.com <br>
