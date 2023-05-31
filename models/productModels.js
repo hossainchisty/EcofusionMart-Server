@@ -52,9 +52,8 @@ const productSchema = mongoose.Schema({
   },
   SKU: {
     type: String,
-    required: true,
     unique: true,
-    index: true,
+    required: true,
   },
   reviews: [
     {
@@ -63,13 +62,6 @@ const productSchema = mongoose.Schema({
       default: null,
     },
   ],
-});
-
-productSchema.pre("save", function (next) {
-  const currentDate = new Date().getTime();
-  const random = Math.floor(Math.random() * 10000);
-  this.SKU = `${random}_${currentDate}`;
-  next();
 });
 
 module.exports = mongoose.model("Product", productSchema);
