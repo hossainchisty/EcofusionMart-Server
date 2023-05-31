@@ -7,13 +7,15 @@ const productSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
-  name: {
+  title: {
     type: String,
+    trim: true,
     required: true,
     index: true,
   },
   description: {
     type: String,
+    trim: true,
     required: true,
   },
   price: {
@@ -28,11 +30,13 @@ const productSchema = mongoose.Schema({
   ],
   category: {
     type: String,
+    trim: true,
     required: true,
     index: true,
   },
   brand: {
     type: String,
+    trim: true,
     required: false,
     index: true,
   },
