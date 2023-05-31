@@ -11,6 +11,8 @@ connectDB();
 
 // Routing Implement
 const userRouters = require('./routes/userRouters');
+const sellerRouters = require('./routes/sellerRouters');
+const productRouters = require('./routes/productRouters');
 
 
 const app = express();
@@ -41,6 +43,8 @@ app.use(
 
 // Routing Implement
 app.use('/api/v1/users', userRouters);
+app.use('/api/v1/seller', sellerRouters);
+app.use('/api/v1/products', productRouters);
 
 // Undefined Route Implement
 app.use('*', (req, res) => {
