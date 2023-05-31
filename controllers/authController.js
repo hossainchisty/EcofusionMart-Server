@@ -75,7 +75,9 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (createdUser) {
     // Send verification email
-    const verificationLink = `http://127.0.0.1:8000/api/v1/users/verify?token=${verificationToken}`;
+    const verificationLink = `${req.protocol}://${req.get(
+      "host"
+    )}/api/v1/users/verify?token=${verificationToken}`;
     sendVerificationEmail(user.email, verificationLink);
 
     // Set token in a cookie
@@ -225,7 +227,9 @@ const forgotPassword = async (req, res) => {
     );
 
     // Send password reset email
-    const passwordRestLink = `http://127.0.0.1:8000/api/v1/users/reset-password?token=${resetPasswordToken}`;
+    const passwordRestLink = `${req.protocol}://${req.get(
+      "host"
+    )}/api/v1/users/reset-password?token=${resetPasswordToken}`;
     sendResetPasswordLink(user.email, passwordRestLink);
 
     res.status(200).json({ message: 'Password reset email sent successfully' });
