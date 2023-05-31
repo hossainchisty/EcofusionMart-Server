@@ -150,7 +150,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   // Compare the provided password with the hashed password
-  const isPasswordValid = await user.comparePassword(password);
+  const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     return res.status(401).json({ message: "Invalid password" });
   }
@@ -258,8 +258,11 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ error: 'Invalid or expired token' });
     }
 
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
     // Update user password
-    user.password = newPassword;
+    user.password = hashedPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpiry = undefined;
     await user.save();
