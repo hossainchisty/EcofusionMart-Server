@@ -19,7 +19,7 @@ const orderItemSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
-  user: {
+  customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
@@ -37,6 +37,4 @@ const orderSchema = new mongoose.Schema({
   // Add more fields as per your requirements (e.g., shipping address, payment details, etc.)
 });
 
-const Order = mongoose.model("Order", orderSchema);
-
-module.exports = Order;
+module.exports = mongoose.model("Order", orderSchema);
