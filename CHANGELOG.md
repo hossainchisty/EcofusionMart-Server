@@ -1,3 +1,12 @@
+# [0.12.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.11.0...v0.12.0) (2023-06-01)
+
+
+### Features
+
+* cart features add ([ac5cd09](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ac5cd094fe5b2eed6d56b48ddcc47db0d72a32a8))
+
+
+
 # [0.11.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.10.0...v0.11.0) (2023-05-31)
 
 
@@ -44,15 +53,6 @@
 * Add generateResetToken function to generateToken module ([bf963f1](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bf963f13d9fa49a482b8d7a4ecea465503224412))
 * Add winston logger to project ([f860ebe](https://github.com/hossainchisty/eCommerce-Backend-API/commit/f860ebe10617c73560e45ab4f31e35e9f98bf3e3))
 * Update userRouters.js to limit password reset request frequency and correct the number of account creation requests. ([4588e4a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4588e4ae9188c6d5c15f0b38c7b09ce812d7fe40))
-
-
-
-# [0.7.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.6.0...v0.7.0) (2023-05-30)
-
-
-### Features
-
-* Add authentication and registration functionality ([efb8b33](https://github.com/hossainchisty/eCommerce-Backend-API/commit/efb8b3376eb617e55f9e277976caa501ef3c1057))
 
 
 
