@@ -37,7 +37,10 @@ Returns a list of products with pagination.
       "title": "Watermelon",
       "description": "Juicy and refreshing watermelon",
       "price": 4.99,
-      "images": [],
+      "images": [
+        "https://exmaple.com/weatermelon-v1.png",
+        "https://exmaple.com/weatermelon-v2.png"
+      ],
       "category": "Fruits",
       "brand": "Farm Fresh",
       "SKU": "754833_1685516506313",
