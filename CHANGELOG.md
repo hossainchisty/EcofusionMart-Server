@@ -1,3 +1,13 @@
+# [0.13.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.12.0...v0.13.0) (2023-06-01)
+
+
+### Features
+
+* Add cloudinary configuration and multer configuration ([bc045c4](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bc045c4b76ed9b3b34abc2aade26036055e856f8))
+* Add image upload functionality to addProducts ([b14e06f](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b14e06f2c092a949e3dcd59f4b5b5722ddc9aefe))
+
+
+
 # [0.12.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.11.0...v0.12.0) (2023-06-01)
 
 
@@ -41,18 +51,6 @@
 ### Features
 
 * Add `isAdmin` field to user schema ([45d0b95](https://github.com/hossainchisty/eCommerce-Backend-API/commit/45d0b959fa821063b67cf1bfb60844b14b5e9666))
-
-
-
-# [0.8.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.7.0...v0.8.0) (2023-05-30)
-
-
-### Features
-
-* Add forgot password and reset password functionality ([4bdfa94](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4bdfa94ae86bf745d2d79c80bbe071fde3bc5ea9))
-* Add generateResetToken function to generateToken module ([bf963f1](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bf963f13d9fa49a482b8d7a4ecea465503224412))
-* Add winston logger to project ([f860ebe](https://github.com/hossainchisty/eCommerce-Backend-API/commit/f860ebe10617c73560e45ab4f31e35e9f98bf3e3))
-* Update userRouters.js to limit password reset request frequency and correct the number of account creation requests. ([4588e4a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4588e4ae9188c6d5c15f0b38c7b09ce812d7fe40))
 
 
 
