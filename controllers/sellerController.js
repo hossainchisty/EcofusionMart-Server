@@ -1,4 +1,7 @@
 // Import the necessary models and dependencies
+const upload = require('../config/multerConfig');
+const multer = require('multer');
+const cloudinary = require('../config/cloudinaryConfig');
 const Product = require('../models/productModels');
 const Order = require('../models/orderModels');
 
@@ -44,43 +47,77 @@ const getSellerDashboard = async (req, res) => {
  * @requires Seller Account
  */
 const addProducts = async (req, res) => {
-  try {
-    const seller = req.user;
-
-    // Check if the user is a seller
-    if (!seller.isSeller) {
-      return res.status(403).json({ error: 'You are not authorized to add a product listing' });
+  // Use the upload middleware to handle file uploads
+  upload.array('images')(req, res, async function (err) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred while uploading
+      return res.status(400).json({ error: 'File upload error' });
+    } else if (err) {
+      // An unknown error occurred while uploading
+      return res.status(500).json({ error: 'Internal server error' });
     }
 
-    const products = req.body.products;
+    try {
+      const seller = req.user;
 
-    // Generate unique SKU values for each product
-    const productDocuments = products.map(product => {
-      const currentDate = new Date().getTime();
-      const random = Math.floor(Math.random() * 1000000);
-      const SKU = `${random}_${currentDate}`;
+      // // Check if the user is a seller
+      if (!seller.isSeller) {
+        return res.status(403).json({ error: 'You are not authorized to add a product listing' });
+      }
 
-      return {
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        category: product.category,
-        brand: product.brand,
-        stock: {
-          inStock: product.stock && product.stock.inStock !== undefined ? product.stock.inStock : true,
-          remainingStock: product.stock && product.stock.remainingStock !== undefined ? product.stock.remainingStock : 0,
-        },
-        seller: seller._id,
-        SKU: SKU,
-      };
-    });
+      const products = req.body.products;
 
-    // Insert multiple products
-    await Product.insertMany(productDocuments);
-    res.json({ message: 'Products added successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
+      // Generate unique SKU values for each product
+      const productDocuments = [];
+
+      for (const product of products) {
+        const currentDate = new Date().getTime();
+        const random = Math.floor(Math.random() * 1000000);
+        const SKU = `${random}_${currentDate}`;
+
+        const imageUrls = product.images || [];
+
+        // let imageUrls = [];
+
+        // // Check if images are present in the request
+        // if (req.files && req.files.length > 0) {
+        //   const files = req.files;
+
+        //   for (const file of files) {
+        //     // Upload each image to Cloudinary
+        //     const result = await cloudinary.uploader.upload(file.path);
+
+        //     // Push the uploaded image URL to the array
+        //     imageUrls.push(result.secure_url);
+        //   }
+        // }
+
+        const productDocument = new Product({
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          category: product.category,
+          brand: product.brand,
+          stock: {
+            inStock: product.stock && product.stock.inStock !== undefined ? product.stock.inStock : true,
+            remainingStock: product.stock && product.stock.remainingStock !== undefined ? product.stock.remainingStock : 0,
+          },
+          seller: seller._id,
+          SKU: SKU,
+          images: imageUrls,
+        });
+
+        productDocuments.push(productDocument);
+      }
+
+      // Insert multiple products
+      const insertedProducts = await Product.insertMany(productDocuments);
+
+      res.json({ message: 'Products added successfully', products: insertedProducts });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 };
 
 /**
