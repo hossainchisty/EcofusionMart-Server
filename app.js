@@ -42,7 +42,7 @@ app.use(
 );
 
 // Routing Implement
-app.use('/api/v1/users', userRouters);
+app.use('/api/v1/users/auth/', userRouters);
 app.use('/api/v1/seller', sellerRouters);
 app.use('/api/v1/products', productRouters);
 

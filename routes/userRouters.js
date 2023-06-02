@@ -17,11 +17,6 @@ const {
 } = require("../controllers/authController");
 
 const { protect } = require("../middleware/authMiddleware");
-const {
-    addCart,
-    viewCart,
-    deleteCart,
-} = require("../controllers/cartController");
 
 const createAccountLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
@@ -49,8 +44,5 @@ router.post("/logout", protect, logoutUser);
 router.post("/reset-password", resetPassword);
 router.post("/register", createAccountLimiter, registerUser);
 router.post("/forgot-password", forgetPasswordLimiter, forgotPassword);
-router.get("/cart", protect, viewCart);
-router.post("/cart:id/:quantity", protect, addCart);
-router.delete("/cart:id", protect, deleteCart);
 
 module.exports = router;

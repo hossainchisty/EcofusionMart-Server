@@ -8,7 +8,7 @@ const { sendVerificationEmail, sendResetPasswordLink } = require("../services/se
 
 /**
  * @desc    Register new customer or seller
- * @route   /api/v1/users/register
+ * @route   /api/v1/users/auth/register
  * @method  POST
  * @access  Public
  */
@@ -98,7 +98,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 /**
  * @desc    User email verification
- * @route   /api/v1/users/verify
+ * @route   /api/v1/users/auth/verify
  * @method  POST
  * @param {String} user token
  * @access  Public
@@ -136,7 +136,7 @@ const emailVerify = asyncHandler(async (req, res) => {
 
 /**
  * @desc    Authenticate a user
- * @route   /api/v1/users/login
+ * @route   /api/v1/users/auth/login
  * @method  POST
  * @field   email and password
  * @access  Public
@@ -182,7 +182,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 /**
  * @desc     Logs out the currently logged-in user by clearing the authentication token cookie.
- * @route   /api/v1/users/logout
+ * @route   /api/v1/users/auth/logout
  * @method  POST
  * @access  Private
  * @requires Logged User
@@ -197,7 +197,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 /**
  * @desc    Forgot Password
- * @route   POST /api/v1/users/forgot-password
+ * @route   POST /api/v1/users/auth/forgot-password
  * @method  POST
  * @access  Public
  * @param   {string} email - User's email address
@@ -241,7 +241,7 @@ const forgotPassword = async (req, res) => {
 
 /**
  * @desc    Reset Password
- * @route   POST /api/v1/users/reset-password
+ * @route   POST /api/v1/users/auth/reset-password
  * @method  POST
  * @access  Public
  * @param   {string} token - Reset password token received in email
