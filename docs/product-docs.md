@@ -82,7 +82,7 @@ The Product Search API allows you to search for products based on various criter
 - **Method:** `GET`
 - **Access:** Public
 
-### Query Parameters
+#### Query Parameters
 
 - `category` (optional): The category to filter products by (case-insensitive).
 - `priceMin` (optional): The minimum price of products to filter by.
