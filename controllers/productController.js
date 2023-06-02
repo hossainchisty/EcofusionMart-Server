@@ -46,7 +46,7 @@ const productLists = async (req, res) => {
  * @desc     Search products based on criteria
  * @route    /api/v1/products/search
  * @method   GET
-* @param  {string} [req.query.category] - The category to filter products by (case-insensitive).
+ * @param  {string} [req.query.category] - The category to filter products by (case-insensitive).
  * @param {number} [req.query.priceMin] - The minimum price of products to filter by.
  * @param {number} [req.query.priceMax] - The maximum price of products to filter by.
  * @param {string} [req.query.brand] - The brand to filter products by.
