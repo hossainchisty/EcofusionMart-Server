@@ -1,3 +1,12 @@
+# [0.14.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.13.0...v0.14.0) (2023-06-02)
+
+
+### Features
+
+* Enable case-insensitive search by title, category and more ([c55e285](https://github.com/hossainchisty/eCommerce-Backend-API/commit/c55e2857480ee7e79a027ca766528fe68fca263f))
+
+
+
 # [0.13.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.12.0...v0.13.0) (2023-06-01)
 
 
@@ -42,15 +51,6 @@
 
 * Add avatar and isAdmin fields to Admin model ([015860c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/015860c9e66e471dc34f76bd05e7c72914255e22))
 * Add earnings field to user model ([97a5c0d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/97a5c0df82c29e02d980e25c7b8f0ad3aec3c5cd))
-
-
-
-# [0.9.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.8.0...v0.9.0) (2023-05-30)
-
-
-### Features
-
-* Add `isAdmin` field to user schema ([45d0b95](https://github.com/hossainchisty/eCommerce-Backend-API/commit/45d0b959fa821063b67cf1bfb60844b14b5e9666))
 
 
 
