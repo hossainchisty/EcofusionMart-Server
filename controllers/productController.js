@@ -46,12 +46,15 @@ const productLists = async (req, res) => {
  * @desc     Search products based on criteria
  * @route    /api/v1/products/search
  * @method   GET
- * @query    category - Filter products by category
- * @query    priceMin - Minimum price for filtering products
- * @query    priceMax - Maximum price for filtering products
- * @query    brand - Filter products by brand
- * @query    priceSort - Sort products by price (asc or desc)
- * @query    popularitySort - Sort products by popularity (asc or desc)
+* @param  {string} [req.query.category] - The category to filter products by (case-insensitive).
+ * @param {number} [req.query.priceMin] - The minimum price of products to filter by.
+ * @param {number} [req.query.priceMax] - The maximum price of products to filter by.
+ * @param {string} [req.query.brand] - The brand to filter products by.
+ * @param {string} [req.query.title] - The title to search products by (case-insensitive).
+ * @param {string} [req.query.priceSort] - The sort order for price ('asc' or 'desc').
+ * @param {string} [req.query.popularitySort] - The sort order for popularity ('asc' or 'desc').
+ * @returns {object[]} - An array of products matching the search criteria.
+ * @throws {Error} - If an internal server error occurs.
  * @access   Public
  */
 const searchProducts = async (req, res) => {
@@ -62,7 +65,7 @@ const searchProducts = async (req, res) => {
             priceMax: parseFloat(req.query.priceMax) || null,
             brand: req.query.brand ? { $regex: new RegExp(req.query.brand, 'i') } : null,
             title: req.query.title ? { $regex: new RegExp(req.query.title, 'i') } : null,
-          };
+        };
 
         const sortOptions = {
             price: req.query.priceSort || null,
@@ -71,7 +74,7 @@ const searchProducts = async (req, res) => {
 
         const products = await Product.filterAndSort(filterOptions, sortOptions);
 
-        res.status(200).json({result : products});
+        res.status(200).json({ result: products });
     } catch (error) {
         res.status(500).json({ error: error });
     }
