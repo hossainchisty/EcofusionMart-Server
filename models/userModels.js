@@ -1,14 +1,15 @@
 // Basic Lib Imports
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema(
   {
     full_name: {
       index: true,
       type: String,
-      required: [true, "Please add a full name"],
       trim: true,
+      required: [true, "User full name is required"],
+      minlength: [3, "The minimum length of the name must be between 3 characters"],
+      maxlength: [25, "The maximum length of the name must be between 25 characters"]
     },
     phone_number: {
       index: true,
@@ -19,9 +20,9 @@ const userSchema = mongoose.Schema(
     email: {
       type: String,
       index: true,
-      required: [true, "Please add an email"],
       unique: true,
       trim: true,
+      required: [true, "User email is required"],
     },
     avatar: {
       type: String,
@@ -29,7 +30,8 @@ const userSchema = mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please add a password"],
+      required: [true, "User password is required"],
+      minlength: [6, 'The password must be at least 6 characters']
     },
     isSeller: {
       index: true,
