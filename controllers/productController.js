@@ -3,7 +3,8 @@ const Product = require('../models/productModels');
 
 /**
  * @desc     Lists of all products with pagination
- * @route    GET /api/v1/products/
+ * @route    /api/v1/products/
+ * @method   GET
  * @query    page - Current page number
  * @query    limit - Number of items per page
  * @access   Public
@@ -41,6 +42,43 @@ const productLists = async (req, res) => {
     }
 };
 
+/**
+ * @desc     Search products based on criteria
+ * @route    /api/v1/products/search
+ * @method   GET
+ * @query    category - Filter products by category
+ * @query    priceMin - Minimum price for filtering products
+ * @query    priceMax - Maximum price for filtering products
+ * @query    brand - Filter products by brand
+ * @query    priceSort - Sort products by price (asc or desc)
+ * @query    popularitySort - Sort products by popularity (asc or desc)
+ * @access   Public
+ */
+const searchProducts = async (req, res) => {
+    try {
+        const filterOptions = {
+            category: req.query.category ? { $regex: new RegExp(req.query.category, 'i') } : null,
+            priceMin: parseFloat(req.query.priceMin) || null,
+            priceMax: parseFloat(req.query.priceMax) || null,
+            brand: req.query.brand ? { $regex: new RegExp(req.query.brand, 'i') } : null,
+            title: req.query.title ? { $regex: new RegExp(req.query.title, 'i') } : null,
+          };
+
+        const sortOptions = {
+            price: req.query.priceSort || null,
+            popularity: req.query.popularitySort || null,
+        };
+
+        const products = await Product.filterAndSort(filterOptions, sortOptions);
+
+        res.status(200).json({result : products});
+    } catch (error) {
+        res.status(500).json({ error: error });
+    }
+};
+
+
 module.exports = {
     productLists,
+    searchProducts,
 };
