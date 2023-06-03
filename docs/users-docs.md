@@ -104,7 +104,7 @@
     }
     ```
 
-- **User login**
+- **Seller login**
 
   - Endpoint: `/api/v1/seller/login`
   - Method: `POST`
