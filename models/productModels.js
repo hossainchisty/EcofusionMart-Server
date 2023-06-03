@@ -45,14 +45,6 @@ const productSchema = mongoose.Schema({
       default: 0,
     },
   },
-  newArrival: {
-    type: Boolean,
-    default: false,
-  },
-  popularity: {
-    type: Number,
-    default: 0,
-  },
   SKU: {
     type: String,
     unique: true,
@@ -60,12 +52,28 @@ const productSchema = mongoose.Schema({
   },
   reviews: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Review",
-      default: null,
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      rating: {
+        type: Number,
+        required: true,
+        minlength: 1,
+        maxlength: 5,
+      },
+      comment: {
+        type: String,
+        required: true,
+      },
     },
   ],
-}, { timestamps: true },
+  averageRating: {
+    type: Number,
+    required: false,
+  }},
+
+  { timestamps: true },
   { versionKey: false }
 );
 
