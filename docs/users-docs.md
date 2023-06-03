@@ -100,11 +100,29 @@
 
     ```json
     {
-      "message": "Seller login successful"
+      "message": "Login successful"
     }
-    // if user is customer
+    ```
+
+- **User login**
+
+  - Endpoint: `/api/v1/seller/login`
+  - Method: `POST`
+  - Description: This endpoint authenticates a seller by validating their credentials (email/phone number and password).
+  - Request Body:
+
+    ```json
     {
-      "message": "Customer login successful"
+      "identifier": "johndoe@example.com" // it can be either email or phone number
+      "password": "secretpassword"
+    }
+    ```
+
+  - Response Body (Success) JWT token with add on cookie:
+
+    ```json
+    {
+      "message": "Login successful"
     }
     ```
 
