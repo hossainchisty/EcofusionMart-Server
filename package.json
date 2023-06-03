@@ -44,6 +44,7 @@
     "nodemailer": "^6.9.3",
     "stripe": "^12.7.0",
     "supertest": "^6.3.3",
+    "validator": "^13.9.0",
     "winston": "^3.9.0"
   },
   "devDependencies": {
