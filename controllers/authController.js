@@ -10,7 +10,7 @@ const { sendVerificationEmail, sendResetPasswordLink } = require("../services/se
 
 /**
  * @desc They can access various features such as searching for products, adding    items to the cart, making payments, and tracking orders. Users can also provide feedback and ratings for products and sellers.
- * @route   /api/v1/users/auth/register
+ * @route   /api/v2/users/auth/register
  * @method  POST
  * @access  Public
  */
@@ -60,7 +60,7 @@ const registerUser = asyncHandler(async (req, res) => {
     // Send verification email
     const verificationLink = `${req.protocol}://${req.get(
       "host"
-    )}/api/v1/users/auth/verify?token=${createdUser.verificationToken}`;
+    )}/api/v2/users/auth/verify?token=${createdUser.verificationToken}`;
     sendVerificationEmail(createdUser.email, verificationLink);
 
     // Set token in a cookie
@@ -81,7 +81,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 /**
  * @desc    Set up a seller account, list their products, manage inventory, and handle order processing.
- * @route   /api/v1/seller/register
+ * @route   /api/v2/seller/register
  * @method  POST
  * @access  Public
  */
@@ -134,7 +134,7 @@ const registerSeller = asyncHandler(async (req, res) => {
       // Send verification email
       const verificationLink = `${req.protocol}://${req.get(
         "host"
-      )}/api/v1/users/auth/verify?token=${user.verificationToken}`;
+      )}/api/v2/users/auth/verify?token=${user.verificationToken}`;
       sendVerificationEmail(user.email, verificationLink);
 
       // Set token in a cookie
@@ -155,7 +155,7 @@ const registerSeller = asyncHandler(async (req, res) => {
 
 /**
  * @desc    User email verification
- * @route   /api/v1/users/auth/verify
+ * @route   /api/v2/users/auth/verify
  * @method  POST
  * @param   {String} user token
  * @access  Public
@@ -193,7 +193,7 @@ const emailVerify = asyncHandler(async (req, res) => {
 
 /**
  * User to log in using either their email or phone number
- * @route   /api/v1/users/auth/login
+ * @route   /api/v2/users/auth/login
  * @method  POST
  * @field   email and password
  * @access  Public
@@ -236,7 +236,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 /**
  * Sellers to log in using either their email or phone number
- * @route   /api/v1/seller/login
+ * @route   /api/v2/seller/login
  * @method  POST
  * @field   phone_number/email and password
  * @access  Public
@@ -283,7 +283,7 @@ const loginSeller = asyncHandler(async (req, res) => {
 
 /**
  * @desc     Logs out the currently logged-in user by clearing the authentication token cookie.
- * @route   /api/v1/users/auth/logout
+ * @route   /api/v2/users/auth/logout
  * @method  POST
  * @access  Private
  * @requires Logged User
@@ -298,7 +298,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 /**
  * @desc    Forgot Password
- * @route   POST /api/v1/users/auth/forgot-password
+ * @route   POST /api/v2/users/auth/forgot-password
  * @method  POST
  * @access  Public
  * @param   {string} email - User's email address
@@ -330,7 +330,7 @@ const forgotPassword = async (req, res) => {
     // Send password reset email
     const passwordRestLink = `${req.protocol}://${req.get(
       "host"
-    )}/api/v1/users/reset-password?token=${resetPasswordToken}`;
+    )}/api/v2/users/reset-password?token=${resetPasswordToken}`;
     sendResetPasswordLink(user.email, passwordRestLink);
 
     res.status(200).json({ message: 'Password reset email sent successfully' });
@@ -342,7 +342,7 @@ const forgotPassword = async (req, res) => {
 
 /**
  * @desc    Reset Password
- * @route   POST /api/v1/users/auth/reset-password
+ * @route   POST /api/v2/users/auth/reset-password
  * @method  POST
  * @access  Public
  * @param   {string} token - Reset password token received in email
