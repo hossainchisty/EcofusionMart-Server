@@ -1,3 +1,13 @@
+# [0.17.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.16.0...v0.17.0) (2023-06-03)
+
+
+### Features
+
+* Admin panel can manage user by view and edit user accounts ([7c1ff70](https://github.com/hossainchisty/eCommerce-Backend-API/commit/7c1ff70212b4357ac0fb4741dc0da6815679e155))
+* User able to leave reviews and ratings for products ([d707475](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d7074757dad7b2f69776ffb5b2041cd2caa405ca))
+
+
+
 # [0.16.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.15.0...v0.16.0) (2023-06-03)
 
 
@@ -39,15 +49,6 @@
 
 * Add cloudinary configuration and multer configuration ([bc045c4](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bc045c4b76ed9b3b34abc2aade26036055e856f8))
 * Add image upload functionality to addProducts ([b14e06f](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b14e06f2c092a949e3dcd59f4b5b5722ddc9aefe))
-
-
-
-# [0.12.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.11.0...v0.12.0) (2023-06-01)
-
-
-### Features
-
-* cart features add ([ac5cd09](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ac5cd094fe5b2eed6d56b48ddcc47db0d72a32a8))
 
 
 
