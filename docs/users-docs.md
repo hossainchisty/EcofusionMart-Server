@@ -6,7 +6,7 @@
 
   - Endpoint: `/api/v1/users/auth/register`
   - Method: `POST`
-  - Description: This endpoint allows users to register a new account by providing their registration details, such as name, email, isCustomer/isSeller and password. Upon successful registration, a new customer/seller account will be created.
+  - Description: This endpoint allows users to register a new account by providing their registration details, such as name, email, and password.
 
   - Request Body:
 
@@ -14,8 +14,7 @@
     {
       "full_name": "John Doe",
       "email": "johndoe@example.com",
-      "password": "secretpassword",
-      "isCustomer": "true"
+      "password": "secretpassword"
     }
     ```
 
@@ -23,6 +22,41 @@
     ```json
     {
       "message": "Please check your email to verify your account."
+    }
+    ```
+
+- **Register a new Seller**
+
+  - Endpoint: `/api/v1/seller/register`
+  - Method: `POST`
+  - Description: This endpoint allows users to register a new account or become seller by providing their registration details, such as full_name, email, phone_number, NID, address, bank_account and password.
+
+  - Request Body:
+
+    ```json
+    {
+      "full_name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone_number": 017777777777,
+      "NID": 1233242324,
+      "address": "los Angeles",
+      "bank_account": 21231231312,
+      "password": "secretpassword"
+    }
+    ```
+
+  - Response Body (Success):
+
+    ```json
+    // if user tries to become seller
+    {
+      "message": "User role updated to seller successfully.Please wait for approval."
+    }
+
+    // if new user tries to become seller
+
+    {
+      "message": "Seller registered successfully. Please check your email to verify your account and wait for approval."
     }
     ```
 
