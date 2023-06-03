@@ -62,8 +62,13 @@ const addProducts = async (req, res) => {
 
       // Check if the user is a seller
       if (!user.roles.includes("seller")) {
-          return res.status(403).json({ error: 'You are not authorized to add a product listing' });
-        }
+        return res.status(403).json({ error: 'You are not authorized to add a product listing' });
+      }
+
+      // Check if the seller account is approved by the administrator
+      if (!user.isApproved) {
+        return res.status(403).json({ error: 'Your seller account is not yet approved. Please wait for administrator approval.' });
+      }
 
 
       const products = req.body.products;
@@ -136,7 +141,7 @@ const editProduct = async (req, res) => {
     const { title, description, price, inStock, remainingStock } = req.body;
 
     // Check if the user is a seller
-    if (!seller.isSeller) {
+    if (!user.roles.includes("seller")) {
       return res.status(403).json({ error: 'You are not authorized to edit the product listing' });
     }
 
