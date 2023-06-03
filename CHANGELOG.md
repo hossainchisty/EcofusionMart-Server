@@ -1,3 +1,14 @@
+# [0.16.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.15.0...v0.16.0) (2023-06-03)
+
+
+### Features
+
+* Added admin routers and change user auth APIs version ([53b1d68](https://github.com/hossainchisty/eCommerce-Backend-API/commit/53b1d68b4e3cadaa911be78f05043e0904d238b2))
+* Added check if seller account is approved by the admin panel otherwise seller can't add product for sell ([fccd705](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fccd7056bc23b8f3ce24f63a2c7f2c8c30c89abb))
+* Admin can approve the seller account ([c7f2ec4](https://github.com/hossainchisty/eCommerce-Backend-API/commit/c7f2ec4618a56010809867145dd2dbb5188ddbcb))
+
+
+
 # [0.15.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.14.0...v0.15.0) (2023-06-03)
 
 
@@ -37,24 +48,6 @@
 ### Features
 
 * cart features add ([ac5cd09](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ac5cd094fe5b2eed6d56b48ddcc47db0d72a32a8))
-
-
-
-# [0.11.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.10.0...v0.11.0) (2023-05-31)
-
-
-### Bug Fixes
-
-* authentication code to use bcrypt for password comparison and hashing. Updated reset password feature to use hashed password instead of plain text. ([7aa410c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/7aa410cf53e6b8ace264d6e94ec8ac1ca4a20004))
-
-
-### Features
-
-* Add createReview function to reviewController ([9f3c4dc](https://github.com/hossainchisty/eCommerce-Backend-API/commit/9f3c4dc47fc6a1783d1182eab43f85a701552ac6))
-* Add route and controller for product pagination listing ([0231fd7](https://github.com/hossainchisty/eCommerce-Backend-API/commit/0231fd73572392c7c9636ea75c3e49b94579eaf5))
-* Add seller and product routes ([5f950b5](https://github.com/hossainchisty/eCommerce-Backend-API/commit/5f950b595b99b46ec53b9eb74d66ed61098b5052))
-* Create seller routes for adding and editing products ([b03138a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b03138a787a13192ff514cbb6a43a92c2ac53127))
-* Implement seller dashboard, add and update product listings ([d83c1e6](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d83c1e6cfd49dca4c9c86201da3d7936c51cc208))
 
 
 
