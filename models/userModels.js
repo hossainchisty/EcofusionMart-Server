@@ -8,8 +8,14 @@ const userSchema = mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "User full name is required"],
-      minlength: [3, "The minimum length of the name must be between 3 characters"],
-      maxlength: [25, "The maximum length of the name must be between 25 characters"]
+      minlength: [
+        3,
+        "The minimum length of the name must be between 3 characters",
+      ],
+      maxlength: [
+        25,
+        "The maximum length of the name must be between 25 characters",
+      ],
     },
     phone_number: {
       index: true,
@@ -31,11 +37,11 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, "User password is required"],
-      minlength: [6, 'The password must be at least 6 characters']
+      minlength: [6, "The password must be at least 6 characters"],
     },
     roles: {
-      type: [String], 
-      default: ["user"] 
+      type: [String],
+      default: ["user"],
     },
     isVerified: {
       type: Boolean,
@@ -66,23 +72,22 @@ const userSchema = mongoose.Schema(
       unique: true,
       required: false,
     },
-    address : {
+    address: {
       type: String,
       required: false,
     },
-    bank_account : {
+    bank_account: {
       type: Number,
       unique: true,
       required: false,
     },
     earnings: {
       type: Number,
-      default: 0
+      default: 0,
     },
   },
   { timestamps: true },
   { versionKey: false }
 );
-
 
 module.exports = mongoose.model("User", userSchema);

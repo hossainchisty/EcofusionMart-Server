@@ -12,17 +12,15 @@ const generateToken = (id) => {
   });
 };
 
-
 /**
  * @desc Generate reset password token and set expiry time
- * 
+ *
  * */
 const generateResetToken = () => {
-  const resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  const resetPasswordToken = crypto.randomBytes(20).toString("hex");
   const resetPasswordExpiry = Date.now() + 3600000; // Token expires in 1 hour
 
   return { resetPasswordToken, resetPasswordExpiry };
 };
-
 
 module.exports = { generateToken, generateResetToken };

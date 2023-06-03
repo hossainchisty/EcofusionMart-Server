@@ -10,20 +10,20 @@ const User = require("../models/userModels");
  * @requires Logged User
  */
 const userProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
-    .select('-__v')
-    .lean();
+  const user = await User.findById(req.user.id).select("-__v").lean();
   if (!user.roles.includes("user")) {
     const user = await User.findById(req.user.id)
-    .select('-__v -roles -earnings -resetPasswordExpiry -resetPasswordToken -password')
-    .lean();
+      .select(
+        "-__v -roles -earnings -resetPasswordExpiry -resetPasswordToken -password"
+      )
+      .lean();
     res.status(200).json(user);
   }
-  
+
   if (!user.roles.includes("seller")) {
     const user = await User.findById(req.user.id)
-    .select('-__v -roles -resetPasswordExpiry -resetPasswordToken -password')
-    .lean();
+      .select("-__v -roles -resetPasswordExpiry -resetPasswordToken -password")
+      .lean();
     res.status(200).json(user);
   }
 });

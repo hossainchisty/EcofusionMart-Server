@@ -1,7 +1,7 @@
 // Basic Lib Imports
 require("dotenv").config();
-const logger = require('../config/_winstonLogger');
-const nodemailer = require('nodemailer');
+const logger = require("../config/_winstonLogger");
+const nodemailer = require("nodemailer");
 
 const createTransporter = () => {
   return nodemailer.createTransport({
@@ -47,8 +47,8 @@ const sendResetPasswordLink = async (email, resetPasswordLink) => {
     const mailOptions = {
       from: "eCommerce@example.com",
       to: email,
-      subject: 'Password Reset',
-      text: `Please click the following link to reset your password: ${resetPasswordLink}`
+      subject: "Password Reset",
+      text: `Please click the following link to reset your password: ${resetPasswordLink}`,
     };
     const info = await transporter.sendMail(mailOptions);
     logger.info("Password reset link sent:", { response: info.response });

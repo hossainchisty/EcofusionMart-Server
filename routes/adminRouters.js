@@ -3,9 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    approveSeller,
-    getAllUsers,
-    getUserById,
+  approveSeller,
+  getAllUsers,
+  getUserById,
 } = require("../controllers/adminController");
 
 // Routing Implement

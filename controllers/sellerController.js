@@ -1,9 +1,9 @@
 // Import the necessary models and dependencies
-const upload = require('../config/multerConfig');
-const multer = require('multer');
-const cloudinary = require('../config/cloudinaryConfig');
-const Product = require('../models/productModels');
-const Order = require('../models/orderModels');
+const upload = require("../config/multerConfig");
+const multer = require("multer");
+const cloudinary = require("../config/cloudinaryConfig");
+const Product = require("../models/productModels");
+const Order = require("../models/orderModels");
 
 /**
  * @doc     Fetch seller dashboard data
@@ -12,14 +12,18 @@ const Order = require('../models/orderModels');
  * @access  Private
  * @requires Seller Account
  * @returns {Object} - The response object containing the seller dashboard data
-*/
+ */
 const getSellerDashboard = async (req, res) => {
   try {
     const seller = req.user; // Assuming user information is available in the request
 
     // Check if the user is a seller
     if (!seller.isSeller) {
-      return res.status(403).json({ error: 'You are not authorized to access the seller dashboard' });
+      return res
+        .status(403)
+        .json({
+          error: "You are not authorized to access the seller dashboard",
+        });
     }
 
     // Fetch the seller's product listings
@@ -29,13 +33,16 @@ const getSellerDashboard = async (req, res) => {
     const orders = await Order.find({ seller: seller._id });
 
     // Calculate the total earnings for the seller
-    const totalEarnings = orders.reduce((sum, order) => sum + order.totalAmount, 0);
+    const totalEarnings = orders.reduce(
+      (sum, order) => sum + order.totalAmount,
+      0
+    );
 
     // Respond with the dashboard data
     res.json({ products, orders, totalEarnings });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -48,13 +55,13 @@ const getSellerDashboard = async (req, res) => {
  */
 const addProducts = async (req, res) => {
   // Use the upload middleware to handle file uploads
-  upload.array('images')(req, res, async function (err) {
+  upload.array("images")(req, res, async function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred while uploading
-      return res.status(400).json({ error: 'File upload error' });
+      return res.status(400).json({ error: "File upload error" });
     } else if (err) {
       // An unknown error occurred while uploading
-      return res.status(500).json({ error: 'Internal server error' });
+      return res.status(500).json({ error: "Internal server error" });
     }
 
     try {
@@ -62,14 +69,20 @@ const addProducts = async (req, res) => {
 
       // Check if the user is a seller
       if (!user.roles.includes("seller")) {
-        return res.status(403).json({ error: 'You are not authorized to add a product listing' });
+        return res
+          .status(403)
+          .json({ error: "You are not authorized to add a product listing" });
       }
 
       // Check if the seller account is approved by the administrator
       if (!user.isApproved) {
-        return res.status(403).json({ error: 'Your seller account is not yet approved. Please wait for administrator approval.' });
+        return res
+          .status(403)
+          .json({
+            error:
+              "Your seller account is not yet approved. Please wait for administrator approval.",
+          });
       }
-
 
       const products = req.body.products;
 
@@ -105,8 +118,14 @@ const addProducts = async (req, res) => {
           category: product.category,
           brand: product.brand,
           stock: {
-            inStock: product.stock && product.stock.inStock !== undefined ? product.stock.inStock : true,
-            remainingStock: product.stock && product.stock.remainingStock !== undefined ? product.stock.remainingStock : 0,
+            inStock:
+              product.stock && product.stock.inStock !== undefined
+                ? product.stock.inStock
+                : true,
+            remainingStock:
+              product.stock && product.stock.remainingStock !== undefined
+                ? product.stock.remainingStock
+                : 0,
           },
           seller: user._id,
           SKU: SKU,
@@ -119,7 +138,10 @@ const addProducts = async (req, res) => {
       // Insert multiple products
       const insertedProducts = await Product.insertMany(productDocuments);
 
-      res.json({ message: 'Products added successfully', products: insertedProducts });
+      res.json({
+        message: "Products added successfully",
+        products: insertedProducts,
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -133,7 +155,7 @@ const addProducts = async (req, res) => {
  * @access  Private
  * @requires Seller Account
  * @returns {Object} - The response object containing the updated product information or an error message.
-*/
+ */
 const editProduct = async (req, res) => {
   try {
     const seller = req.user;
@@ -142,13 +164,18 @@ const editProduct = async (req, res) => {
 
     // Check if the user is a seller
     if (!user.roles.includes("seller")) {
-      return res.status(403).json({ error: 'You are not authorized to edit the product listing' });
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to edit the product listing" });
     }
 
-    const product = await Product.findOne({ _id: productId, seller: seller._id }).select("-__v");
+    const product = await Product.findOne({
+      _id: productId,
+      seller: seller._id,
+    }).select("-__v");
 
     if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     // Update only the provided fields
@@ -164,7 +191,7 @@ const editProduct = async (req, res) => {
       product.price = price;
     }
 
-    if (typeof inStock === 'boolean') {
+    if (typeof inStock === "boolean") {
       product.stock.inStock = inStock;
     }
 
@@ -173,7 +200,7 @@ const editProduct = async (req, res) => {
     }
 
     await product.save();
-    res.json({ product: product, message: 'Product updated successfully' });
+    res.json({ product: product, message: "Product updated successfully" });
   } catch (error) {
     res.status(500).json({ error: error });
   }
@@ -185,17 +212,21 @@ const editProduct = async (req, res) => {
  * @method  POST
  * @access  Private
  * @requires Seller Account
-*/
+ */
 const viewOrderHistory = async (req, res) => {
   try {
     const seller = req.user; // Assuming user information is available in the request
 
     // Check if the user is a seller
     if (!seller.isSeller) {
-      return res.status(403).json({ error: 'You are not authorized to view the order history' });
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to view the order history" });
     }
 
-    const orders = await Order.find({ seller: seller._id }).populate('product customer');
+    const orders = await Order.find({ seller: seller._id }).populate(
+      "product customer"
+    );
 
     res.json({ orders });
   } catch (error) {
@@ -207,5 +238,5 @@ module.exports = {
   getSellerDashboard,
   addProducts,
   editProduct,
-  viewOrderHistory
+  viewOrderHistory,
 };

@@ -2,12 +2,12 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  addProducts,
-  editProduct
-} = require("../controllers/sellerController");
+const { addProducts, editProduct } = require("../controllers/sellerController");
 
-const { registerSeller, loginSeller } = require("../controllers/authController");
+const {
+  registerSeller,
+  loginSeller,
+} = require("../controllers/authController");
 
 const { protect } = require("../middleware/authMiddleware");
 

@@ -1,82 +1,83 @@
 // Basic Lib Imports
 const mongoose = require("mongoose");
 
-const productSchema = mongoose.Schema({
-  seller: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  title: {
-    type: String,
-    trim: true,
-    required: true,
-    index: true,
-  },
-  description: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  images: [{ type: String }],
-  category: {
-    type: String,
-    trim: true,
-    required: true,
-    index: true,
-  },
-  brand: {
-    type: String,
-    trim: true,
-    required: false,
-    index: true,
-  },
-  stock: {
-    inStock: {
-      type: Boolean,
-      default: true,
+const productSchema = mongoose.Schema(
+  {
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-    remainingStock: {
+    title: {
+      type: String,
+      trim: true,
+      required: true,
+      index: true,
+    },
+    description: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    price: {
       type: Number,
-      default: 0,
+      required: true,
     },
-  },
-  SKU: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  reviews: [
-    {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    images: [{ type: String }],
+    category: {
+      type: String,
+      trim: true,
+      required: true,
+      index: true,
+    },
+    brand: {
+      type: String,
+      trim: true,
+      required: false,
+      index: true,
+    },
+    stock: {
+      inStock: {
+        type: Boolean,
+        default: true,
       },
-      rating: {
+      remainingStock: {
         type: Number,
-        required: true,
-        minlength: 1,
-        maxlength: 5,
-      },
-      comment: {
-        type: String,
-        required: true,
+        default: 0,
       },
     },
-  ],
-  averageRating: {
-    type: Number,
-    required: false,
-  }},
+    SKU: {
+      type: String,
+      unique: true,
+      required: true,
+    },
+    reviews: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+        rating: {
+          type: Number,
+          required: true,
+          minlength: 1,
+          maxlength: 5,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    averageRating: {
+      type: Number,
+      required: false,
+    },
+  },
 
   { timestamps: true },
   { versionKey: false }
 );
-
 
 // static methods to the schema for filtering and sorting
 productSchema.statics.filterAndSort = function (filterOptions, sortOptions) {

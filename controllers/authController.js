@@ -5,8 +5,14 @@ const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModels");
 const asyncHandler = require("express-async-handler");
-const { generateToken, generateResetToken } = require("../helper/generateToken");
-const { sendVerificationEmail, sendResetPasswordLink } = require("../services/sendEmail");
+const {
+  generateToken,
+  generateResetToken,
+} = require("../helper/generateToken");
+const {
+  sendVerificationEmail,
+  sendResetPasswordLink,
+} = require("../services/sendEmail");
 
 /**
  * @desc They can access various features such as searching for products, adding    items to the cart, making payments, and tracking orders. Users can also provide feedback and ratings for products and sellers.
@@ -87,7 +93,16 @@ const registerUser = asyncHandler(async (req, res) => {
  */
 
 const registerSeller = asyncHandler(async (req, res) => {
-  const { full_name, phone_number, email, NID, address, bank_account, password, avatar } = req.body;
+  const {
+    full_name,
+    phone_number,
+    email,
+    NID,
+    address,
+    bank_account,
+    password,
+    avatar,
+  } = req.body;
 
   // Hash password
   const salt = await bcrypt.genSalt(10);
@@ -112,7 +127,12 @@ const registerSeller = asyncHandler(async (req, res) => {
 
       user = await user.save();
 
-      return res.status(200).json({ message: "User role updated to seller successfully.Please wait for approval."});
+      return res
+        .status(200)
+        .json({
+          message:
+            "User role updated to seller successfully.Please wait for approval.",
+        });
     } else {
       // Create new seller account
       user = new User({
@@ -145,13 +165,17 @@ const registerSeller = asyncHandler(async (req, res) => {
         sameSite: "Strict",
       });
 
-      return res.status(201).json({ message: "Seller registered successfully. Please check your email to verify your account and wait for approval." });
+      return res
+        .status(201)
+        .json({
+          message:
+            "Seller registered successfully. Please check your email to verify your account and wait for approval.",
+        });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
 });
-
 
 /**
  * @desc    User email verification
@@ -233,7 +257,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-
 /**
  * Sellers to log in using either their email or phone number
  * @route   /api/v2/seller/login
@@ -253,11 +276,16 @@ const loginSeller = asyncHandler(async (req, res) => {
     }
     // Check if the identifier is a valid phone number
     else if (validator.isMobilePhone(identifier, "any")) {
-      user = await User.findOne({ phone_number: identifier, roles: "seller" }).lean();
+      user = await User.findOne({
+        phone_number: identifier,
+        roles: "seller",
+      }).lean();
     }
 
     if (!user) {
-      return res.status(401).json({ message: "Invalid email, phone number, or user type" });
+      return res
+        .status(401)
+        .json({ message: "Invalid email, phone number, or user type" });
     }
 
     // Compare the provided password with the hashed password
@@ -275,7 +303,6 @@ const loginSeller = asyncHandler(async (req, res) => {
       });
       return res.status(200).json({ message: "Login successful" });
     }
-
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -311,7 +338,7 @@ const forgotPassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     const { resetPasswordToken, resetPasswordExpiry } = generateResetToken();
@@ -322,8 +349,8 @@ const forgotPassword = async (req, res) => {
       {
         $set: {
           resetPasswordToken,
-          resetPasswordExpiry
-        }
+          resetPasswordExpiry,
+        },
       }
     );
 
@@ -333,7 +360,7 @@ const forgotPassword = async (req, res) => {
     )}/api/v2/users/reset-password?token=${resetPasswordToken}`;
     sendResetPasswordLink(user.email, passwordRestLink);
 
-    res.status(200).json({ message: 'Password reset email sent successfully' });
+    res.status(200).json({ message: "Password reset email sent successfully" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error });
@@ -357,10 +384,10 @@ const resetPassword = async (req, res) => {
     // Find user by the reset password token and ensure it's valid and not expired
     const user = await User.findOne({
       resetPasswordToken: token,
-      resetPasswordExpiry: { $gt: Date.now() }
+      resetPasswordExpiry: { $gt: Date.now() },
     });
     if (!user) {
-      return res.status(400).json({ error: 'Invalid or expired token' });
+      return res.status(400).json({ error: "Invalid or expired token" });
     }
 
     // Hash the new password
@@ -372,7 +399,7 @@ const resetPassword = async (req, res) => {
     user.resetPasswordExpiry = undefined;
     await user.save();
 
-    res.status(200).json({ message: 'Password reset successful' });
+    res.status(200).json({ message: "Password reset successful" });
   } catch (error) {
     res.status(500).json({ error: error });
   }

@@ -3,8 +3,8 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    productLists,
-    searchProducts,
+  productLists,
+  searchProducts,
 } = require("../controllers/productController");
 
 // Routing Implement
