@@ -13,16 +13,16 @@ const userProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id)
     .select('-__v')
     .lean();
-  if (user.isCustomer) {
+  if (!user.roles.includes("user")) {
     const user = await User.findById(req.user.id)
-    .select('-__v -isSeller -earnings -resetPasswordExpiry -resetPasswordToken -password')
+    .select('-__v -roles -earnings -resetPasswordExpiry -resetPasswordToken -password')
     .lean();
     res.status(200).json(user);
   }
   
-  if (user.isSeller) {
+  if (!user.roles.includes("seller")) {
     const user = await User.findById(req.user.id)
-    .select('-__v -isCustomer -resetPasswordExpiry -resetPasswordToken -password')
+    .select('-__v -roles -resetPasswordExpiry -resetPasswordToken -password')
     .lean();
     res.status(200).json(user);
   }
