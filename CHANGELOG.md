@@ -1,3 +1,17 @@
+# [0.15.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.14.0...v0.15.0) (2023-06-03)
+
+
+### Bug Fixes
+
+* Change seller accounts check logic ([ef070c0](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ef070c0965062a4e287dcc71d284d0d193e3ba2c))
+
+
+### Features
+
+* Added seller register and login routers ([4d81d81](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4d81d81b8ee601111fe442977dbfbf6c9d14192e))
+
+
+
 # [0.14.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.13.0...v0.14.0) (2023-06-02)
 
 
@@ -41,16 +55,6 @@
 * Add seller and product routes ([5f950b5](https://github.com/hossainchisty/eCommerce-Backend-API/commit/5f950b595b99b46ec53b9eb74d66ed61098b5052))
 * Create seller routes for adding and editing products ([b03138a](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b03138a787a13192ff514cbb6a43a92c2ac53127))
 * Implement seller dashboard, add and update product listings ([d83c1e6](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d83c1e6cfd49dca4c9c86201da3d7936c51cc208))
-
-
-
-# [0.10.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.9.0...v0.10.0) (2023-05-31)
-
-
-### Features
-
-* Add avatar and isAdmin fields to Admin model ([015860c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/015860c9e66e471dc34f76bd05e7c72914255e22))
-* Add earnings field to user model ([97a5c0d](https://github.com/hossainchisty/eCommerce-Backend-API/commit/97a5c0df82c29e02d980e25c7b8f0ad3aec3c5cd))
 
 
 
