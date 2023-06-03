@@ -14,7 +14,7 @@ const userSchema = mongoose.Schema(
     phone_number: {
       index: true,
       type: Number,
-      unique: false,
+      unique: true,
       required: [false, "Please add an phone number"],
     },
     email: {
@@ -33,19 +33,17 @@ const userSchema = mongoose.Schema(
       required: [true, "User password is required"],
       minlength: [6, 'The password must be at least 6 characters']
     },
-    isSeller: {
-      index: true,
-      type: Boolean,
-      default: false,
-    },
-    isCustomer: {
-      index: true,
-      type: Boolean,
-      default: false,
+    roles: {
+      type: [String], 
+      default: ["user"] 
     },
     isVerified: {
       type: Boolean,
       required: false,
+    },
+    isApproved: {
+      type: Boolean,
+      default: false,
     },
     otp: {
       type: String,
@@ -62,6 +60,20 @@ const userSchema = mongoose.Schema(
     },
     resetPasswordExpiry: {
       type: Date,
+    },
+    NID: {
+      type: Number,
+      unique: true,
+      required: false,
+    },
+    address : {
+      type: String,
+      required: false,
+    },
+    bank_account : {
+      type: Number,
+      unique: true,
+      required: false,
     },
     earnings: {
       type: Number,
