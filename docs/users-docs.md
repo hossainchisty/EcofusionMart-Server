@@ -4,7 +4,7 @@
 
 - **Register a new user**
 
-  - Endpoint: `/api/v1/users/auth/register`
+  - Endpoint: `/api/v2/users/auth/register`
   - Method: `POST`
   - Description: This endpoint allows users to register a new account by providing their registration details, such as name, email, and password.
 
@@ -27,7 +27,7 @@
 
 - **Register a new Seller**
 
-  - Endpoint: `/api/v1/seller/register`
+  - Endpoint: `/api/v2/seller/register`
   - Method: `POST`
   - Description: This endpoint allows users to register a new account or become seller by providing their registration details, such as full_name, email, phone_number, NID, address, bank_account and password.
 
@@ -62,7 +62,7 @@
 
 - **Email verification**
 
-  - Endpoint: `/api/v1/users/auth/verify`
+  - Endpoint: `/api/v2/users/auth/verify`
   - Method: `POST`
   - Description: This endpoint handles the email verification process for registered users. Users need to provide their verification token received via email to verify their email address. Once the email is verified, the user can proceed with logging in.
 
@@ -83,7 +83,7 @@
 
 - **User login**
 
-  - Endpoint: `/api/v1/users/auth/login`
+  - Endpoint: `/api/v2/users/auth/login`
   - Method: `POST`
   - Description: This endpoint authenticates a user by validating their credentials (email and password) and generates a JSON Web Token (JWT) as a response. The JWT can be used for subsequent authenticated requests to protected endpoints.
 
@@ -106,7 +106,7 @@
 
 - **User login**
 
-  - Endpoint: `/api/v1/seller/login`
+  - Endpoint: `/api/v2/seller/login`
   - Method: `POST`
   - Description: This endpoint authenticates a seller by validating their credentials (email/phone number and password).
   - Request Body:
@@ -130,7 +130,7 @@
 
 - **User logout**
 
-  - Endpoint: `/api/v1/users/auth/logout`
+  - Endpoint: `/api/v2/users/auth/logout`
   - Method: `POST`
   - Description: This endpoint logs out the currently logged-in user by invalidating the JWT token. After logging out, the token becomes invalid, and the user needs to reauthenticate to access protected endpoints.
 
@@ -145,7 +145,7 @@
 
 - **Get user data**
 
-  - Endpoint: `/api/v1/users/auth/me`
+  - Endpoint: `/api/v2/users/auth/me`
   - Method: `GET`
   - Description: This endpoint retrieves the user's data, such as their name, email, and other relevant information. It requires a valid JWT token in the request headers for authentication and authorization.
 
@@ -162,7 +162,7 @@
 
 - **Password forget**
 
-  - Endpoint: `/api/v1/users/auth/forgot-password`
+  - Endpoint: `/api/v2/users/auth/forgot-password`
   - Method: `POST`
   - Description: This endpoint allows users who have forgotten their password to request a password reset email. The user needs to provide their registered email address, and if it exists in the system, an email with a reset password token will be sent to that email address.
   - Request Body:
@@ -179,7 +179,7 @@
     ```
 
 - **Password reset**
-  - Endpoint: `/api/v1/users/auth/reset-password`
+  - Endpoint: `/api/v2/users/auth/reset-password`
   - Method: `POST`
   - Description: This endpoint allows users to reset their password using the reset password token received via email. The user needs to provide the reset token and their new password to reset the password successfully.
   - Request Body:
