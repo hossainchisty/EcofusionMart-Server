@@ -58,12 +58,13 @@ const addProducts = async (req, res) => {
     }
 
     try {
-      const seller = req.user;
+      const user = req.user;
 
-      // // Check if the user is a seller
-      if (!seller.isSeller) {
-        return res.status(403).json({ error: 'You are not authorized to add a product listing' });
-      }
+      // Check if the user is a seller
+      if (!user.roles.includes("seller")) {
+          return res.status(403).json({ error: 'You are not authorized to add a product listing' });
+        }
+
 
       const products = req.body.products;
 
@@ -102,7 +103,7 @@ const addProducts = async (req, res) => {
             inStock: product.stock && product.stock.inStock !== undefined ? product.stock.inStock : true,
             remainingStock: product.stock && product.stock.remainingStock !== undefined ? product.stock.remainingStock : 0,
           },
-          seller: seller._id,
+          seller: user._id,
           SKU: SKU,
           images: imageUrls,
         });
