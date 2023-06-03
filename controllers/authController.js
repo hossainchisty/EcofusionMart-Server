@@ -1,5 +1,7 @@
 // Basic Lib Import
 const moment = require("moment");
+const validator = require("validator");
+const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModels");
 const asyncHandler = require("express-async-handler");
@@ -7,14 +9,14 @@ const { generateToken, generateResetToken } = require("../helper/generateToken")
 const { sendVerificationEmail, sendResetPasswordLink } = require("../services/sendEmail");
 
 /**
- * @desc    Register new customer or seller
+ * @desc They can access various features such as searching for products, adding    items to the cart, making payments, and tracking orders. Users can also provide feedback and ratings for products and sellers.
  * @route   /api/v1/users/auth/register
  * @method  POST
  * @access  Public
  */
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { full_name, email, password, avatar, isCustomer, isSeller } = req.body;
+  const { full_name, email, password, avatar } = req.body;
 
   // Check if user exists
   const userExists = await User.findOne({ email }).lean();
@@ -22,18 +24,8 @@ const registerUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "User already exists" });
   }
 
-  // Generate verification token
-  const verificationToken = crypto.randomBytes(20).toString("hex");
-  const verificationTokenExpiry = moment().add(1, "hour"); // Expiration to 1 hour from the current time
-
   // Validate input fields
-  if (
-    !full_name ||
-    !email ||
-    !password ||
-    (isCustomer && isSeller) ||
-    (!isCustomer && !isSeller)
-  ) {
+  if (!full_name || !email || !password) {
     let errorMessage = "Please provide all required fields.";
     if (!full_name) {
       errorMessage += " 'full_name' field is required.";
@@ -43,13 +35,6 @@ const registerUser = asyncHandler(async (req, res) => {
     }
     if (!password) {
       errorMessage += " 'password' field is required.";
-    }
-    if (isCustomer && isSeller) {
-      errorMessage +=
-        " Select either 'isCustomer' or 'isSeller' role, not both.";
-    }
-    if (!isCustomer && !isSeller) {
-      errorMessage += " Select either 'isCustomer' or 'isSeller' role.";
     }
     return res.status(400).json({ message: errorMessage });
   }
@@ -64,10 +49,8 @@ const registerUser = asyncHandler(async (req, res) => {
       full_name,
       email,
       avatar,
-      isCustomer,
-      isSeller,
-      verificationToken,
-      verificationTokenExpiry,
+      verificationToken: crypto.randomBytes(20).toString("hex"),
+      verificationTokenExpiry: moment().add(1, "hour"),
       password: hashedPassword,
     },
   ];
@@ -77,8 +60,8 @@ const registerUser = asyncHandler(async (req, res) => {
     // Send verification email
     const verificationLink = `${req.protocol}://${req.get(
       "host"
-    )}/api/v1/users/verify?token=${verificationToken}`;
-    sendVerificationEmail(user.email, verificationLink);
+    )}/api/v1/users/auth/verify?token=${createdUser.verificationToken}`;
+    sendVerificationEmail(createdUser.email, verificationLink);
 
     // Set token in a cookie
     const token = generateToken(createdUser._id);
@@ -97,10 +80,84 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @desc    Set up a seller account, list their products, manage inventory, and handle order processing.
+ * @route   /api/v1/seller/register
+ * @method  POST
+ * @access  Public
+ */
+
+const registerSeller = asyncHandler(async (req, res) => {
+  const { full_name, phone_number, email, NID, address, bank_account, password, avatar } = req.body;
+
+  // Hash password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  try {
+    // Check if user exists
+    let user = await User.findOne({ email });
+
+    if (user) {
+      // User already exists
+      user.roles = ["user", "seller"];
+
+      // Update user data
+      user.full_name = full_name;
+      user.phone_number = phone_number;
+      user.NID = NID;
+      user.address = address;
+      user.bank_account = bank_account;
+      user.avatar = avatar;
+      user.password = hashedPassword;
+
+      user = await user.save();
+
+      return res.status(200).json({ message: "User role updated to seller successfully.Please wait for approval."});
+    } else {
+      // Create new seller account
+      user = new User({
+        full_name,
+        phone_number,
+        email,
+        NID,
+        address,
+        bank_account,
+        password,
+        avatar,
+        roles: ["seller"],
+        verificationToken: crypto.randomBytes(20).toString("hex"),
+        verificationTokenExpiry: Date.now() + 3600000, // 1 hour from now
+      });
+
+      await user.save();
+
+      // Send verification email
+      const verificationLink = `${req.protocol}://${req.get(
+        "host"
+      )}/api/v1/users/auth/verify?token=${user.verificationToken}`;
+      sendVerificationEmail(user.email, verificationLink);
+
+      // Set token in a cookie
+      const token = generateToken(user._id);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false, // TODO: set this to true before production
+        sameSite: "Strict",
+      });
+
+      return res.status(201).json({ message: "Seller registered successfully. Please check your email to verify your account and wait for approval." });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+
+/**
  * @desc    User email verification
  * @route   /api/v1/users/auth/verify
  * @method  POST
- * @param {String} user token
+ * @param   {String} user token
  * @access  Public
  */
 
@@ -135,7 +192,7 @@ const emailVerify = asyncHandler(async (req, res) => {
 });
 
 /**
- * @desc    Authenticate a user
+ * User to log in using either their email or phone number
  * @route   /api/v1/users/auth/login
  * @method  POST
  * @field   email and password
@@ -145,38 +202,82 @@ const emailVerify = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  // Check if the user exists
-  const user = await User.findOne({ email }).lean();
-  if (!user) {
-    return res.status(401).json({ message: "Invalid email" });
-  }
+  try {
+    let user;
+    // Check if the user exists
+    if (validator.isEmail(email)) {
+      user = await User.findOne({ email: email, roles: "user" }).lean();
+    }
 
-  // Compare the provided password with the hashed password
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    return res.status(401).json({ message: "Invalid password" });
-  }
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email" });
+    }
 
-  // Check if the user is a customer or a seller
-  if (user.isCustomer) {
-    // User is a customer
-    // Set token in a cookie
-    const token = generateToken(user._id);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false, // TODO: set this to true before production
-      sameSite: "Strict",
-    });
-    return res.status(200).json({ message: "Customer login successful" });
-  } else {
-    // Set token in a cookie
-    const token = generateToken(user._id);
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: false, // TODO: set this to true before production
-      sameSite: "Strict",
-    });
-    return res.status(200).json({ message: "Seller login successful" });
+    // Compare the provided password with the hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    if (user) {
+      const token = generateToken(user._id);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false, // TODO: set this to true before production
+        sameSite: "Strict",
+      });
+      return res.status(200).json({ message: "Login successful" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+});
+
+
+/**
+ * Sellers to log in using either their email or phone number
+ * @route   /api/v1/seller/login
+ * @method  POST
+ * @field   phone_number/email and password
+ * @access  Public
+ */
+const loginSeller = asyncHandler(async (req, res) => {
+  const { identifier, password } = req.body;
+
+  try {
+    let user;
+
+    // Check if the identifier is a valid email
+    if (validator.isEmail(identifier)) {
+      user = await User.findOne({ email: identifier, roles: "seller" }).lean();
+    }
+    // Check if the identifier is a valid phone number
+    else if (validator.isMobilePhone(identifier, "any")) {
+      user = await User.findOne({ phone_number: identifier, roles: "seller" }).lean();
+    }
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email, phone number, or user type" });
+    }
+
+    // Compare the provided password with the hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    if (user) {
+      const token = generateToken(user._id);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false, // TODO: set this to true before production
+        sameSite: "Strict",
+      });
+      return res.status(200).json({ message: "Login successful" });
+    }
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 });
 
@@ -279,6 +380,8 @@ const resetPassword = async (req, res) => {
 
 module.exports = {
   registerUser,
+  registerSeller,
+  loginSeller,
   emailVerify,
   loginUser,
   logoutUser,
