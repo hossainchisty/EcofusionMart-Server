@@ -18,7 +18,7 @@ const getSellerDashboard = async (req, res) => {
     const seller = req.user; // Assuming user information is available in the request
 
     // Check if the user is a seller
-    if (!seller.isSeller) {
+    if (!user.roles.includes("seller")) {
       return res.status(403).json({
         error: "You are not authorized to access the seller dashboard",
       });
