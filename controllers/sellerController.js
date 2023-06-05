@@ -7,7 +7,7 @@ const asyncHandler = require("express-async-handler");
 const cloudinary = require("../config/cloudinaryConfig");
 
 /**
- * @doc     Seller dashboard 
+ * @doc     Seller dashboard
  * @route   /api/v1/seller/
  * @method  GET
  * @access  Private
@@ -176,7 +176,6 @@ const editProduct = asyncHandler(async (req, res) => {
           "Your seller account is not yet approved. Please wait for administrator approval.",
       });
     }
-
 
     const product = await Product.findOne({
       _id: productId,

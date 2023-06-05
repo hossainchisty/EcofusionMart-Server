@@ -2,7 +2,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { sellerDashboard, addProducts, editProduct } = require("../controllers/sellerController");
+const {
+  sellerDashboard,
+  addProducts,
+  editProduct,
+} = require("../controllers/sellerController");
 
 const {
   registerSeller,
