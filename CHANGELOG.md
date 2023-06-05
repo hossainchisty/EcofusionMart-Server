@@ -1,3 +1,12 @@
+# [0.19.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.18.1...v0.19.0) (2023-06-05)
+
+
+### Features
+
+* Seller can delete products from the database ([ef66285](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ef6628550fa2794a5509de5f7349bcea7e8de1de))
+
+
+
 ## [0.18.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.18.0...v0.18.1) (2023-06-05)
 
 
@@ -34,20 +43,6 @@
 * Added admin routers and change user auth APIs version ([53b1d68](https://github.com/hossainchisty/eCommerce-Backend-API/commit/53b1d68b4e3cadaa911be78f05043e0904d238b2))
 * Added check if seller account is approved by the admin panel otherwise seller can't add product for sell ([fccd705](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fccd7056bc23b8f3ce24f63a2c7f2c8c30c89abb))
 * Admin can approve the seller account ([c7f2ec4](https://github.com/hossainchisty/eCommerce-Backend-API/commit/c7f2ec4618a56010809867145dd2dbb5188ddbcb))
-
-
-
-# [0.15.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.14.0...v0.15.0) (2023-06-03)
-
-
-### Bug Fixes
-
-* Change seller accounts check logic ([ef070c0](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ef070c0965062a4e287dcc71d284d0d193e3ba2c))
-
-
-### Features
-
-* Added seller register and login routers ([4d81d81](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4d81d81b8ee601111fe442977dbfbf6c9d14192e))
 
 
 
