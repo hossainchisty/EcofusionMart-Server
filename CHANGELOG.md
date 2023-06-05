@@ -1,3 +1,12 @@
+# [0.18.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.17.0...v0.18.0) (2023-06-05)
+
+
+### Features
+
+* Social media sign-in and sign-up with google account ([6e4b847](https://github.com/hossainchisty/eCommerce-Backend-API/commit/6e4b84749241a15abbae7acffc80b8b52480cc99))
+
+
+
 # [0.17.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.16.0...v0.17.0) (2023-06-03)
 
 
@@ -39,16 +48,6 @@
 ### Features
 
 * Enable case-insensitive search by title, category and more ([c55e285](https://github.com/hossainchisty/eCommerce-Backend-API/commit/c55e2857480ee7e79a027ca766528fe68fca263f))
-
-
-
-# [0.13.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.12.0...v0.13.0) (2023-06-01)
-
-
-### Features
-
-* Add cloudinary configuration and multer configuration ([bc045c4](https://github.com/hossainchisty/eCommerce-Backend-API/commit/bc045c4b76ed9b3b34abc2aade26036055e856f8))
-* Add image upload functionality to addProducts ([b14e06f](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b14e06f2c092a949e3dcd59f4b5b5722ddc9aefe))
 
 
 
