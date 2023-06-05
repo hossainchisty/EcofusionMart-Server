@@ -1,34 +1,43 @@
 // Import the necessary models and dependencies
-const upload = require("../config/multerConfig");
 const multer = require("multer");
-const cloudinary = require("../config/cloudinaryConfig");
-const Product = require("../models/productModels");
 const Order = require("../models/orderModels");
+const upload = require("../config/multerConfig");
+const Product = require("../models/productModels");
+const asyncHandler = require("express-async-handler");
+const cloudinary = require("../config/cloudinaryConfig");
 
 /**
- * @doc     Fetch seller dashboard data
+ * @doc     Seller dashboard 
  * @route   /api/v1/seller/
  * @method  GET
  * @access  Private
  * @requires Seller Account
- * @returns {Object} - The response object containing the seller dashboard data
+ * @returns {Object} The response object containing the seller dashboard data
  */
-const getSellerDashboard = async (req, res) => {
+const sellerDashboard = asyncHandler(async (req, res) => {
   try {
-    const seller = req.user; // Assuming user information is available in the request
+    // Check if the seller account is approved by the administrator
+    if (!req.user.isApproved) {
+      return res.status(403).json({
+        error:
+          "Your seller account is not yet approved. Please wait for administrator approval.",
+      });
+    }
 
     // Check if the user is a seller
-    if (!user.roles.includes("seller")) {
+    if (!req.user.roles.includes("seller")) {
       return res.status(403).json({
         error: "You are not authorized to access the seller dashboard",
       });
     }
 
+    const sellerId = req.user._id;
+
     // Fetch the seller's product listings
-    const products = await Product.find({ seller: seller._id });
+    const products = await Product.find({ seller: sellerId });
 
     // Fetch the seller's order history
-    const orders = await Order.find({ seller: seller._id });
+    const orders = await Order.find({ seller: sellerId });
 
     // Calculate the total earnings for the seller
     const totalEarnings = orders.reduce(
@@ -36,13 +45,11 @@ const getSellerDashboard = async (req, res) => {
       0
     );
 
-    // Respond with the dashboard data
-    res.json({ products, orders, totalEarnings });
+    res.status(200).json({ products, orders, totalEarnings });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error });
   }
-};
+});
 
 /**
  * @desc     Add product listing
@@ -51,15 +58,13 @@ const getSellerDashboard = async (req, res) => {
  * @access  Private
  * @requires Seller Account
  */
-const addProducts = async (req, res) => {
-  // Use the upload middleware to handle file uploads
+const addProducts = asyncHandler(async (req, res) => {
+  // middleware to handle file uploads
   upload.array("images")(req, res, async function (err) {
     if (err instanceof multer.MulterError) {
-      // A Multer error occurred while uploading
-      return res.status(400).json({ error: "File upload error" });
+      return res.status(400).json({ error: err.message });
     } else if (err) {
-      // An unknown error occurred while uploading
-      return res.status(500).json({ error: "Internal server error" });
+      return res.status(500).json({ error: err.message });
     }
 
     try {
@@ -142,7 +147,7 @@ const addProducts = async (req, res) => {
       res.status(500).json({ error: error.message });
     }
   });
-};
+});
 
 /**
  * @doc     Edits a product listing.
@@ -150,24 +155,32 @@ const addProducts = async (req, res) => {
  * @method  POST
  * @access  Private
  * @requires Seller Account
- * @returns {Object} - The response object containing the updated product information or an error message.
+ * @returns {Object} The response object containing the updated product information or an error message.
  */
-const editProduct = async (req, res) => {
+const editProduct = asyncHandler(async (req, res) => {
+  const { productId } = req.params;
+  const { title, description, price, inStock, remainingStock } = req.body;
+  const user = req.user;
   try {
-    const seller = req.user;
-    const { productId } = req.params;
-    const { title, description, price, inStock, remainingStock } = req.body;
-
     // Check if the user is a seller
     if (!user.roles.includes("seller")) {
       return res
         .status(403)
-        .json({ error: "You are not authorized to edit the product listing" });
+        .json({ error: "You are not authorized to add a product listing" });
     }
+
+    // Check if the seller account is approved by the administrator
+    if (!user.isApproved) {
+      return res.status(403).json({
+        error:
+          "Your seller account is not yet approved. Please wait for administrator approval.",
+      });
+    }
+
 
     const product = await Product.findOne({
       _id: productId,
-      seller: seller._id,
+      seller: user._id,
     }).select("-__v");
 
     if (!product) {
@@ -198,9 +211,9 @@ const editProduct = async (req, res) => {
     await product.save();
     res.json({ product: product, message: "Product updated successfully" });
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
-};
+});
 
 /**
  * @doc      View order history
@@ -209,29 +222,36 @@ const editProduct = async (req, res) => {
  * @access  Private
  * @requires Seller Account
  */
-const viewOrderHistory = async (req, res) => {
+const viewOrderHistory = asyncHandler(async (req, res) => {
+  const user = req.user;
   try {
-    const seller = req.user; // Assuming user information is available in the request
-
     // Check if the user is a seller
-    if (!seller.isSeller) {
+    if (!user.roles.includes("seller")) {
       return res
         .status(403)
-        .json({ error: "You are not authorized to view the order history" });
+        .json({ error: "You are not authorized to view order history" });
     }
 
-    const orders = await Order.find({ seller: seller._id }).populate(
-      "product customer"
+    // Check if the seller account is approved by the administrator
+    if (!user.isApproved) {
+      return res.status(403).json({
+        error:
+          "Your seller account is not yet approved. Please wait for administrator approval.",
+      });
+    }
+
+    const orders = await Order.find({ seller: user._id }).populate(
+      "product user"
     );
 
     res.json({ orders });
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
-};
+});
 
 module.exports = {
-  getSellerDashboard,
+  sellerDashboard,
   addProducts,
   editProduct,
   viewOrderHistory,
