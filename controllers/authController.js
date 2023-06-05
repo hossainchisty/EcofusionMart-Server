@@ -127,12 +127,10 @@ const registerSeller = asyncHandler(async (req, res) => {
 
       user = await user.save();
 
-      return res
-        .status(200)
-        .json({
-          message:
-            "User role updated to seller successfully.Please wait for approval.",
-        });
+      return res.status(200).json({
+        message:
+          "User role updated to seller successfully.Please wait for approval.",
+      });
     } else {
       // Create new seller account
       user = new User({
@@ -165,12 +163,10 @@ const registerSeller = asyncHandler(async (req, res) => {
         sameSite: "Strict",
       });
 
-      return res
-        .status(201)
-        .json({
-          message:
-            "Seller registered successfully. Please check your email to verify your account and wait for approval.",
-        });
+      return res.status(201).json({
+        message:
+          "Seller registered successfully. Please check your email to verify your account and wait for approval.",
+      });
     }
   } catch (error) {
     return res.status(500).json({ message: error.message });

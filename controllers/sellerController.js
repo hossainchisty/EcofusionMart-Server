@@ -19,11 +19,9 @@ const getSellerDashboard = async (req, res) => {
 
     // Check if the user is a seller
     if (!seller.isSeller) {
-      return res
-        .status(403)
-        .json({
-          error: "You are not authorized to access the seller dashboard",
-        });
+      return res.status(403).json({
+        error: "You are not authorized to access the seller dashboard",
+      });
     }
 
     // Fetch the seller's product listings
@@ -76,12 +74,10 @@ const addProducts = async (req, res) => {
 
       // Check if the seller account is approved by the administrator
       if (!user.isApproved) {
-        return res
-          .status(403)
-          .json({
-            error:
-              "Your seller account is not yet approved. Please wait for administrator approval.",
-          });
+        return res.status(403).json({
+          error:
+            "Your seller account is not yet approved. Please wait for administrator approval.",
+        });
       }
 
       const products = req.body.products;
