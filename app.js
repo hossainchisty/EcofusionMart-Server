@@ -1,13 +1,16 @@
 // Basic Lib Imports
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session')
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
 // Database connection with mongoose
 const connectDB = require('./config/db');
-
 connectDB();
+
+require('./config/passportConfig');
+
 
 // Routing Implement
 const userRouters = require('./routes/userRouters');
@@ -15,6 +18,7 @@ const sellerRouters = require('./routes/sellerRouters');
 const productRouters = require('./routes/productRouters');
 const adminRouters = require('./routes/adminRouters');
 const reviewRouters = require('./routes/reviewRouters');
+const socialRouters = require('./routes/socialAuthRouters');
 
 
 const app = express();
@@ -23,6 +27,15 @@ const app = express();
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(express.json());
+
+app.use(session({
+  secret: 'somethingsecretgoeshere',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(
   cors({
@@ -49,6 +62,7 @@ app.use('/api/v1/seller', sellerRouters);
 app.use('/api/v1/products', productRouters);
 app.use('/api/v1/admin', adminRouters);
 app.use('/api/v1/reviews', reviewRouters);
+app.use('/api/v1/social', socialRouters);
 
 
 // Undefined Route Implement
