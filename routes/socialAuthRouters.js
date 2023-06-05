@@ -5,6 +5,16 @@ const router = express.Router();
 const CLIENT_URL = "http://127.0.0.1:3000/sucess";
 
 // Routing Implement
+router.get("/github", passport.authenticate("github", { scope: ["profile"] }));
+router.get(
+  "/github/callback",
+  passport.authenticate("github", {
+    successRedirect: CLIENT_URL,
+    failureRedirect: "/login/failed",
+  })
+);
+
+
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
 router.get(
