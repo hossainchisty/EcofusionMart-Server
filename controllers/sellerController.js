@@ -249,7 +249,6 @@ const viewOrderHistory = asyncHandler(async (req, res) => {
   }
 });
 
-
 /**
  * @desc    Delete product
  * @route   /api/v1/seller/products/delete/:productId
@@ -286,7 +285,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
-
     await Product.findByIdAndRemove(req.params.id, req.body, {
       new: true,
     });
@@ -297,7 +295,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 module.exports = {
   sellerDashboard,
