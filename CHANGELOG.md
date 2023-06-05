@@ -1,3 +1,12 @@
+## [0.18.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.18.0...v0.18.1) (2023-06-05)
+
+
+### Bug Fixes
+
+* Change seller flag check ([7bc2764](https://github.com/hossainchisty/eCommerce-Backend-API/commit/7bc27649fc42454eba0ed89e5de6a02ee31a3d70))
+
+
+
 # [0.18.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.17.0...v0.18.0) (2023-06-05)
 
 
@@ -39,15 +48,6 @@
 ### Features
 
 * Added seller register and login routers ([4d81d81](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4d81d81b8ee601111fe442977dbfbf6c9d14192e))
-
-
-
-# [0.14.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.13.0...v0.14.0) (2023-06-02)
-
-
-### Features
-
-* Enable case-insensitive search by title, category and more ([c55e285](https://github.com/hossainchisty/eCommerce-Backend-API/commit/c55e2857480ee7e79a027ca766528fe68fca263f))
 
 
 
