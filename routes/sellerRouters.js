@@ -2,7 +2,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { addProducts, editProduct } = require("../controllers/sellerController");
+const {
+  sellerDashboard,
+  addProducts,
+  editProduct,
+} = require("../controllers/sellerController");
 
 const {
   registerSeller,
@@ -12,6 +16,7 @@ const {
 const { protect } = require("../middleware/authMiddleware");
 
 // Routing Implement
+router.get("/", protect, sellerDashboard);
 router.post("/register", registerSeller);
 router.post("/login", loginSeller);
 router.post("/add/products", protect, addProducts);
