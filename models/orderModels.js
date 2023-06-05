@@ -19,13 +19,18 @@ const orderItemSchema = new mongoose.Schema({
 });
 
 const orderSchema = new mongoose.Schema({
-  customer: {
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  seller: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
   items: [orderItemSchema],
-  total: {
+  totalAmount: {
     type: Number,
     required: true,
   },
