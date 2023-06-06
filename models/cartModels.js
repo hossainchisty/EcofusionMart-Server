@@ -11,7 +11,8 @@ const cartItemSchema = new mongoose.Schema({
     required: true,
     default: 1,
   },
-});
+},
+  { versionKey: false });
 
 const cartSchema = new mongoose.Schema({
   user: {
@@ -20,7 +21,10 @@ const cartSchema = new mongoose.Schema({
     required: true,
   },
   items: [cartItemSchema],
-});
+},
+  { timestamps: true },
+  { versionKey: false }
+);
 
 const Cart = mongoose.model("Cart", cartSchema);
 
