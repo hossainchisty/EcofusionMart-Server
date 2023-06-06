@@ -39,7 +39,7 @@ const orderSchema = new mongoose.Schema({
   },
   shippingAddress: {
     type: String,
-  }
+  },
 });
 
 module.exports = mongoose.model("Order", orderSchema);
