@@ -15,7 +15,6 @@ const orderItemSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  // Add more fields as per your requirements (e.g., variations, discounts, etc.)
 });
 
 const orderSchema = new mongoose.Schema({
@@ -34,7 +33,13 @@ const orderSchema = new mongoose.Schema({
     enum: ["pending", "shipped", "delivered", "canceled"],
     default: "pending",
   },
-  // Add more fields as per your requirements (e.g., shipping address, payment details, etc.)
+  paymentMethod: {
+    type: String,
+    enum: ["stripe", "cash on delivery"],
+  },
+  shippingAddress: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model("Order", orderSchema);
