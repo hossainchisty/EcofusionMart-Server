@@ -28,9 +28,16 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  items: [orderItemSchema],
-  totalAmount: {
+  totalPrice: {
     type: Number,
+    required: true,
+  },
+  delivereAt: {
+    type: Date,
+    required: false,
+  },
+  paidAt: {
+    type: Date,
     required: true,
   },
   status: {
@@ -45,6 +52,10 @@ const orderSchema = new mongoose.Schema({
   shippingAddress: {
     type: String,
   },
-});
+  items: [orderItemSchema],
+},
+  { timestamps: true },
+  { versionKey: false }
+);
 
 module.exports = mongoose.model("Order", orderSchema);
