@@ -21,17 +21,17 @@ const addToCart = asyncHandler(async (req, res) => {
     const product = await Product.findById(productId).lean();
 
     if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
     // Check if the product is in stock
     if (!product.stock.inStock) {
-      return res.status(400).json({ error: 'Product is out of stock' });
+      return res.status(400).json({ error: "Product is out of stock" });
     }
 
     // Check if the requested quantity is available in stock
     if (quantity > product.stock.remainingStock) {
-      return res.status(400).json({ error: 'Insufficient stock' });
+      return res.status(400).json({ error: "Insufficient stock" });
     }
 
     if (!cart) {
@@ -62,7 +62,6 @@ const addToCart = asyncHandler(async (req, res) => {
   }
 });
 
-
 /**
  * @desc   Remove an item from the user's cart
  * @route  /api/cart/remove/:itemId
@@ -79,23 +78,22 @@ const removeCartItem = asyncHandler(async (req, res) => {
     const cart = await Cart.findOne({ user: userId });
 
     // Find the index of the item to be removed
-    const itemIndex = cart.items.findIndex(item => item.id === itemId);
+    const itemIndex = cart.items.findIndex((item) => item.id === itemId);
 
     if (itemIndex === -1) {
-      return res.status(404).json({ error: 'Item not found in cart' });
+      return res.status(404).json({ error: "Item not found in cart" });
     }
 
     // Remove the item from the cart
     cart.items.splice(itemIndex, 1);
     await cart.save();
 
-    res.json({ message: 'Item removed from cart' });
+    res.json({ message: "Item removed from cart" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
 
 /**
  * @desc   Get cart items
