@@ -1,3 +1,12 @@
+# [0.25.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.24.0...v0.25.0) (2023-06-07)
+
+
+### Features
+
+* Added order process functionality pending payment getway ([d9e2df1](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d9e2df1d340490d6629b2873a7e1ae8372e8d83b))
+
+
+
 # [0.24.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.23.0...v0.24.0) (2023-06-07)
 
 
@@ -36,15 +45,6 @@
 ### Features
 
 * Added facebook authicate routers ([fa1ff7c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fa1ff7c9aa2d71fef7f7c8ec1505f9b180426a9f))
-
-
-
-# [0.20.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.19.0...v0.20.0) (2023-06-05)
-
-
-### Features
-
-* Added facebook auth ([9a4430e](https://github.com/hossainchisty/eCommerce-Backend-API/commit/9a4430e640702d7bb43d8d46244fe931fcf682b1))
 
 
 
