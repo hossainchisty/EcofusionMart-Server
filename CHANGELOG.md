@@ -1,3 +1,21 @@
+# [0.23.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.22.0...v0.23.0) (2023-06-07)
+
+
+### Features
+
+* Added cart quantity update functionality ([9120e18](https://github.com/hossainchisty/eCommerce-Backend-API/commit/9120e1830d45d020e5924c2f748eafc1227ae07a))
+
+
+
+# [0.22.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.21.0...v0.22.0) (2023-06-06)
+
+
+### Features
+
+* Add to cart functionality and get carts lists ([86c2d90](https://github.com/hossainchisty/eCommerce-Backend-API/commit/86c2d90a64f6375e8c5132d8c89c537b160198d3))
+
+
+
 # [0.21.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.20.0...v0.21.0) (2023-06-05)
 
 
@@ -22,24 +40,6 @@
 ### Features
 
 * Seller can delete products from the database ([ef66285](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ef6628550fa2794a5509de5f7349bcea7e8de1de))
-
-
-
-## [0.18.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.18.0...v0.18.1) (2023-06-05)
-
-
-### Bug Fixes
-
-* Change seller flag check ([7bc2764](https://github.com/hossainchisty/eCommerce-Backend-API/commit/7bc27649fc42454eba0ed89e5de6a02ee31a3d70))
-
-
-
-# [0.18.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.17.0...v0.18.0) (2023-06-05)
-
-
-### Features
-
-* Social media sign-in and sign-up with google account ([6e4b847](https://github.com/hossainchisty/eCommerce-Backend-API/commit/6e4b84749241a15abbae7acffc80b8b52480cc99))
 
 
 
