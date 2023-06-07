@@ -66,7 +66,43 @@ const getCart = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc   Update the quantity of a cart item
+ * @route  /api/v1/cart/updateQuantity
+ * @method PUT
+ * @access Private
+ * @requires User Authentication
+ */
+
+const updateCartItemQuantity = asyncHandler(async (req, res) => {
+  try {
+    const { cartItemId, quantity } = req.body;
+    const userId = req.user.id;
+
+    const cart = await Cart.findOne({ user: userId });
+
+    // Find the cart item by its ID
+    const cartItem = cart.items.find((item) => item.id === cartItemId);
+
+    if (!cartItem) {
+      return res.status(404).json({ error: "Cart item not found" });
+    }
+
+    // Update the quantity of the cart item
+    cartItem.quantity = quantity;
+
+    await cart.save();
+
+    res
+      .status(200)
+      .json({ message: "Cart item quantity updated successfully", cart });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = {
   getCart,
   addToCart,
+  updateCartItemQuantity,
 };
