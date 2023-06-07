@@ -1,3 +1,12 @@
+# [0.26.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.25.0...v0.26.0) (2023-06-07)
+
+
+### Features
+
+* Added stripe payment configs ([18cc5e3](https://github.com/hossainchisty/eCommerce-Backend-API/commit/18cc5e37fc82637b1daf2a7e5df28f45e756d0b4))
+
+
+
 # [0.25.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.24.0...v0.25.0) (2023-06-07)
 
 
@@ -36,15 +45,6 @@
 ### Features
 
 * Add to cart functionality and get carts lists ([86c2d90](https://github.com/hossainchisty/eCommerce-Backend-API/commit/86c2d90a64f6375e8c5132d8c89c537b160198d3))
-
-
-
-# [0.21.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.20.0...v0.21.0) (2023-06-05)
-
-
-### Features
-
-* Added facebook authicate routers ([fa1ff7c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fa1ff7c9aa2d71fef7f7c8ec1505f9b180426a9f))
 
 
 
