@@ -1,3 +1,12 @@
+# [0.23.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.22.0...v0.23.0) (2023-06-07)
+
+
+### Features
+
+* Added cart quantity update functionality ([9120e18](https://github.com/hossainchisty/eCommerce-Backend-API/commit/9120e1830d45d020e5924c2f748eafc1227ae07a))
+
+
+
 # [0.22.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.21.0...v0.22.0) (2023-06-06)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Seller can delete products from the database ([ef66285](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ef6628550fa2794a5509de5f7349bcea7e8de1de))
-
-
-
-## [0.18.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.18.0...v0.18.1) (2023-06-05)
-
-
-### Bug Fixes
-
-* Change seller flag check ([7bc2764](https://github.com/hossainchisty/eCommerce-Backend-API/commit/7bc27649fc42454eba0ed89e5de6a02ee31a3d70))
 
 
 
