@@ -29,6 +29,14 @@ const cartSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+// Virtual property for the total price
+cartSchema.virtual('totalPrice').get(function() {
+  return this.items.reduce((total, item) => {
+    const productPrice = item.product.price || 0;
+    return total + productPrice * item.quantity;
+  }, 0);
+});
+
 const Cart = mongoose.model("Cart", cartSchema);
 
 module.exports = Cart;

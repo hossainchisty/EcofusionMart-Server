@@ -90,8 +90,7 @@ const removeCartItem = asyncHandler(async (req, res) => {
 
     res.json({ message: "Item removed from cart" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -110,8 +109,9 @@ const getCart = asyncHandler(async (req, res) => {
     const cart = await Cart.findOne({ user: userId })
       .select("-__v")
       .populate("items.product");
+    const totalPrice = cart.totalPrice;
 
-    res.status(200).json({ cart });
+    res.status(200).json({ cart, totalPrice });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -123,6 +123,7 @@ const getCart = asyncHandler(async (req, res) => {
  * @method PUT
  * @access Private
  * @requires User Authentication
+ * @deprecated Since v0.24.0 we already update the quantity of a cart item from add to cart items
  */
 
 const updateCartItemQuantity = asyncHandler(async (req, res) => {
