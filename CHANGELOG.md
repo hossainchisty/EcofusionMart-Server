@@ -1,3 +1,17 @@
+# [0.24.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.23.0...v0.24.0) (2023-06-07)
+
+
+### Bug Fixes
+
+* checked the availability of stock before adding a quantity of a product to the cart ([d96b996](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d96b996cb7b0f76cbcdd39be29063b7ab1cb2444))
+
+
+### Features
+
+* Added ablitiy to cart remove items ([e4b7a01](https://github.com/hossainchisty/eCommerce-Backend-API/commit/e4b7a011192e5c7999d6ae4c1d475e1f3bdaf4a3))
+
+
+
 # [0.23.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.22.0...v0.23.0) (2023-06-07)
 
 
@@ -31,15 +45,6 @@
 ### Features
 
 * Added facebook auth ([9a4430e](https://github.com/hossainchisty/eCommerce-Backend-API/commit/9a4430e640702d7bb43d8d46244fe931fcf682b1))
-
-
-
-# [0.19.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.18.1...v0.19.0) (2023-06-05)
-
-
-### Features
-
-* Seller can delete products from the database ([ef66285](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ef6628550fa2794a5509de5f7349bcea7e8de1de))
 
 
 
