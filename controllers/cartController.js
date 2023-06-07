@@ -82,10 +82,10 @@ const updateCartItemQuantity = asyncHandler(async (req, res) => {
     const cart = await Cart.findOne({ user: userId });
 
     // Find the cart item by its ID
-    const cartItem = cart.items.find(item => item.id === cartItemId);
+    const cartItem = cart.items.find((item) => item.id === cartItemId);
 
     if (!cartItem) {
-      return res.status(404).json({ error: 'Cart item not found' });
+      return res.status(404).json({ error: "Cart item not found" });
     }
 
     // Update the quantity of the cart item
@@ -93,7 +93,9 @@ const updateCartItemQuantity = asyncHandler(async (req, res) => {
 
     await cart.save();
 
-    res.status(200).json({ message: 'Cart item quantity updated successfully', cart });
+    res
+      .status(200)
+      .json({ message: "Cart item quantity updated successfully", cart });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
