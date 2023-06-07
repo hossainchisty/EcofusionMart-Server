@@ -1,5 +1,6 @@
 // Import necessary models and libraries
 const asyncHandler = require("express-async-handler");
+const Product = require("../models/productModels");
 const Cart = require("../models/cartModels");
 
 /**
@@ -16,6 +17,22 @@ const addToCart = asyncHandler(async (req, res) => {
     const userId = req.user.id;
 
     const cart = await Cart.findOne({ user: userId });
+
+    const product = await Product.findById(productId).lean();
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    // Check if the product is in stock
+    if (!product.stock.inStock) {
+      return res.status(400).json({ error: 'Product is out of stock' });
+    }
+
+    // Check if the requested quantity is available in stock
+    if (quantity > product.stock.remainingStock) {
+      return res.status(400).json({ error: 'Insufficient stock' });
+    }
 
     if (!cart) {
       // If the user doesn't have a cart yet, create a new one
