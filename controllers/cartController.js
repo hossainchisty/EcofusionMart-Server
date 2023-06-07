@@ -45,6 +45,41 @@ const addToCart = asyncHandler(async (req, res) => {
   }
 });
 
+
+/**
+ * @desc   Remove an item from the user's cart
+ * @route  /api/cart/remove/:itemId
+ * @method DELETE
+ * @access Private
+ * @requires User authentication
+ */
+
+const removeCartItem = asyncHandler(async (req, res) => {
+  try {
+    const { itemId } = req.params;
+    const userId = req.user.id;
+
+    const cart = await Cart.findOne({ user: userId });
+
+    // Find the index of the item to be removed
+    const itemIndex = cart.items.findIndex(item => item.id === itemId);
+
+    if (itemIndex === -1) {
+      return res.status(404).json({ error: 'Item not found in cart' });
+    }
+
+    // Remove the item from the cart
+    cart.items.splice(itemIndex, 1);
+    await cart.save();
+
+    res.json({ message: 'Item removed from cart' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 /**
  * @desc   Get cart items
  * @route  /api/v1/cart/getCarts
@@ -52,6 +87,7 @@ const addToCart = asyncHandler(async (req, res) => {
  * @access Private
  * @requires User authentication
  */
+
 const getCart = asyncHandler(async (req, res) => {
   try {
     const userId = req.user.id;
@@ -104,5 +140,6 @@ const updateCartItemQuantity = asyncHandler(async (req, res) => {
 module.exports = {
   getCart,
   addToCart,
+  removeCartItem,
   updateCartItemQuantity,
 };
