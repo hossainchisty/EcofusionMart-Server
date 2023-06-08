@@ -48,7 +48,6 @@ const orderSchema = new mongoose.Schema(
     },
     paymentMethod: {
       type: String,
-      enum: ["stripe", "cash on delivery"],
     },
     shippingAddress: {
       type: String,
