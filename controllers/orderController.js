@@ -26,10 +26,10 @@ const placeOrder = asyncHandler(async (req, res) => {
     // Create an order and associate it with the user and cart items
     const order = new Order({
       user: userId,
-      items: cart.items.map(item => ({
+      items: cart.items.map((item) => ({
         product: item.product,
         quantity: item.quantity,
-        price: item.product.price
+        price: item.product.price,
       })),
       paymentMethod,
       shippingAddress,
@@ -37,7 +37,7 @@ const placeOrder = asyncHandler(async (req, res) => {
     });
 
     // Create a PaymentIntent using the Stripe API
-    const paymentIntent = await chargePayment(paymentMethod, cart.totalPrice)
+    const paymentIntent = await chargePayment(paymentMethod, cart.totalPrice);
 
     // Check the payment status
     if (paymentIntent.status === "succeeded") {
@@ -48,7 +48,7 @@ const placeOrder = asyncHandler(async (req, res) => {
 
         if (product) {
           const user = await User.findById(userId).exec();
-          if (user && user.roles.includes('seller')) {
+          if (user && user.roles.includes("seller")) {
             user.earnings += product.price * item.quantity;
             await user.save();
           }
@@ -65,13 +65,12 @@ const placeOrder = asyncHandler(async (req, res) => {
 
       res.json({ message: "Order placed successfully", order });
     } else {
-      res.status(400).json({ error: 'Payment failed' });
+      res.status(400).json({ error: "Payment failed" });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
 
 module.exports = {
   placeOrder,
