@@ -1,3 +1,12 @@
+# [1.30.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.28.0...v1.30.0) (2023-06-09)
+
+
+### Features
+
+* Added root endpoint ([c061161](https://github.com/hossainchisty/eCommerce-Backend-API/commit/c061161a89e23c8fdfe8ced9c97c4d6a78a83e8a))
+
+
+
 # [0.28.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.27.1...v0.28.0) (2023-06-09)
 
 
@@ -32,15 +41,6 @@
 ### Features
 
 * Added stripe payment configs ([18cc5e3](https://github.com/hossainchisty/eCommerce-Backend-API/commit/18cc5e37fc82637b1daf2a7e5df28f45e756d0b4))
-
-
-
-# [0.25.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.24.0...v0.25.0) (2023-06-07)
-
-
-### Features
-
-* Added order process functionality pending payment getway ([d9e2df1](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d9e2df1d340490d6629b2873a7e1ae8372e8d83b))
 
 
 
