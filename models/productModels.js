@@ -24,10 +24,10 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     taxes: {
-      type: Number
+      type: Number,
     },
     shippingFees: {
-      type: Number
+      type: Number,
     },
     images: [{ type: String }],
     category: {
