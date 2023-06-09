@@ -1,3 +1,13 @@
+# [0.28.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.27.1...v0.28.0) (2023-06-09)
+
+
+### Features
+
+* Added taxes and shipping fees options ([3662489](https://github.com/hossainchisty/eCommerce-Backend-API/commit/36624896b583243cb80ddca4ca025c3a221c7503))
+* Added virtual property for taxes and shipping fees and total cost ([e1c0222](https://github.com/hossainchisty/eCommerce-Backend-API/commit/e1c02224813a5b67642f7b2267061b69e0b2a3ad))
+
+
+
 ## [0.27.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.27.0...v0.27.1) (2023-06-09)
 
 
@@ -31,20 +41,6 @@
 ### Features
 
 * Added order process functionality pending payment getway ([d9e2df1](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d9e2df1d340490d6629b2873a7e1ae8372e8d83b))
-
-
-
-# [0.24.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.23.0...v0.24.0) (2023-06-07)
-
-
-### Bug Fixes
-
-* checked the availability of stock before adding a quantity of a product to the cart ([d96b996](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d96b996cb7b0f76cbcdd39be29063b7ab1cb2444))
-
-
-### Features
-
-* Added ablitiy to cart remove items ([e4b7a01](https://github.com/hossainchisty/eCommerce-Backend-API/commit/e4b7a011192e5c7999d6ae4c1d475e1f3bdaf4a3))
 
 
 
