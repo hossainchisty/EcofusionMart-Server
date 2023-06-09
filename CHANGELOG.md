@@ -1,3 +1,12 @@
+## [0.27.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.27.0...v0.27.1) (2023-06-09)
+
+
+### Bug Fixes
+
+* Payment faild issue ([a0a614c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/a0a614c036497148015bcd1a2e1a2795587390d7))
+
+
+
 # [0.27.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.26.0...v0.27.0) (2023-06-08)
 
 
@@ -36,15 +45,6 @@
 ### Features
 
 * Added ablitiy to cart remove items ([e4b7a01](https://github.com/hossainchisty/eCommerce-Backend-API/commit/e4b7a011192e5c7999d6ae4c1d475e1f3bdaf4a3))
-
-
-
-# [0.23.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.22.0...v0.23.0) (2023-06-07)
-
-
-### Features
-
-* Added cart quantity update functionality ([9120e18](https://github.com/hossainchisty/eCommerce-Backend-API/commit/9120e1830d45d020e5924c2f748eafc1227ae07a))
 
 
 
