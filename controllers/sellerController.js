@@ -116,6 +116,8 @@ const addProducts = asyncHandler(async (req, res) => {
           title: product.title,
           description: product.description,
           price: product.price,
+          taxes: product.taxes,
+          shippingFees: product.shippingFees,
           category: product.category,
           brand: product.brand,
           stock: {
@@ -159,7 +161,7 @@ const addProducts = asyncHandler(async (req, res) => {
  */
 const editProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
-  const { title, description, price, inStock, remainingStock } = req.body;
+  const { title, description, price, taxes, shippingFees, inStock, remainingStock } = req.body;
   const user = req.user;
   try {
     // Check if the user is a seller
@@ -197,6 +199,14 @@ const editProduct = asyncHandler(async (req, res) => {
 
     if (price) {
       product.price = price;
+    }
+    
+    if (taxes) {
+      product.taxes = taxes;
+    }
+    
+    if (shippingFees) {
+      product.shippingFees = shippingFees;
     }
 
     if (typeof inStock === "boolean") {
