@@ -23,6 +23,12 @@ const productSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    taxes: {
+      type: Number
+    },
+    shippingFees: {
+      type: Number
+    },
     images: [{ type: String }],
     category: {
       type: String,
