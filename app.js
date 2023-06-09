@@ -59,6 +59,10 @@ app.use(
 );
 
 // Routing Implement
+app.get('/', (req, res) => {
+  res.send('Hello, welcome to our shop!');
+});
+
 app.use('/api/v2/users/auth/', userRouters);
 app.use('/api/v1/seller', sellerRouters);
 app.use('/api/v1/products', productRouters);
@@ -73,9 +77,6 @@ app.use('*', (req, res) => {
   res.status(404).json({ status: 'fail', data: 'Not Found' });
 });
 
-app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Success'})
-});
 // Custome error handler
 app.use(errorHandler);
 
