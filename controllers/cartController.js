@@ -107,11 +107,17 @@ const getCart = asyncHandler(async (req, res) => {
     const userId = req.user.id;
 
     const cart = await Cart.findOne({ user: userId })
-      .select("-__v")
       .populate("items.product");
+
+    if(!cart) {
+      res.status(404).json({ message: 'Cart is empty' });
+    }
+    const subTotal = cart.subTotal;
+    const taxes = cart.taxes;
+    const shippingFees = cart.shippingFees;
     const totalPrice = cart.totalPrice;
 
-    res.status(200).json({ cart, totalPrice });
+    res.status(200).json({ cart, subTotal, taxes, shippingFees, totalPrice });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
