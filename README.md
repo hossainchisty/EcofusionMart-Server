@@ -6,6 +6,8 @@ The objective of this project is to develop an advanced e-commerce platform that
 
 Visit [https://3w-ecommerce.vercel.app/](https://3w-ecommerce.vercel.app/)
 
+Visit [https://ecommerce-3w.vercel.app/](https://ecommerce-3w.vercel.app/)
+
 ## **Documentation**
 
 Visit [API docs](./docs/api-docs.md) for full API documentation.
