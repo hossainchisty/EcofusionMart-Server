@@ -106,11 +106,10 @@ const getCart = asyncHandler(async (req, res) => {
   try {
     const userId = req.user.id;
 
-    const cart = await Cart.findOne({ user: userId })
-      .populate("items.product");
+    const cart = await Cart.findOne({ user: userId }).populate("items.product");
 
-    if(!cart) {
-      res.status(404).json({ message: 'Cart is empty' });
+    if (!cart) {
+      res.status(404).json({ message: "Cart is empty" });
     }
     const subTotal = cart.subTotal;
     const taxes = cart.taxes;

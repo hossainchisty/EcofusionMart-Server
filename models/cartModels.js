@@ -29,7 +29,7 @@ const cartSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-// Virtual property for the sub total 
+// Virtual property for the sub total
 cartSchema.virtual("subTotal").get(function () {
   return this.items.reduce((total, item) => {
     const productPrice = item.product.price || 0;
@@ -68,8 +68,6 @@ cartSchema.virtual("totalPrice").get(function () {
   const total = subtotal + taxes + shippingFees;
   return total;
 });
-
-
 
 const Cart = mongoose.model("Cart", cartSchema);
 
