@@ -1,12 +1,16 @@
 // Import necessary models and libraries
-const asyncHandler = require("express-async-handler");
-const Cart = require("../models/cartModels");
 const User = require("../models/userModels");
+const Product = require("../models/productModels");
+const Cart = require("../models/cartModels");
 const Order = require("../models/orderModels");
+const asyncHandler = require("express-async-handler");
+const chargePayment = require("../services/stripePayment");
+require("dotenv").config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 /**
  * @desc   Place order
- * @route  /order
+ * @route  /api/v1/order
  * @method POST
  * @access Private
  * @requires User authentication
@@ -22,40 +26,47 @@ const placeOrder = asyncHandler(async (req, res) => {
     // Create an order and associate it with the user and cart items
     const order = new Order({
       user: userId,
-      items: cart.items,
+      items: cart.items.map((item) => ({
+        product: item.product,
+        quantity: item.quantity,
+        price: item.product.price,
+      })),
       paymentMethod,
       shippingAddress,
       totalPrice: cart.totalPrice,
     });
 
-    // // Process payment using the payment gateway API
-    // const paymentResult = await PaymentGateway.chargePayment(paymentMethod, cart.totalAmount);
+    // Create a PaymentIntent using the Stripe API
+    const paymentIntent = await chargePayment(paymentMethod, cart.totalPrice);
 
-    // // Assuming paymentResult contains relevant information about the payment
+    // Check the payment status
+    if (paymentIntent.status === "succeeded") {
+      // Update seller earnings and associate user role with the order
+      for (const item of cart.items) {
+        const productId = item.product;
+        const product = await Product.findById(productId).exec();
 
-    // if (paymentResult.success) {
-    //     // Save the order and update any necessary models
-    //     await order.save();
+        if (product) {
+          const user = await User.findById(userId).exec();
+          if (user && user.roles.includes("seller")) {
+            user.earnings += product.price * item.quantity;
+            await user.save();
+          }
+          order.seller = product.seller;
+        }
+      }
 
-    //     // Update seller earnings
-    //     for (const item of cart.items) {
-    //         if (item.product.seller) {
-    //             const seller = await User.findOne({ _id: item.product.seller, roles: 'seller' });
-    //             if (seller) {
-    //                 seller.earnings += item.product.price * item.quantity;
-    //                 await seller.save();
-    //             }
-    //         }
-    //     }
+      order.paidAt = Date.now();
+      await order.save();
 
-    // Clear the user's cart
-    cart.items = [];
-    await cart.save();
+      // Clear the user's cart
+      cart.items = [];
+      await cart.save();
 
-    res.json({ message: "Order placed successfully", order });
-    // } else {
-    //     res.status(400).json({ error: 'Payment failed' });
-    // }
+      res.json({ message: "Order placed successfully", order });
+    } else {
+      res.status(400).json({ error: "Payment failed" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
