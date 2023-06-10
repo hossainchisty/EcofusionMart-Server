@@ -12,56 +12,45 @@
     ```json
     {
       "cart": {
-        "_id": "647f6e72d8403a4871cba1da",
+        "_id": "6482fa43a570e5031c22b62b",
         "user": "647a41cef0b472afe3feeb95",
         "items": [
           {
             "product": {
               "stock": {
                 "inStock": true,
-                "remainingStock": 55
+                "remainingStock": 100
               },
-              "_id": "64789a1a30b119f395c1ed5d",
-              "seller": "6475c5e0a868b8afa86a5c41",
-              "title": "Cherry",
-              "description": "Sweet and tangy cherry",
-              "price": 3.99,
-              "images": [],
+              "_id": "6482e337953789a53138cd9c",
+              "seller": "647a41cef0b472afe3feeb95",
+              "title": "Banana",
+              "description": "Ripe and yellow banana",
+              "price": 35.99,
+              "taxes": 1.55,
+              "shippingFees": 3.3,
+              "images": [
+                "https://cdn.shopify.com/s/files/1/0412/8151/9765/products/14_1b19e2a2-d6e3-4ac7-932d-54166a9b4e84_1024x1024.jpg?v=1620642219"
+              ],
               "category": "Fruits",
-              "brand": "Orchard Fresh",
-              "SKU": "685678_1685625370936",
+              "brand": "Organic Farms",
+              "SKU": "806298_1686299447632",
               "reviews": [],
-              "__v": 0
+              "__v": 0,
+              "createdAt": "2023-06-09T08:30:47.668Z",
+              "updatedAt": "2023-06-09T08:30:47.668Z"
             },
-            "quantity": 77,
-            "_id": "64801717b659dd3aec005a96"
-          },
-          {
-            "product": {
-              "stock": {
-                "inStock": true,
-                "remainingStock": 25
-              },
-              "_id": "64789a1a30b119f395c1ed5e",
-              "seller": "6475c5e0a868b8afa86a5c41",
-              "title": "Kiwi",
-              "description": "Exotic and refreshing kiwi",
-              "price": 1.99,
-              "images": [],
-              "category": "Fruits",
-              "brand": "Tropical Delights",
-              "SKU": "143705_1685625370941",
-              "reviews": [],
-              "__v": 0
-            },
-            "quantity": 5,
-            "_id": "64802746b36daa6a98acafa3"
+            "quantity": 1,
+            "_id": "6482fa43a570e5031c22b62c"
           }
         ],
-        "createdAt": "2023-06-06T17:35:46.379Z",
-        "updatedAt": "2023-06-07T06:51:54.776Z"
+        "createdAt": "2023-06-09T10:09:07.261Z",
+        "updatedAt": "2023-06-09T10:09:07.261Z",
+        "__v": 0
       },
-      "totalPrice": 317.18
+      "subTotal": 35.99,
+      "taxes": 1.55,
+      "shippingFees": 3.3,
+      "totalPrice": 40.83
     }
     ```
 
@@ -88,21 +77,16 @@
     }
     ```
 
-- ***
+- **Remove Item**
 
-  - Endpoint: ``
-  - Method: `POST`
-  - Description:
-  - Request Body:
-
-    ```json
-
-    ```
-
+  - Endpoint: `/api/v1/cart/remove/:itemId`
+  - Parameter: `itemId`
+  - Method: `DELETE`
+  - Description: Remove an item from the user's cart
   - Response Body (Success):
 
     ```json
-
+    { "message": "Item removed from cart" }
     ```
 
 - ***
