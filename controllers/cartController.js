@@ -65,6 +65,7 @@ const addToCart = asyncHandler(async (req, res) => {
 /**
  * @desc   Remove an item from the user's cart
  * @route  /api/cart/remove/:itemId
+ * @param {String} itemId
  * @method DELETE
  * @access Private
  * @requires User authentication
