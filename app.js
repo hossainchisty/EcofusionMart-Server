@@ -39,18 +39,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(
-//   cors({
-//     // TODO: Change this based on frontend configuration
-//     origin: 'http://localhost:3000',
-//     credentials: true,
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//     methods: ['GET', 'PUT', 'POST', 'DELETE'],
-//     preflightContinue: false,
-//     optionsSuccessStatus: 204,
-//     maxAge: 3600,
-//   })
-// );
+app.use(
+  cors({
+    origin: 'https://ecommerce-3w.vercel.app/',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    maxAge: 3600,
+  })
+);
 
 app.use(
   express.urlencoded({
