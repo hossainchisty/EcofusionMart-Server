@@ -2,10 +2,7 @@
 const express = require("express");
 const seedRouter = express.Router();
 
-const {
-    seedUsers,
-    seedProducts,
-} = require("../controllers/seedController");
+const { seedUsers, seedProducts } = require("../controllers/seedController");
 
 // Routing Implement
 seedRouter.get("/users", seedUsers);
