@@ -14,6 +14,7 @@ require('./config/passportConfig');
 
 
 // Routing Implement
+const seedRouters = require('./routers/seedRouters');
 const userRouters = require('./routes/userRouters');
 const sellerRouters = require('./routes/sellerRouters');
 const productRouters = require('./routes/productRouters');
@@ -62,6 +63,7 @@ app.get('/', (req, res) => {
   res.send('Hello, welcome to our shop!');
 });
 
+app.use('/api/seed', seedRouters);
 app.use('/api/v2/users/auth/', userRouters);
 app.use('/api/v1/seller', sellerRouters);
 app.use('/api/v1/products', productRouters);

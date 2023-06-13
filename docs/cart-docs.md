@@ -88,20 +88,3 @@
     ```json
     { "message": "Item removed from cart" }
     ```
-
-- ***
-
-  - Endpoint: ``
-  - Method: `POST`
-  - Description:
-  - Request Body:
-
-    ```json
-
-    ```
-
-  - Response Body (Success):
-
-    ```json
-
-    ```
