@@ -22,6 +22,10 @@ Visit [API docs](./order-docs.md) for full API documentation.
 
 Visit [API docs](./review-docs.md) for full API documentation.
 
+### Admin Panel
+
+Visit [API docs](./admin-docs.md) for full API documentation.
+
 Author: Hossain Chisty <br>
 Email: hossain.chisty11@gmail.com <br>
 Github: https://github.com/hossainchisty
