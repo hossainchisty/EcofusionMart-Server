@@ -10,6 +10,10 @@ Visit [API docs](./users-docs.md) for full API documentation.
 
 Visit [API docs](./product-docs.md) for full API documentation.
 
+### Shopping Cart
+
+Visit [API docs](./cart-docs.md) for full API documentation.
+
 Author: Hossain Chisty <br>
 Email: hossain.chisty11@gmail.com <br>
 Github: https://github.com/hossainchisty
