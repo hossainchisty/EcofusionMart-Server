@@ -4,12 +4,12 @@ const Product = require("../models/productModels");
 
 /**
  * @desc     Create a new review
- * @route    /api/v1/reviews
+ * @route    /api/v1/reviews/:productId
  * @method   POST
  * @access   Private
  * @param    {string} productId - The ID of the product being reviewed
- * @param    {number} rating - The rating given to the product (between 1 and 5)
- * @param    {string} comment - The comment or review text
+ * @requires  {number} rating - The rating given to the product (between 1 and 5)
+ * @requires  {string} comment - The comment or review text
  * @returns  {Object} The newly created review
  * @requires User Account
  */
