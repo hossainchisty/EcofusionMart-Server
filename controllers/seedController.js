@@ -41,12 +41,10 @@ const seedProducts = async (req, res) => {
 
     // Insert new users
     const products = await Product.insertMany(seedProduct.products);
-    res
-      .status(201)
-      .json({
-        message: "Product seeding data inserted successfully",
-        products,
-      });
+    res.status(201).json({
+      message: "Product seeding data inserted successfully",
+      products,
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
