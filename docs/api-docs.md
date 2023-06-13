@@ -14,6 +14,10 @@ Visit [API docs](./product-docs.md) for full API documentation.
 
 Visit [API docs](./cart-docs.md) for full API documentation.
 
+### Place Order(Payment)
+
+Visit [API docs](./order-docs.md) for full API documentation.
+
 ### Reviews and Ratings
 
 Visit [API docs](./review-docs.md) for full API documentation.
