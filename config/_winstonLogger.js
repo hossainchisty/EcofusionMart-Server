@@ -7,10 +7,17 @@ const logger = winston.createLogger({
     winston.format.json()
   ),
   transports: [
-    // NOTE: This will log the console message
-    // new winston.transports.Console(),
     new winston.transports.File({ filename: "logs/app.log" }),
   ],
 });
+
+
+// If we're not in production then log to the `console` with the format:
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({
+    format: winston.format.simple(),
+  }));
+}
 
 module.exports = logger;
