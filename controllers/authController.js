@@ -73,7 +73,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const token = generateToken(createdUser._id);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // TODO: set this to true before production
+      secure: true,
       sameSite: "Strict",
     });
 
@@ -159,7 +159,7 @@ const registerSeller = asyncHandler(async (req, res) => {
       const token = generateToken(user._id);
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // TODO: set this to true before production
+        secure: true, 
         sameSite: "Strict",
       });
 
@@ -243,7 +243,7 @@ const loginUser = asyncHandler(async (req, res) => {
       const token = generateToken(user._id);
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // TODO: set this to true before production
+        secure: true,
         sameSite: "Strict",
       });
       return res.status(200).json({ message: "Login successful" });
@@ -294,7 +294,7 @@ const loginSeller = asyncHandler(async (req, res) => {
       const token = generateToken(user._id);
       res.cookie("token", token, {
         httpOnly: true,
-        secure: false, // TODO: set this to true before production
+        secure: true,
         sameSite: "Strict",
       });
       return res.status(200).json({ message: "Login successful" });
