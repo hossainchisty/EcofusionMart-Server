@@ -1,7 +1,7 @@
 {
   "name": "ecommerce-backend-api",
   "version": "1.0.0",
-  "description": "e-commerce platform that facilitates the buying and selling of products.",
+  "description": "multi vendor e-commerce platform that facilitates the buying and selling of products.",
   "main": "server.js",
   "scripts": {
     "test": "jest",
@@ -21,10 +21,8 @@
       "**/tests/**/*.test.js"
     ]
   },
-  "keywords": [],
   "author": "Hossain Chisty <hossain.chisty11@gmail.com>",
-  "co-author": "Talal Mahmud <mahmudtalal2@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
