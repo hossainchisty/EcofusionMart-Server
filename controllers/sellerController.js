@@ -314,7 +314,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
-
 /**
  * @desc    Update order status
  * @route   /api/v1/seller/order/status
@@ -339,7 +338,7 @@ const updateOrderStatus = async (req, res) => {
     const order = await Order.findById(orderId);
 
     if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
+      return res.status(404).json({ error: "Order not found" });
     }
 
     // Update the order status
@@ -348,12 +347,11 @@ const updateOrderStatus = async (req, res) => {
     // Save the updated order
     await order.save();
 
-    res.json({ message: 'Order status updated successfully' });
+    res.json({ message: "Order status updated successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 module.exports = {
   sellerDashboard,
