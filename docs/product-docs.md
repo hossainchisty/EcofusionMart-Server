@@ -145,6 +145,46 @@ The API returns an array of products that match the search criteria. Each produc
 }
 ```
 
-### Error Handling
+#### Private Endpoints
 
-If an internal server error occurs during the search, the API will respond with an error message and a status code of 500.
+- **Add product to Wishlist**
+
+  - Endpoint: `/api/v1/wishlist/add`
+  - Method: `POST`
+  - Description: User can add products to the wishlist
+  - Response Body:
+
+    ```json
+    {
+      "productId": "6482e337953789a53138cd9b"
+    }
+    ```
+
+  - Response:
+
+    ```json
+    {
+      "message": "Product added to wishlist"
+    }
+    ```
+
+- **Remove product from Wishlist**
+
+  - Endpoint: `/api/v1/wishlist/remove`
+  - Method: `POST`
+  - Description: User can remove products from wishlist
+  - Response Body:
+
+    ```json
+    {
+      "productId": "6482e337953789a53138cd9b"
+    }
+    ```
+
+  - Response:
+
+    ```json
+    {
+      "message": "Product removed from wishlist"
+    }
+    ```
