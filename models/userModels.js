@@ -85,10 +85,12 @@ const userSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    wishlist: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product'
-    }],
+    wishlist: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   { timestamps: true },
   { versionKey: false }
