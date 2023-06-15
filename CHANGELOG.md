@@ -1,3 +1,12 @@
+# [1.31.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.30.0...v1.31.0) (2023-06-14)
+
+
+### Features
+
+* Added users seed data for only testing purposes ([09056f0](https://github.com/hossainchisty/eCommerce-Backend-API/commit/09056f0be027326fb66911980a87a790e5916fce))
+
+
+
 # [1.30.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.28.0...v1.30.0) (2023-06-09)
 
 
@@ -32,15 +41,6 @@
 ### Features
 
 * Added stripe payment config ([badc993](https://github.com/hossainchisty/eCommerce-Backend-API/commit/badc993e21bd69c226d895c088e7b98c3b18686f))
-
-
-
-# [0.26.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.25.0...v0.26.0) (2023-06-07)
-
-
-### Features
-
-* Added stripe payment configs ([18cc5e3](https://github.com/hossainchisty/eCommerce-Backend-API/commit/18cc5e37fc82637b1daf2a7e5df28f45e756d0b4))
 
 
 
