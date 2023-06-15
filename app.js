@@ -14,7 +14,7 @@ require('./config/passportConfig');
 
 
 // Routing Implement
-const seedRouters = require('./routers/seedRouters');
+const seedRouters = require('./routes/seedRouters');
 const userRouters = require('./routes/userRouters');
 const sellerRouters = require('./routes/sellerRouters');
 const productRouters = require('./routes/productRouters');
