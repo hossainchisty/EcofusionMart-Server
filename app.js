@@ -23,6 +23,7 @@ const reviewRouters = require('./routes/reviewRouters');
 const socialRouters = require('./routes/socialAuthRouters');
 const cartRouters = require('./routes/cartRouters');
 const orderRouters = require('./routes/orderRouters');
+const wishlistRouters = require('./routes/wishlistRouters');
 
 const app = express();
 
@@ -72,10 +73,13 @@ app.use('/api/v1/reviews', reviewRouters);
 app.use('/api/v1/social', socialRouters);
 app.use('/api/v1/cart', cartRouters);
 app.use('/api/v1/order', orderRouters);
+app.use('/api/v1/wishlist', wishlistRouters);
 
 // Undefined Route Implement
 app.use('*', (req, res) => {
-  res.status(404).json({ status: 'fail', data: 'Not Found' });
+  res.status(404).json(
+    { message: 'API endpoint not found.', }
+  );
 });
 
 // Custome error handler
