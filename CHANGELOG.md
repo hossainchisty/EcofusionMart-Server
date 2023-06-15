@@ -1,3 +1,18 @@
+# [1.32.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.31.0...v1.32.0) (2023-06-15)
+
+
+### Bug Fixes
+
+* Path of seed routers ([1b9f9ba](https://github.com/hossainchisty/eCommerce-Backend-API/commit/1b9f9bada0ac8c7d9886600dc615e2e066bae398))
+
+
+### Features
+
+* Added additional field to save wishlist data ([ea1d5af](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ea1d5aff7b721eb1c1268c74a400fad269500799))
+* Implement add and remove from wishlist functionality ([cd18fa5](https://github.com/hossainchisty/eCommerce-Backend-API/commit/cd18fa500f1789cbdb5ca5861b236d1dd5015658))
+
+
+
 # [1.31.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.30.0...v1.31.0) (2023-06-14)
 
 
@@ -32,15 +47,6 @@
 ### Bug Fixes
 
 * Payment faild issue ([a0a614c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/a0a614c036497148015bcd1a2e1a2795587390d7))
-
-
-
-# [0.27.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.26.0...v0.27.0) (2023-06-08)
-
-
-### Features
-
-* Added stripe payment config ([badc993](https://github.com/hossainchisty/eCommerce-Backend-API/commit/badc993e21bd69c226d895c088e7b98c3b18686f))
 
 
 
