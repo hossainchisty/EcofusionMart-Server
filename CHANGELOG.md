@@ -1,3 +1,17 @@
+# [1.33.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.32.0...v1.33.0) (2023-06-15)
+
+
+### Features
+
+* Order status update functionality ([09328e9](https://github.com/hossainchisty/eCommerce-Backend-API/commit/09328e98c5d9c077b347664bf54b74b0554814fa))
+
+
+### Performance Improvements
+
+* Change throwing stack error to json response ([377e1f8](https://github.com/hossainchisty/eCommerce-Backend-API/commit/377e1f811f7a7175278d9f35aee58ce915b13bbd))
+
+
+
 # [1.32.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.31.0...v1.32.0) (2023-06-15)
 
 
@@ -38,15 +52,6 @@
 
 * Added taxes and shipping fees options ([3662489](https://github.com/hossainchisty/eCommerce-Backend-API/commit/36624896b583243cb80ddca4ca025c3a221c7503))
 * Added virtual property for taxes and shipping fees and total cost ([e1c0222](https://github.com/hossainchisty/eCommerce-Backend-API/commit/e1c02224813a5b67642f7b2267061b69e0b2a3ad))
-
-
-
-## [0.27.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.27.0...v0.27.1) (2023-06-09)
-
-
-### Bug Fixes
-
-* Payment faild issue ([a0a614c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/a0a614c036497148015bcd1a2e1a2795587390d7))
 
 
 
