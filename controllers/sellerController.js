@@ -270,6 +270,7 @@ const viewOrderHistory = asyncHandler(async (req, res) => {
 /**
  * @desc    Delete product
  * @route   /api/v1/seller/products/delete/:productId
+ * @param  :productId
  * @method  POST
  * @access  Private
  * @requires Seller Account
@@ -316,7 +317,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
 /**
  * @desc    Update order status
- * @route   /api/v1/seller/order/status
+ * @route   /api/v1/seller/order/:orderId/status
+ * @params  :orderId
  * @method  POST
  * @access  Private
  * @requires Seller Account
