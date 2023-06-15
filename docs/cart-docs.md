@@ -7,7 +7,7 @@
   - Endpoint: `/api/v1/cart/getCarts`
   - Method: `GET`
   - Description: Get cart items
-  - Response Body (Success):
+  - Response:
 
     ```json
     {
@@ -83,7 +83,7 @@
   - Parameter: `itemId`
   - Method: `DELETE`
   - Description: Remove an item from the user's cart
-  - Response Body (Success):
+  - Response:
 
     ```json
     { "message": "Item removed from cart" }
