@@ -41,13 +41,13 @@ const sellerDashboard = asyncHandler(async (req, res) => {
 
     // Calculate the total earnings for the seller
     const totalEarnings = orders.reduce(
-      (sum, order) => sum + order.totalAmount,
+      (sum, order) => sum + order.totalPrice,
       0
     );
 
     res.status(200).json({ products, orders, totalEarnings });
   } catch (error) {
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -314,10 +314,50 @@ const deleteProduct = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @desc    Update order status
+ * @route   /api/v1/seller/order/status
+ * @method  POST
+ * @access  Private
+ * @requires Seller Account
+ */
+
+const updateOrderStatus = async (req, res) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  try {
+    // Check if the user is a seller
+    if (!user.roles.includes("seller")) {
+      return res
+        .status(403)
+        .json({ error: "You are not authorized to add a product listing" });
+    }
+
+    // Find the order by its ID
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // Update the order status
+    order.status = status;
+
+    // Save the updated order
+    await order.save();
+
+    res.json({ message: "Order status updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   sellerDashboard,
   addProducts,
   deleteProduct,
   editProduct,
   viewOrderHistory,
+  updateOrderStatus,
 };

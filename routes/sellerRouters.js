@@ -7,6 +7,7 @@ const {
   addProducts,
   editProduct,
   deleteProduct,
+  updateOrderStatus,
 } = require("../controllers/sellerController");
 
 const {
@@ -21,7 +22,8 @@ router.get("/", protect, sellerDashboard);
 router.post("/register", registerSeller);
 router.post("/login", loginSeller);
 router.post("/add/products", protect, addProducts);
-router.put("/products/delete/:productId", protect, deleteProduct);
+router.post("/products/delete/:productId", protect, deleteProduct);
 router.put("/products/edit/:productId", protect, editProduct);
+router.put("/order/:orderId/status", protect, updateOrderStatus);
 
 module.exports = router;
