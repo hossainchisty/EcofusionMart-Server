@@ -18,7 +18,8 @@ const sellerDashboard = asyncHandler(async (req, res) => {
   // Check if the seller account is approved by the administrator
   if (!req.user.isApproved) {
     return res.status(403).json({
-      error: "Your seller account is not yet approved. Please wait for administrator approval.",
+      error:
+        "Your seller account is not yet approved. Please wait for administrator approval.",
     });
   }
 
@@ -38,15 +39,18 @@ const sellerDashboard = asyncHandler(async (req, res) => {
   const ordersPromise = Order.find({ seller: sellerId });
 
   // Wait for both promises to resolve concurrently
-  const [products, orders] = await Promise.all([productsPromise, ordersPromise]);
+  const [products, orders] = await Promise.all([
+    productsPromise,
+    ordersPromise,
+  ]);
 
   // Calculate the total earnings for the seller
-  const totalEarnings = Number(orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(2));
-
+  const totalEarnings = Number(
+    orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(2)
+  );
 
   res.status(200).json({ products, orders, totalEarnings });
 });
-
 
 /**
  * @desc     Add product listing
@@ -276,13 +280,16 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   // Check if the user is a seller
   if (!user.roles.includes("seller")) {
-    return res.status(403).json({ error: "You are not authorized to delete a product listing" });
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to delete a product listing" });
   }
 
   // Check if the seller account is approved by the administrator
   if (!user.isApproved) {
     return res.status(403).json({
-      error: "Your seller account is not yet approved. Please wait for administrator approval.",
+      error:
+        "Your seller account is not yet approved. Please wait for administrator approval.",
     });
   }
 
@@ -294,7 +301,6 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
   res.status(200).json({ message: "Product was deleted." });
 });
-
 
 /**
  * @desc    Update order status
@@ -311,7 +317,9 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
 
   // Check if the user is a seller
   if (!req.user.roles.includes("seller")) {
-    return res.status(403).json({ error: "You are not authorized to update the order status" });
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to update the order status" });
   }
 
   // Find the order by its ID and update the status
@@ -327,7 +335,6 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
 
   return res.json({ message: "Order status updated successfully" });
 });
-
 
 module.exports = {
   sellerDashboard,

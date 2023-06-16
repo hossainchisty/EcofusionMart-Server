@@ -40,7 +40,9 @@ const approveSeller = asyncHandler(async (req, res) => {
  */
 
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find().select('-wishlist -__v -password -earnings -bank_account -resetPasswordExpiry -resetPasswordToken -verificationToken -verificationTokenExpiry');
+  const users = await User.find().select(
+    "-wishlist -__v -password -earnings -bank_account -resetPasswordExpiry -resetPasswordToken -verificationToken -verificationTokenExpiry"
+  );
   res.status(200).json(users);
 });
 
@@ -53,7 +55,9 @@ const getAllUsers = asyncHandler(async (req, res) => {
  */
 const getUserById = asyncHandler(async (req, res) => {
   const { userId } = req.params;
-  const user = await User.findOne({ _id: userId }).select('-wishlist -__v -password -earnings -bank_account -resetPasswordExpiry -resetPasswordToken');
+  const user = await User.findOne({ _id: userId }).select(
+    "-wishlist -__v -password -earnings -bank_account -resetPasswordExpiry -resetPasswordToken"
+  );
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
@@ -81,7 +85,9 @@ const updateUser = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  return res.status(200).json({ message: "User account details updated successfully" });
+  return res
+    .status(200)
+    .json({ message: "User account details updated successfully" });
 });
 
 module.exports = {

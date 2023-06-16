@@ -30,7 +30,9 @@ const createReview = asyncHandler(async (req, res) => {
   );
 
   if (existingReview) {
-    return res.status(400).json({ message: "You have already reviewed this product." });
+    return res
+      .status(400)
+      .json({ message: "You have already reviewed this product." });
   }
 
   // Check if the user is a user
@@ -57,7 +59,7 @@ const createReview = asyncHandler(async (req, res) => {
     (sum, review) => sum + review.rating,
     0
   );
-  
+
   // Calculate the new average rating for the product
   const averageRating = sumRatings / totalReviews;
   updatedProduct.averageRating = averageRating;
@@ -66,7 +68,6 @@ const createReview = asyncHandler(async (req, res) => {
 
   res.status(201).json(updatedProduct);
 });
-
 
 module.exports = {
   createReview,

@@ -141,7 +141,6 @@ const updateCartItemQuantity = asyncHandler(async (req, res) => {
   res
     .status(200)
     .json({ message: "Cart item quantity updated successfully", cart });
-
 });
 
 module.exports = {
