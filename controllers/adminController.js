@@ -71,26 +71,17 @@ const updateUser = asyncHandler(async (req, res) => {
   const { userId } = req.params;
   const { full_name, email, phone_number } = req.body;
 
-  try {
-    const user = await User.findById(userId);
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: userId },
+    { $set: { full_name, email, phone_number } },
+    { new: true }
+  );
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    // Update the user's account details
-    user.full_name = full_name;
-    user.email = email;
-    user.phone_number = phone_number;
-
-    await user.save();
-
-    res
-      .status(200)
-      .json({ message: "User account details updated successfully" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  if (!updatedUser) {
+    return res.status(404).json({ message: "User not found" });
   }
+
+  return res.status(200).json({ message: "User account details updated successfully" });
 });
 
 module.exports = {
