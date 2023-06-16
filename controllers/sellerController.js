@@ -15,40 +15,41 @@ const cloudinary = require("../config/cloudinaryConfig");
  * @returns {Object} The response object containing the seller dashboard data
  */
 const sellerDashboard = asyncHandler(async (req, res) => {
-  try {
-    // Check if the seller account is approved by the administrator
-    if (!req.user.isApproved) {
-      return res.status(403).json({
-        error:
-          "Your seller account is not yet approved. Please wait for administrator approval.",
-      });
-    }
-
-    // Check if the user is a seller
-    if (!req.user.roles.includes("seller")) {
-      return res.status(403).json({
-        error: "You are not authorized to access the seller dashboard",
-      });
-    }
-
-    const sellerId = req.user._id;
-
-    // Fetch the seller's product listings
-    const products = await Product.find({ seller: sellerId });
-
-    // Fetch the seller's order history
-    const orders = await Order.find({ seller: sellerId });
-
-    // Calculate the total earnings for the seller
-    const totalEarnings = orders.reduce(
-      (sum, order) => sum + order.totalPrice,
-      0
-    );
-
-    res.status(200).json({ products, orders, totalEarnings });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the seller account is approved by the administrator
+  if (!req.user.isApproved) {
+    return res.status(403).json({
+      error:
+        "Your seller account is not yet approved. Please wait for administrator approval.",
+    });
   }
+
+  // Check if the user is a seller
+  if (!req.user.roles.includes("seller")) {
+    return res.status(403).json({
+      error: "You are not authorized to access the seller dashboard",
+    });
+  }
+
+  const sellerId = req.user._id;
+
+  // Fetch the seller's product listings
+  const productsPromise = Product.find({ seller: sellerId });
+
+  // Fetch the seller's order history
+  const ordersPromise = Order.find({ seller: sellerId });
+
+  // Wait for both promises to resolve concurrently
+  const [products, orders] = await Promise.all([
+    productsPromise,
+    ordersPromise,
+  ]);
+
+  // Calculate the total earnings for the seller
+  const totalEarnings = Number(
+    orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(2)
+  );
+
+  res.status(200).json({ products, orders, totalEarnings });
 });
 
 /**
@@ -241,30 +242,27 @@ const editProduct = asyncHandler(async (req, res) => {
  */
 const viewOrderHistory = asyncHandler(async (req, res) => {
   const user = req.user;
-  try {
-    // Check if the user is a seller
-    if (!user.roles.includes("seller")) {
-      return res
-        .status(403)
-        .json({ error: "You are not authorized to view order history" });
-    }
 
-    // Check if the seller account is approved by the administrator
-    if (!user.isApproved) {
-      return res.status(403).json({
-        error:
-          "Your seller account is not yet approved. Please wait for administrator approval.",
-      });
-    }
-
-    const orders = await Order.find({ seller: user._id }).populate(
-      "product user"
-    );
-
-    res.json({ orders });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the user is a seller
+  if (!user.roles.includes("seller")) {
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to view order history" });
   }
+
+  // Check if the seller account is approved by the administrator
+  if (!user.isApproved) {
+    return res.status(403).json({
+      error:
+        "Your seller account is not yet approved. Please wait for administrator approval.",
+    });
+  }
+
+  const orders = await Order.find({ seller: user._id }).populate(
+    "product user"
+  );
+
+  res.json({ orders });
 });
 
 /**
@@ -279,40 +277,29 @@ const viewOrderHistory = asyncHandler(async (req, res) => {
 const deleteProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const user = req.user;
-  try {
-    // Check if the user is a seller
-    if (!user.roles.includes("seller")) {
-      return res
-        .status(403)
-        .json({ error: "You are not authorized to add a product listing" });
-    }
 
-    // Check if the seller account is approved by the administrator
-    if (!user.isApproved) {
-      return res.status(403).json({
-        error:
-          "Your seller account is not yet approved. Please wait for administrator approval.",
-      });
-    }
-
-    const product = await Product.findOne({
-      _id: productId,
-      seller: user._id,
-    }).select("-__v");
-
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
-    await Product.findByIdAndRemove(req.params.id, req.body, {
-      new: true,
-    });
-    res.status(200).json({
-      message: "Product was deleted.",
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the user is a seller
+  if (!user.roles.includes("seller")) {
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to delete a product listing" });
   }
+
+  // Check if the seller account is approved by the administrator
+  if (!user.isApproved) {
+    return res.status(403).json({
+      error:
+        "Your seller account is not yet approved. Please wait for administrator approval.",
+    });
+  }
+
+  const deletedProduct = await Product.findByIdAndRemove(productId);
+
+  if (!deletedProduct) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  res.status(200).json({ message: "Product was deleted." });
 });
 
 /**
@@ -324,36 +311,30 @@ const deleteProduct = asyncHandler(async (req, res) => {
  * @requires Seller Account
  */
 
-const updateOrderStatus = async (req, res) => {
+const updateOrderStatus = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
   const { status } = req.body;
 
-  try {
-    // Check if the user is a seller
-    if (!user.roles.includes("seller")) {
-      return res
-        .status(403)
-        .json({ error: "You are not authorized to add a product listing" });
-    }
-
-    // Find the order by its ID
-    const order = await Order.findById(orderId);
-
-    if (!order) {
-      return res.status(404).json({ error: "Order not found" });
-    }
-
-    // Update the order status
-    order.status = status;
-
-    // Save the updated order
-    await order.save();
-
-    res.json({ message: "Order status updated successfully" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the user is a seller
+  if (!req.user.roles.includes("seller")) {
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to update the order status" });
   }
-};
+
+  // Find the order by its ID and update the status
+  const updatedOrder = await Order.findOneAndUpdate(
+    { _id: orderId },
+    { $set: { status } },
+    { new: true }
+  );
+
+  if (!updatedOrder) {
+    return res.status(404).json({ error: "Order not found" });
+  }
+
+  return res.json({ message: "Order status updated successfully" });
+});
 
 module.exports = {
   sellerDashboard,

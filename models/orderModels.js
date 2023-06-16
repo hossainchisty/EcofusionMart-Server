@@ -52,6 +52,8 @@ const orderSchema = new mongoose.Schema(
     shippingAddress: {
       type: String,
     },
+    trackingNumber: String,
+    carrier: String,
     items: [orderItemSchema],
   },
   { timestamps: true },
