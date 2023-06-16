@@ -19,8 +19,18 @@ const createReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const userId = req.user?.id;
 
-  if (!userId) {
-    return res.status(401).json({ message: "User not authenticated." });
+  const product = await Product.findOne({ _id: productId }).lean();
+
+  if (!product) {
+    return res.status(404).json({ message: "Product not found." });
+  }
+
+  const existingReview = product.reviews.find(
+    (review) => review.user && review.user.toString() === userId
+  );
+
+  if (existingReview) {
+    return res.status(400).json({ message: "You have already reviewed this product." });
   }
 
   // Check if the user is a user
@@ -42,21 +52,12 @@ const createReview = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  const existingReview = updatedProduct.reviews.find(
-    (review) => review.user && review.user.toString() === userId
-  );
-
-  if (existingReview) {
-    return res
-      .status(400)
-      .json({ message: "You have already reviewed this product." });
-  }
-
   const totalReviews = updatedProduct.reviews.length;
   const sumRatings = updatedProduct.reviews.reduce(
     (sum, review) => sum + review.rating,
     0
-    );
+  );
+  
   // Calculate the new average rating for the product
   const averageRating = sumRatings / totalReviews;
   updatedProduct.averageRating = averageRating;
