@@ -238,30 +238,27 @@ const editProduct = asyncHandler(async (req, res) => {
  */
 const viewOrderHistory = asyncHandler(async (req, res) => {
   const user = req.user;
-  try {
-    // Check if the user is a seller
-    if (!user.roles.includes("seller")) {
-      return res
-        .status(403)
-        .json({ error: "You are not authorized to view order history" });
-    }
 
-    // Check if the seller account is approved by the administrator
-    if (!user.isApproved) {
-      return res.status(403).json({
-        error:
-          "Your seller account is not yet approved. Please wait for administrator approval.",
-      });
-    }
-
-    const orders = await Order.find({ seller: user._id }).populate(
-      "product user"
-    );
-
-    res.json({ orders });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the user is a seller
+  if (!user.roles.includes("seller")) {
+    return res
+      .status(403)
+      .json({ error: "You are not authorized to view order history" });
   }
+
+  // Check if the seller account is approved by the administrator
+  if (!user.isApproved) {
+    return res.status(403).json({
+      error:
+        "Your seller account is not yet approved. Please wait for administrator approval.",
+    });
+  }
+
+  const orders = await Order.find({ seller: user._id }).populate(
+    "product user"
+  );
+
+  res.json({ orders });
 });
 
 /**
