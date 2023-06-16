@@ -1,5 +1,5 @@
 // Import necessary models and dependencies
-const User = require('../models/userModels');
+const User = require("../models/userModels");
 const Product = require("../models/productModels");
 const asyncHandler = require("express-async-handler");
 
@@ -19,14 +19,16 @@ const addToWishlist = asyncHandler(async (req, res) => {
   const product = await Product.findOne({ _id: productId });
 
   if (!product) {
-    return res.status(404).json({ error: 'Product not found' });
+    return res.status(404).json({ error: "Product not found" });
   }
 
   // Check if the product is already in the user's wishlist
   const isProductInWishlist = user.wishlist.includes(productId);
 
   if (isProductInWishlist) {
-    return res.status(400).json({ error: 'Product already exists in wishlist' });
+    return res
+      .status(400)
+      .json({ error: "Product already exists in wishlist" });
   }
 
   // Update the user's wishlist
@@ -36,11 +38,12 @@ const addToWishlist = asyncHandler(async (req, res) => {
   );
 
   // Populate the user object with wishlist details
-  const updatedUser = await User.findOne({ _id: user._id }).populate('wishlist');
+  const updatedUser = await User.findOne({ _id: user._id }).populate(
+    "wishlist"
+  );
 
-  res.json({ message: 'Product added to wishlist', user: updatedUser });
+  res.json({ message: "Product added to wishlist", user: updatedUser });
 });
-
 
 /**
  * @desc   Remove a product from user's wishlist
@@ -59,7 +62,9 @@ const removeFromWishlist = asyncHandler(async (req, res) => {
   const isProductInWishlist = user.wishlist.includes(productId);
 
   if (!isProductInWishlist) {
-    return res.status(400).json({ error: 'Product does not exist in wishlist' });
+    return res
+      .status(400)
+      .json({ error: "Product does not exist in wishlist" });
   }
 
   // Remove the product from the user's wishlist
@@ -68,11 +73,10 @@ const removeFromWishlist = asyncHandler(async (req, res) => {
     { $pull: { wishlist: productId } }
   );
 
-  res.json({ message: 'Product removed from wishlist' });
+  res.json({ message: "Product removed from wishlist" });
 });
-
 
 module.exports = {
   addToWishlist,
   removeFromWishlist,
-}
+};
