@@ -40,8 +40,8 @@ const approveSeller = asyncHandler(async (req, res) => {
  */
 
 const getAllUsers = asyncHandler(async (req, res) => {
-    const users = await User.find().select("-__v");
-    res.status(200).json(users);
+  const users = await User.find().select("-__v");
+  res.status(200).json(users);
 });
 
 /**
@@ -53,18 +53,11 @@ const getAllUsers = asyncHandler(async (req, res) => {
  */
 const getUserById = asyncHandler(async (req, res) => {
   const { userId } = req.params;
-
-  try {
-    const user = await User.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  const user = await User.findOne({ _id: userId });
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
   }
+  res.status(200).json(user);
 });
 
 /**
