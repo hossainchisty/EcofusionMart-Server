@@ -276,41 +276,28 @@ const viewOrderHistory = asyncHandler(async (req, res) => {
 const deleteProduct = asyncHandler(async (req, res) => {
   const { productId } = req.params;
   const user = req.user;
-  try {
-    // Check if the user is a seller
-    if (!user.roles.includes("seller")) {
-      return res
-        .status(403)
-        .json({ error: "You are not authorized to add a product listing" });
-    }
 
-    // Check if the seller account is approved by the administrator
-    if (!user.isApproved) {
-      return res.status(403).json({
-        error:
-          "Your seller account is not yet approved. Please wait for administrator approval.",
-      });
-    }
-
-    const product = await Product.findOne({
-      _id: productId,
-      seller: user._id,
-    }).select("-__v");
-
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
-    await Product.findByIdAndRemove(req.params.id, req.body, {
-      new: true,
-    });
-    res.status(200).json({
-      message: "Product was deleted.",
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the user is a seller
+  if (!user.roles.includes("seller")) {
+    return res.status(403).json({ error: "You are not authorized to delete a product listing" });
   }
+
+  // Check if the seller account is approved by the administrator
+  if (!user.isApproved) {
+    return res.status(403).json({
+      error: "Your seller account is not yet approved. Please wait for administrator approval.",
+    });
+  }
+
+  const deletedProduct = await Product.findByIdAndRemove(productId);
+
+  if (!deletedProduct) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  res.status(200).json({ message: "Product was deleted." });
 });
+
 
 /**
  * @desc    Update order status
