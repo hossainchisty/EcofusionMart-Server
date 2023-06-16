@@ -19,56 +19,54 @@ const createReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const userId = req.user?.id;
 
-  try {
-    if (!userId) {
-      return res.status(401).json({ message: "User not authenticated." });
-    }
+  const product = await Product.findOne({ _id: productId }).lean();
 
-    // Check if the user is a user
-    if (!req.user.roles.includes("user")) {
-      return res
-        .status(403)
-        .json({ error: "You are not authorized to review!" });
-    }
-
-    const product = await Product.findById(productId);
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found." });
-    }
-
-    const existingReview = product.reviews.find(
-      (review) => review.user && review.user.toString() === userId
-    );
-
-    if (existingReview) {
-      return res
-        .status(400)
-        .json({ message: "You have already reviewed this product." });
-    }
-
-    const review = {
-      user: userId,
-      rating,
-      comment,
-    };
-
-    product.reviews.push(review);
-
-    // Calculate the new average rating for the product
-    const totalReviews = product.reviews.length;
-    const sumRatings = product.reviews.reduce(
-      (sum, review) => sum + review.rating,
-      0
-    );
-    product.averageRating = sumRatings / totalReviews;
-
-    const updatedProduct = await product.save();
-
-    res.status(201).json(updatedProduct);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  if (!product) {
+    return res.status(404).json({ message: "Product not found." });
   }
+
+  const existingReview = product.reviews.find(
+    (review) => review.user && review.user.toString() === userId
+  );
+
+  if (existingReview) {
+    return res
+      .status(400)
+      .json({ message: "You have already reviewed this product." });
+  }
+
+  // Check if the user is a user
+  if (!req.user.roles.includes("user")) {
+    return res.status(403).json({ error: "You are not authorized to review!" });
+  }
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    productId,
+    {
+      $addToSet: {
+        reviews: {
+          user: userId,
+          rating,
+          comment,
+        },
+      },
+    },
+    { new: true }
+  );
+
+  const totalReviews = updatedProduct.reviews.length;
+  const sumRatings = updatedProduct.reviews.reduce(
+    (sum, review) => sum + review.rating,
+    0
+  );
+
+  // Calculate the new average rating for the product
+  const averageRating = sumRatings / totalReviews;
+  updatedProduct.averageRating = averageRating;
+
+  await updatedProduct.save();
+
+  res.status(201).json(updatedProduct);
 });
 
 module.exports = {
