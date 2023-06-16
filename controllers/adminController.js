@@ -13,27 +13,22 @@ const User = require("../models/userModels");
 const approveSeller = asyncHandler(async (req, res) => {
   const { sellerId } = req.params;
 
-  try {
-    // Find the user by ID
-    const user = await User.findById(sellerId);
+  // Find the user by ID and update the approval status
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: sellerId, isApproved: false },
+    { $set: { isApproved: true } },
+    { new: true }
+  );
 
-    if (!user) {
-      return res.status(404).json({ message: "Seller not found" });
-    }
-
-    // Check if the user is already approved
-    if (user.isApproved) {
-      return res.status(400).json({ message: "Seller is already approved" });
-    }
-
-    // Update the approval status
-    user.isApproved = true;
-    await user.save();
-
-    return res.status(200).json({ message: "Seller approved successfully" });
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
+  if (!updatedUser) {
+    return res.status(404).json({ message: "Seller not found" });
   }
+
+  if (updatedUser.isApproved) {
+    return res.status(400).json({ message: "Seller is already approved" });
+  }
+
+  return res.status(200).json({ message: "Seller approved successfully" });
 });
 
 /**
