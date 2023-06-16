@@ -15,41 +15,38 @@ const cloudinary = require("../config/cloudinaryConfig");
  * @returns {Object} The response object containing the seller dashboard data
  */
 const sellerDashboard = asyncHandler(async (req, res) => {
-  try {
-    // Check if the seller account is approved by the administrator
-    if (!req.user.isApproved) {
-      return res.status(403).json({
-        error:
-          "Your seller account is not yet approved. Please wait for administrator approval.",
-      });
-    }
-
-    // Check if the user is a seller
-    if (!req.user.roles.includes("seller")) {
-      return res.status(403).json({
-        error: "You are not authorized to access the seller dashboard",
-      });
-    }
-
-    const sellerId = req.user._id;
-
-    // Fetch the seller's product listings
-    const products = await Product.find({ seller: sellerId });
-
-    // Fetch the seller's order history
-    const orders = await Order.find({ seller: sellerId });
-
-    // Calculate the total earnings for the seller
-    const totalEarnings = orders.reduce(
-      (sum, order) => sum + order.totalPrice,
-      0
-    );
-
-    res.status(200).json({ products, orders, totalEarnings });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the seller account is approved by the administrator
+  if (!req.user.isApproved) {
+    return res.status(403).json({
+      error: "Your seller account is not yet approved. Please wait for administrator approval.",
+    });
   }
+
+  // Check if the user is a seller
+  if (!req.user.roles.includes("seller")) {
+    return res.status(403).json({
+      error: "You are not authorized to access the seller dashboard",
+    });
+  }
+
+  const sellerId = req.user._id;
+
+  // Fetch the seller's product listings
+  const productsPromise = Product.find({ seller: sellerId });
+
+  // Fetch the seller's order history
+  const ordersPromise = Order.find({ seller: sellerId });
+
+  // Wait for both promises to resolve concurrently
+  const [products, orders] = await Promise.all([productsPromise, ordersPromise]);
+
+  // Calculate the total earnings for the seller
+  const totalEarnings = Number(orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(2));
+
+
+  res.status(200).json({ products, orders, totalEarnings });
 });
+
 
 /**
  * @desc     Add product listing
