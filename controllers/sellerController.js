@@ -308,36 +308,29 @@ const deleteProduct = asyncHandler(async (req, res) => {
  * @requires Seller Account
  */
 
-const updateOrderStatus = async (req, res) => {
+const updateOrderStatus = asyncHandler(async (req, res) => {
   const { orderId } = req.params;
   const { status } = req.body;
 
-  try {
-    // Check if the user is a seller
-    if (!user.roles.includes("seller")) {
-      return res
-        .status(403)
-        .json({ error: "You are not authorized to add a product listing" });
-    }
-
-    // Find the order by its ID
-    const order = await Order.findById(orderId);
-
-    if (!order) {
-      return res.status(404).json({ error: "Order not found" });
-    }
-
-    // Update the order status
-    order.status = status;
-
-    // Save the updated order
-    await order.save();
-
-    res.json({ message: "Order status updated successfully" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  // Check if the user is a seller
+  if (!req.user.roles.includes("seller")) {
+    return res.status(403).json({ error: "You are not authorized to update the order status" });
   }
-};
+
+  // Find the order by its ID and update the status
+  const updatedOrder = await Order.findOneAndUpdate(
+    { _id: orderId },
+    { $set: { status } },
+    { new: true }
+  );
+
+  if (!updatedOrder) {
+    return res.status(404).json({ error: "Order not found" });
+  }
+
+  return res.json({ message: "Order status updated successfully" });
+});
+
 
 module.exports = {
   sellerDashboard,
