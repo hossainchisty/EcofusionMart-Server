@@ -4,7 +4,7 @@ The objective of this project is to develop an advanced e-commerce platform that
 
 ### Monolithic Architecture
 
-![image](https://github.com/hossainchisty/eCommerce-Backend-API/assets/62835101/6efafe94-6708-43ad-a7b2-4727523dc4db)
+![Architecture](https://github.com/hossainchisty/eCommerce-Backend-API/assets/62835101/8e2268f7-72f8-42cc-9b4a-3ab60a3eb376)
 
 ## **Live**
 
