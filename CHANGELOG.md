@@ -1,3 +1,12 @@
+## [1.33.2](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.1...v1.33.2) (2023-06-25)
+
+
+### Performance Improvements
+
+* Added security vulnerability sanitizing data layer ([4a4dd4c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4a4dd4cbd81c93fa78e3b71c6f81d5897758189c))
+
+
+
 ## [1.33.1](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.0...v1.33.1) (2023-06-16)
 
 
@@ -58,15 +67,6 @@
 ### Features
 
 * Added users seed data for only testing purposes ([09056f0](https://github.com/hossainchisty/eCommerce-Backend-API/commit/09056f0be027326fb66911980a87a790e5916fce))
-
-
-
-# [1.30.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v0.28.0...v1.30.0) (2023-06-09)
-
-
-### Features
-
-* Added root endpoint ([c061161](https://github.com/hossainchisty/eCommerce-Backend-API/commit/c061161a89e23c8fdfe8ced9c97c4d6a78a83e8a))
 
 
 
