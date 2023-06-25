@@ -5,6 +5,7 @@ const passport = require("passport");
 const bodyParser = require('body-parser');
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
+const mongoSanitize = require('express-mongo-sanitize');
 const { errorHandler } = require('./middleware/errorMiddleware');
 // Database connection with mongoose
 const connectDB = require('./config/db');
@@ -26,6 +27,18 @@ const orderRouters = require('./routes/orderRouters');
 const wishlistRouters = require('./routes/wishlistRouters');
 
 const app = express();
+const http = require('http');
+
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('New client connected');
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
 
 // Middleware
 app.use(cookieParser());
@@ -40,18 +53,27 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(mongoSanitize());
 
-app.use(
-  cors({
-    origin: 'https://ecommerce-3w.vercel.app/',
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    methods: ['GET', 'PUT', 'POST', 'DELETE'],
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-    maxAge: 3600,
-  })
-);
+// app.use(
+//   cors({
+//     origin: 'http://127.0.0.1:5173',
+//     credentials: true,
+//     allowedHeaders: ['Content-Type', 'Authorization'],
+//     methods: ['GET', 'PUT', 'POST', 'DELETE'],
+//     preflightContinue: false,
+//     optionsSuccessStatus: 204,
+//     maxAge: 3600,
+//   })
+// );
+
+// Configure CORS
+app.use(cors({
+  origin: 'http://localhost:5173/', // Replace with your frontend application URL
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+}));
+
 
 app.use(
   express.urlencoded({
