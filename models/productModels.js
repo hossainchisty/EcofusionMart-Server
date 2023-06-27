@@ -86,7 +86,10 @@ const productSchema = mongoose.Schema(
 );
 
 // static methods to the schema for filtering and sorting
-productSchema.statics.filterAndSort = function (filterOptions, sortOptions) {
+productSchema.statics.filterAndSort = async function (
+  filterOptions,
+  sortOptions
+) {
   let query = this.find();
 
   if (filterOptions) {
@@ -125,7 +128,7 @@ productSchema.statics.filterAndSort = function (filterOptions, sortOptions) {
     }
   }
 
-  return query.exec();
+  return await query.exec();
 };
 
 module.exports = mongoose.model("Product", productSchema);

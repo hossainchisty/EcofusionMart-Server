@@ -1,4 +1,6 @@
 // Import the necessary models and dependencies
+const NodeCache = require("node-cache");
+const cache = new NodeCache();
 const Product = require("../models/productModels");
 const asyncHandler = require("express-async-handler");
 
@@ -43,40 +45,63 @@ const productLists = asyncHandler(async (req, res) => {
  * @desc     Search products based on criteria
  * @route    /api/v1/products/search
  * @method   GET
- * @param  {string} [req.query.category] - The category to filter products by (case-insensitive).
- * @param {number} [req.query.priceMin] - The minimum price of products to filter by.
- * @param {number} [req.query.priceMax] - The maximum price of products to filter by.
- * @param {string} [req.query.brand] - The brand to filter products by.
- * @param {string} [req.query.title] - The title to search products by (case-insensitive).
- * @param {string} [req.query.priceSort] - The sort order for price ('asc' or 'desc').
- * @param {string} [req.query.popularitySort] - The sort order for popularity ('asc' or 'desc').
- * @returns {object[]} - An array of products matching the search criteria.
- * @throws {Error} - If an internal server error occurs.
+ * @param    {string} [req.query.category] - The category to filter products by (case-insensitive).
+ * @param    {number} [req.query.priceMin] - The minimum price of products to filter by.
+ * @param    {number} [req.query.priceMax] - The maximum price of products to filter by.
+ * @param    {string} [req.query.brand] - The brand to filter products by.
+ * @param    {string} [req.query.title] - The title to search products by (case-insensitive).
+ * @param    {string} [req.query.priceSort] - The sort order for price ('asc' or 'desc').
+ * @param    {string} [req.query.popularitySort] - The sort order for popularity ('asc' or 'desc').
+ * @returns  {object[]} - An array of products matching the search criteria.
+ * @throws   {Error} - If an internal server error occurs.
  * @access   Public
  */
+
 const searchProducts = asyncHandler(async (req, res) => {
-  const filterOptions = {
-    category: req.query.category
-      ? { $regex: new RegExp(req.query.category, "i") }
-      : null,
-    priceMin: parseFloat(req.query.priceMin) || null,
-    priceMax: parseFloat(req.query.priceMax) || null,
-    brand: req.query.brand
-      ? { $regex: new RegExp(req.query.brand, "i") }
-      : null,
-    title: req.query.title
-      ? { $regex: new RegExp(req.query.title, "i") }
-      : null,
-  };
+  const cacheKey = JSON.stringify(req.query);
 
-  const sortOptions = {
-    price: req.query.priceSort || null,
-    popularity: req.query.popularitySort || null,
-  };
+  const cachedResults = cache.get(cacheKey);
 
-  const products = await Product.filterAndSort(filterOptions, sortOptions);
+  if (cachedResults) {
+    res.status(200).json({ result: cachedResults });
+  } else {
+    const filterOptions = {
+      category: req.query.category
+        ? { $regex: new RegExp(req.query.category, "i") }
+        : null,
+      priceMin: parseFloat(req.query.priceMin) || null,
+      priceMax: parseFloat(req.query.priceMax) || null,
+      brand: req.query.brand
+        ? { $regex: new RegExp(req.query.brand, "i") }
+        : null,
+      title: req.query.title
+        ? { $regex: new RegExp(req.query.title, "i") }
+        : null,
+    };
 
-  res.status(200).json({ result: products });
+    const sortOptions = {
+      price: req.query.priceSort || null,
+      popularity: req.query.popularitySort || null,
+    };
+
+    const products = await Product.filterAndSort(filterOptions, sortOptions);
+
+    // Exclude subdocuments from caching
+    const productsWithoutSubdocuments = products.map((product) => {
+      const productObject = product.toObject();
+      delete productObject.reviews;
+      return productObject;
+    });
+
+    /*
+     * Explanation: 
+       By excluding subdocuments, we ensure that only the relevant fields of the parent document are cached, reducing memory usage and potential errors when retrieving cached results.
+     */
+
+    cache.set(cacheKey, productsWithoutSubdocuments);
+
+    res.status(200).json({ result: products });
+  }
 });
 
 module.exports = {
