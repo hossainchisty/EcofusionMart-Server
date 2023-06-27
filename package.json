@@ -24,7 +24,7 @@
   "author": "Hossain Chisty <hossain.chisty11@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cloudinary": "^1.37.0",
@@ -36,11 +36,12 @@
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^6.7.0",
     "express-session": "^1.17.3",
-    "jest": "^29.5.0",
+    "jest": "^26.6.3",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "mongoose": "^7.1.1",
     "multer": "^1.4.5-lts.1",
+    "node-cache": "^5.1.2",
     "nodemailer": "^6.9.3",
     "passport": "^0.6.0",
     "passport-facebook": "^3.0.0",
@@ -53,6 +54,6 @@
     "winston": "^3.9.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^1.14.9"
   }
 }
