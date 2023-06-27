@@ -1,3 +1,12 @@
+## [1.33.3](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.2...v1.33.3) (2023-06-27)
+
+
+### Performance Improvements
+
+* Implement caching for product search API endpoint ([5e0d700](https://github.com/hossainchisty/eCommerce-Backend-API/commit/5e0d700eed15daa32d04295bf5a3192e3674c18b))
+
+
+
 ## [1.33.2](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.1...v1.33.2) (2023-06-25)
 
 
@@ -58,15 +67,6 @@
 
 * Added additional field to save wishlist data ([ea1d5af](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ea1d5aff7b721eb1c1268c74a400fad269500799))
 * Implement add and remove from wishlist functionality ([cd18fa5](https://github.com/hossainchisty/eCommerce-Backend-API/commit/cd18fa500f1789cbdb5ca5861b236d1dd5015658))
-
-
-
-# [1.31.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.30.0...v1.31.0) (2023-06-14)
-
-
-### Features
-
-* Added users seed data for only testing purposes ([09056f0](https://github.com/hossainchisty/eCommerce-Backend-API/commit/09056f0be027326fb66911980a87a790e5916fce))
 
 
 
