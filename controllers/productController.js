@@ -84,7 +84,7 @@ const searchProducts = asyncHandler(async (req, res) => {
       popularity: req.query.popularitySort || null,
     };
 
-    const products = await Product.filterAndSort(filterOptions, sortOptions)
+    const products = await Product.filterAndSort(filterOptions, sortOptions);
 
     // Exclude subdocuments from caching
     const productsWithoutSubdocuments = products.map((product) => {
