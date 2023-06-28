@@ -13,29 +13,36 @@ const asyncHandler = require("express-async-handler");
  * @access   Public
  */
 const productLists = asyncHandler(async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+
+  // Validate and sanitize the 'page' and 'limit' query parameters
+  const validatedPage = Math.max(1, Math.floor(page));
+  const validatedLimit = Math.max(1, Math.floor(limit));
 
   // Calculate the starting index of the products based on the page and limit
-  const startIndex = (page - 1) * limit;
+  const startIndex = (validatedPage - 1) * validatedLimit;
 
-  // Fetch the products from the database or any other data source
+  // Fetch only the required products for the current page using 'skip' and 'limit' methods of the MongoDB query
   const products = await Product.find()
     .select("-__v")
     .populate("seller", "full_name")
     .skip(startIndex)
-    .limit(limit)
+    .limit(validatedLimit)
     .exec();
 
-  // Count the total number of products
-  const totalProducts = await Product.countDocuments().exec();
+  // Cache the total number of products and update it only when a product is added or removed
+  const totalProducts = await cache.get('totalProducts') || await Product.countDocuments().exec();
+  if (!cache.get('totalProducts')) {
+    cache.set('totalProducts', totalProducts);
+  }
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil(totalProducts / limit);
+  const totalPages = Math.ceil(totalProducts / validatedLimit);
 
   res.status(200).json({
     products,
-    currentPage: page,
+    currentPage: validatedPage,
     totalPages,
     totalProducts,
   });
