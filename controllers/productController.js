@@ -32,9 +32,11 @@ const productLists = asyncHandler(async (req, res) => {
     .exec();
 
   // Cache the total number of products and update it only when a product is added or removed
-  const totalProducts = await cache.get('totalProducts') || await Product.countDocuments().exec();
-  if (!cache.get('totalProducts')) {
-    cache.set('totalProducts', totalProducts);
+  const totalProducts =
+    (await cache.get("totalProducts")) ||
+    (await Product.countDocuments().exec());
+  if (!cache.get("totalProducts")) {
+    cache.set("totalProducts", totalProducts);
   }
 
   // Calculate the total number of pages
