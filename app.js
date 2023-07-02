@@ -25,6 +25,7 @@ const socialRouters = require('./routes/socialAuthRouters');
 const cartRouters = require('./routes/cartRouters');
 const orderRouters = require('./routes/orderRouters');
 const wishlistRouters = require('./routes/wishlistRouters');
+const analysisRouters = require('./routes/analysisRouters');
 
 const app = express();
 const http = require('http');
@@ -96,6 +97,7 @@ app.use('/api/v1/social', socialRouters);
 app.use('/api/v1/cart', cartRouters);
 app.use('/api/v1/order', orderRouters);
 app.use('/api/v1/wishlist', wishlistRouters);
+app.use('/api/v1/analysis', analysisRouters);
 
 // Undefined Route Implement
 app.use('*', (req, res) => {
