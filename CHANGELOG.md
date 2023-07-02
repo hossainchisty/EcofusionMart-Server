@@ -1,3 +1,12 @@
+## [1.33.4](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.3...v1.33.4) (2023-07-02)
+
+
+### Performance Improvements
+
+* Improve product listing ([3883612](https://github.com/hossainchisty/eCommerce-Backend-API/commit/388361228b929966b146a64bf4ccfc9b9a8d670b))
+
+
+
 ## [1.33.3](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.2...v1.33.3) (2023-06-27)
 
 
@@ -52,21 +61,6 @@
 ### Performance Improvements
 
 * Change throwing stack error to json response ([377e1f8](https://github.com/hossainchisty/eCommerce-Backend-API/commit/377e1f811f7a7175278d9f35aee58ce915b13bbd))
-
-
-
-# [1.32.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.31.0...v1.32.0) (2023-06-15)
-
-
-### Bug Fixes
-
-* Path of seed routers ([1b9f9ba](https://github.com/hossainchisty/eCommerce-Backend-API/commit/1b9f9bada0ac8c7d9886600dc615e2e066bae398))
-
-
-### Features
-
-* Added additional field to save wishlist data ([ea1d5af](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ea1d5aff7b721eb1c1268c74a400fad269500799))
-* Implement add and remove from wishlist functionality ([cd18fa5](https://github.com/hossainchisty/eCommerce-Backend-API/commit/cd18fa500f1789cbdb5ca5861b236d1dd5015658))
 
 
 
