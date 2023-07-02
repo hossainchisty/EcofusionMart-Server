@@ -1,3 +1,12 @@
+# [1.34.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.4...v1.34.0) (2023-07-02)
+
+
+### Features
+
+* Implement analysis features for earnings, sales by category, and best-selling products ([fcc5b08](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fcc5b08aef668e23ab055c3d3802f26d27a207bf))
+
+
+
 ## [1.33.4](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.3...v1.33.4) (2023-07-02)
 
 
@@ -47,20 +56,6 @@
 * Remove unnecessary try-catch block: Since you're using an asyncHandler middleware, it automatically catches and handles any errors that occur within the async function. ([ffb99fd](https://github.com/hossainchisty/eCommerce-Backend-API/commit/ffb99fd340d31e389445cce16a3049977eb95796))
 * Remove unnecessary try-catch block: Since you're using an asyncHandler middleware, it automatically catches and handles any errors that occur within the async function. Therefore, you can remove the try-catch block. ([a7d2890](https://github.com/hossainchisty/eCommerce-Backend-API/commit/a7d2890cf01822f08922905d30c1de9e417a7641))
 * Remove unnecessary try-catch block: Since you're using an asyncHandler middleware, it automatically catches and handles any errors that occur within the async function. Therefore, you can remove the try-catch block. ([556b6ef](https://github.com/hossainchisty/eCommerce-Backend-API/commit/556b6ef70dc36389ed288c318bdc227eb4cb9eee))
-
-
-
-# [1.33.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.32.0...v1.33.0) (2023-06-15)
-
-
-### Features
-
-* Order status update functionality ([09328e9](https://github.com/hossainchisty/eCommerce-Backend-API/commit/09328e98c5d9c077b347664bf54b74b0554814fa))
-
-
-### Performance Improvements
-
-* Change throwing stack error to json response ([377e1f8](https://github.com/hossainchisty/eCommerce-Backend-API/commit/377e1f811f7a7175278d9f35aee58ce915b13bbd))
 
 
 
