@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
+const expressRateLimit = require('express-rate-limit');
 const { errorHandler } = require('./middleware/errorMiddleware');
 // Database connection with mongoose
 const connectDB = require('./config/db');
@@ -45,7 +46,15 @@ io.on('connection', (socket) => {
 // Middleware
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(express.json());
+
+const limiter = expressRateLimit({
+  max: 100,
+  windowsMs: 60 * 60 * 1000,
+  message: "Too many requests",
+  standartHeaders: true,
+  legacyHeaders: false,
+})
+app.use(express.json({limit: limiter}));
 
 app.use(session({
   secret: 'somethingsecretgoeshere',
