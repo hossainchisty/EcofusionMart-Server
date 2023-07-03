@@ -123,16 +123,26 @@ const registerSeller = asyncHandler(async (req, res) => {
       user.address = address;
       user.bank_account = bank_account;
       user.avatar = avatar;
-      user.password = hashedPassword;
 
-      user = await user.save();
+      await user.save();
+
+      // Update hashed password if provided
+      if (password) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        user.password = hashedPassword;
+        await user.save();
+      }
 
       return res.status(200).json({
         message:
-          "User role updated to seller successfully.Please wait for approval.",
+          "User role updated to seller successfully. Please wait for approval.",
       });
     } else {
       // Create new seller account
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
       user = new User({
         full_name,
         phone_number,
@@ -140,13 +150,12 @@ const registerSeller = asyncHandler(async (req, res) => {
         NID,
         address,
         bank_account,
-        password,
+        password: hashedPassword,
         avatar,
         roles: ["seller"],
         verificationToken: crypto.randomBytes(20).toString("hex"),
         verificationTokenExpiry: Date.now() + 3600000, // 1 hour from now
       });
-
       await user.save();
 
       // Send verification email
