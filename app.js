@@ -1,5 +1,6 @@
 // Basic Lib Imports
 const cors = require('cors');
+const helmet = require('helmet');
 const express = require('express');
 const passport = require("passport");
 const bodyParser = require('body-parser');
@@ -55,6 +56,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(mongoSanitize());
+app.use(helmet());
 
 // app.use(
 //   cors({
