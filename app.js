@@ -1,4 +1,5 @@
 // Basic Lib Imports
+const hpp = require('hpp');
 const cors = require('cors');
 const helmet = require('helmet');
 const express = require('express');
@@ -66,7 +67,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(mongoSanitize());
 app.use(helmet());
-
+app.use(hpp());
 // app.use(
 //   cors({
 //     origin: 'http://127.0.0.1:5173',
