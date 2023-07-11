@@ -26,7 +26,7 @@ const createReview = asyncHandler(async (req, res) => {
   }
 
   const existingReview = product.reviews.find(
-    (review) => review.user && review.user.toString() === userId
+    (review) => review.user && review.user.toString() === userId,
   );
 
   if (existingReview) {
@@ -51,13 +51,13 @@ const createReview = asyncHandler(async (req, res) => {
         },
       },
     },
-    { new: true }
+    { new: true },
   );
 
   const totalReviews = updatedProduct.reviews.length;
   const sumRatings = updatedProduct.reviews.reduce(
     (sum, review) => sum + review.rating,
-    0
+    0,
   );
 
   // Calculate the new average rating for the product

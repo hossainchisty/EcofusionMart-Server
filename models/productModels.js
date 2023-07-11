@@ -82,13 +82,13 @@ const productSchema = mongoose.Schema(
   },
 
   { timestamps: true },
-  { versionKey: false }
+  { versionKey: false },
 );
 
 // static methods to the schema for filtering and sorting
 productSchema.statics.filterAndSort = async function (
   filterOptions,
-  sortOptions
+  sortOptions,
 ) {
   let query = this.find();
 

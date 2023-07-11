@@ -41,7 +41,7 @@ const addToCart = asyncHandler(async (req, res) => {
   } else {
     // Check if the product already exists in the cart
     const existingItemIndex = cart.items.findIndex(
-      (item) => item.product.toString() === productId
+      (item) => item.product.toString() === productId,
     );
 
     if (existingItemIndex !== -1) {

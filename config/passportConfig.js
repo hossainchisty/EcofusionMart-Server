@@ -14,8 +14,8 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, done) {
       done(null, profile);
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -27,8 +27,8 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, done) {
       done(null, profile);
-    }
-  )
+    },
+  ),
 );
 
 passport.use(
@@ -45,8 +45,8 @@ passport.use(
       // User.findOrCreate({ googleId: profile.id }, function (err, user) {
       //   return done(err, user);
       // });
-    }
-  )
+    },
+  ),
 );
 
 passport.serializeUser((user, done) => {

@@ -14,7 +14,7 @@ const userProfile = asyncHandler(async (req, res) => {
   if (!user.roles.includes("user")) {
     const user = await User.findById(req.user.id)
       .select(
-        "-__v -roles -earnings -resetPasswordExpiry -resetPasswordToken -password"
+        "-__v -roles -earnings -resetPasswordExpiry -resetPasswordToken -password",
       )
       .lean();
     res.status(200).json(user);

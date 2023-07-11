@@ -34,12 +34,12 @@ const addToWishlist = asyncHandler(async (req, res) => {
   // Update the user's wishlist
   await User.findOneAndUpdate(
     { _id: user._id },
-    { $push: { wishlist: productId } }
+    { $push: { wishlist: productId } },
   );
 
   // Populate the user object with wishlist details
   const updatedUser = await User.findOne({ _id: user._id }).populate(
-    "wishlist"
+    "wishlist",
   );
 
   res.json({ message: "Product added to wishlist", user: updatedUser });
@@ -70,7 +70,7 @@ const removeFromWishlist = asyncHandler(async (req, res) => {
   // Remove the product from the user's wishlist
   await User.findOneAndUpdate(
     { _id: user._id, wishlist: productId },
-    { $pull: { wishlist: productId } }
+    { $pull: { wishlist: productId } },
   );
 
   res.json({ message: "Product removed from wishlist" });
