@@ -1,11 +1,14 @@
 // Basic Lib Imports
+const hpp = require('hpp');
 const cors = require('cors');
+const helmet = require('helmet');
 const express = require('express');
 const passport = require("passport");
 const bodyParser = require('body-parser');
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
 const mongoSanitize = require('express-mongo-sanitize');
+const expressRateLimit = require('express-rate-limit');
 const { errorHandler } = require('./middleware/errorMiddleware');
 // Database connection with mongoose
 const connectDB = require('./config/db');
@@ -25,6 +28,7 @@ const socialRouters = require('./routes/socialAuthRouters');
 const cartRouters = require('./routes/cartRouters');
 const orderRouters = require('./routes/orderRouters');
 const wishlistRouters = require('./routes/wishlistRouters');
+const analysisRouters = require('./routes/analysisRouters');
 
 const app = express();
 const http = require('http');
@@ -43,7 +47,15 @@ io.on('connection', (socket) => {
 // Middleware
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(express.json());
+
+const limiter = expressRateLimit({
+  max: 100,
+  windowsMs: 60 * 60 * 1000,
+  message: "Too many requests",
+  standartHeaders: true,
+  legacyHeaders: false,
+})
+app.use(express.json({limit: limiter}));
 
 app.use(session({
   secret: 'somethingsecretgoeshere',
@@ -54,7 +66,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(mongoSanitize());
-
+app.use(helmet());
+app.use(hpp());
 // app.use(
 //   cors({
 //     origin: 'http://127.0.0.1:5173',
@@ -96,6 +109,7 @@ app.use('/api/v1/social', socialRouters);
 app.use('/api/v1/cart', cartRouters);
 app.use('/api/v1/order', orderRouters);
 app.use('/api/v1/wishlist', wishlistRouters);
+app.use('/api/v1/analysis', analysisRouters);
 
 // Undefined Route Implement
 app.use('*', (req, res) => {
