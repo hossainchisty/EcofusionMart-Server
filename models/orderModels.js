@@ -57,7 +57,7 @@ const orderSchema = new mongoose.Schema(
     items: [orderItemSchema],
   },
   { timestamps: true },
-  { versionKey: false }
+  { versionKey: false },
 );
 
 module.exports = mongoose.model("Order", orderSchema);

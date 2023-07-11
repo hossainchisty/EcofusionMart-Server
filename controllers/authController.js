@@ -65,7 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (createdUser) {
     // Send verification email
     const verificationLink = `${req.protocol}://${req.get(
-      "host"
+      "host",
     )}/api/v2/users/auth/verify?token=${createdUser.verificationToken}`;
     sendVerificationEmail(createdUser.email, verificationLink);
 
@@ -151,7 +151,7 @@ const registerSeller = asyncHandler(async (req, res) => {
 
       // Send verification email
       const verificationLink = `${req.protocol}://${req.get(
-        "host"
+        "host",
       )}/api/v2/users/auth/verify?token=${user.verificationToken}`;
       sendVerificationEmail(user.email, verificationLink);
 
@@ -347,12 +347,12 @@ const forgotPassword = async (req, res) => {
           resetPasswordToken,
           resetPasswordExpiry,
         },
-      }
+      },
     );
 
     // Send password reset email
     const passwordRestLink = `${req.protocol}://${req.get(
-      "host"
+      "host",
     )}/api/v2/users/reset-password?token=${resetPasswordToken}`;
     sendResetPasswordLink(user.email, passwordRestLink);
 
