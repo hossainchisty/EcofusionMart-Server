@@ -46,7 +46,7 @@ const sellerDashboard = asyncHandler(async (req, res) => {
 
   // Calculate the total earnings for the seller
   const totalEarnings = Number(
-    orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(2)
+    orders.reduce((sum, order) => sum + order.totalPrice, 0).toFixed(2),
   );
 
   res.status(200).json({ products, orders, totalEarnings });
@@ -142,6 +142,7 @@ const addProducts = asyncHandler(async (req, res) => {
       // Insert multiple products
       const insertedProducts = await Product.insertMany(productDocuments);
 
+      res.status(201);
       res.json({
         message: "Products added successfully",
         products: insertedProducts,
@@ -259,7 +260,7 @@ const viewOrderHistory = asyncHandler(async (req, res) => {
   }
 
   const orders = await Order.find({ seller: user._id }).populate(
-    "product user"
+    "product user",
   );
 
   res.json({ orders });
@@ -326,12 +327,18 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
   const updatedOrder = await Order.findOneAndUpdate(
     { _id: orderId },
     { $set: { status } },
-    { new: true }
+    { new: true },
   );
 
   if (!updatedOrder) {
     return res.status(404).json({ error: "Order not found" });
   }
+
+  // // Send real-time notification to relevant users
+  // io.emit('orderUpdate', {
+  //   orderId: updatedOrder._id,
+  //   status: updatedOrder.status
+  // });
 
   return res.json({ message: "Order status updated successfully" });
 });

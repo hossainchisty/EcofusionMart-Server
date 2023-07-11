@@ -7,7 +7,7 @@ const CLIENT_URL = "http://127.0.0.1:3000/sucess";
 // Routing Implement
 router.get(
   "/facebook",
-  passport.authenticate("facebook", { scope: ["profile"] })
+  passport.authenticate("facebook", { scope: ["profile"] }),
 );
 
 router.get(
@@ -15,7 +15,7 @@ router.get(
   passport.authenticate("facebook", {
     successRedirect: CLIENT_URL,
     failureRedirect: "/login/failed",
-  })
+  }),
 );
 
 router.get("/github", passport.authenticate("github", { scope: ["profile"] }));
@@ -25,7 +25,7 @@ router.get(
   passport.authenticate("github", {
     successRedirect: CLIENT_URL,
     failureRedirect: "/login/failed",
-  })
+  }),
 );
 
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
@@ -35,7 +35,7 @@ router.get(
   passport.authenticate("google", {
     successRedirect: CLIENT_URL,
     failureRedirect: "/login/failed",
-  })
+  }),
 );
 
 router.get("/login/success", (req, res) => {

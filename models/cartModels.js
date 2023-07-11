@@ -13,7 +13,7 @@ const cartItemSchema = new mongoose.Schema(
       default: 1,
     },
   },
-  { versionKey: false }
+  { versionKey: false },
 );
 
 const cartSchema = new mongoose.Schema(
@@ -26,7 +26,7 @@ const cartSchema = new mongoose.Schema(
     items: [cartItemSchema],
   },
   { timestamps: true },
-  { versionKey: false }
+  { versionKey: false },
 );
 
 // Virtual property for the sub total
