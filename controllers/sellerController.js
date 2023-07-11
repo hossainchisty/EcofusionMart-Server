@@ -142,6 +142,7 @@ const addProducts = asyncHandler(async (req, res) => {
       // Insert multiple products
       const insertedProducts = await Product.insertMany(productDocuments);
 
+      res.status(201)
       res.json({
         message: "Products added successfully",
         products: insertedProducts,
@@ -333,8 +334,15 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
     return res.status(404).json({ error: "Order not found" });
   }
 
+  // // Send real-time notification to relevant users
+  // io.emit('orderUpdate', {
+  //   orderId: updatedOrder._id,
+  //   status: updatedOrder.status
+  // });
+
   return res.json({ message: "Order status updated successfully" });
 });
+
 
 module.exports = {
   sellerDashboard,
