@@ -142,7 +142,7 @@ const addProducts = asyncHandler(async (req, res) => {
       // Insert multiple products
       const insertedProducts = await Product.insertMany(productDocuments);
 
-      res.status(201)
+      res.status(201);
       res.json({
         message: "Products added successfully",
         products: insertedProducts,
