@@ -1,3 +1,18 @@
+## [1.34.7](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.6...v1.34.7) (2023-07-13)
+
+
+### Bug Fixes
+
+* remove select options ([0e6f94b](https://github.com/hossainchisty/eCommerce-Backend-API/commit/0e6f94b2e71d3d2e3f6e43f7d190c8ce5c78ef7e))
+
+
+### Performance Improvements
+
+* Improve API latency ([b555d34](https://github.com/hossainchisty/eCommerce-Backend-API/commit/b555d345ec335f3778c0eded0a30c5b977b42e00))
+* Improve static method of product ([22bf79b](https://github.com/hossainchisty/eCommerce-Backend-API/commit/22bf79b72037a691ec6aad923191a9180e31c5f6))
+
+
+
 ## [1.34.6](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.0...v1.34.6) (2023-07-11)
 
 
@@ -31,15 +46,6 @@
 ### Performance Improvements
 
 * Implement caching for product search API endpoint ([5e0d700](https://github.com/hossainchisty/eCommerce-Backend-API/commit/5e0d700eed15daa32d04295bf5a3192e3674c18b))
-
-
-
-## [1.33.2](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.1...v1.33.2) (2023-06-25)
-
-
-### Performance Improvements
-
-* Added security vulnerability sanitizing data layer ([4a4dd4c](https://github.com/hossainchisty/eCommerce-Backend-API/commit/4a4dd4cbd81c93fa78e3b71c6f81d5897758189c))
 
 
 
