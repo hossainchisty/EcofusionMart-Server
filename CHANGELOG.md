@@ -1,3 +1,12 @@
+## [1.34.10](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.9...v1.34.10) (2023-07-13)
+
+
+### Performance Improvements
+
+* Improvements of seller register ([a6ebc47](https://github.com/hossainchisty/eCommerce-Backend-API/commit/a6ebc47918ea70b3797755f55a00bddb86d7b34e))
+
+
+
 ## [1.34.9](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.8...v1.34.9) (2023-07-13)
 
 
@@ -37,15 +46,6 @@
 ### Bug Fixes
 
 *  Added http status code ``Created - 201`` ([d0d7b89](https://github.com/hossainchisty/eCommerce-Backend-API/commit/d0d7b8939493ab5a761dffbdf7b2792a37e5e453))
-
-
-
-# [1.34.0](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.4...v1.34.0) (2023-07-02)
-
-
-### Features
-
-* Implement analysis features for earnings, sales by category, and best-selling products ([fcc5b08](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fcc5b08aef668e23ab055c3d3802f26d27a207bf))
 
 
 
