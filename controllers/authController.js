@@ -155,7 +155,7 @@ const registerSeller = asyncHandler(async (req, res) => {
 
     // Send verification email
     const verificationLink = `${req.protocol}://${req.get(
-      "host"
+      "host",
     )}/api/v2/users/auth/verify?token=${user.verificationToken}`;
     sendVerificationEmail(user.email, verificationLink);
 
