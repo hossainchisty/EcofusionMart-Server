@@ -1,3 +1,12 @@
+## [1.34.9](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.8...v1.34.9) (2023-07-13)
+
+
+### Performance Improvements
+
+* IP limited for ignore malicious activity ([e4a1865](https://github.com/hossainchisty/eCommerce-Backend-API/commit/e4a18652a1c62f63ac4f51300986dbb7b02f29a5))
+
+
+
 ## [1.34.8](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.7...v1.34.8) (2023-07-13)
 
 
@@ -37,15 +46,6 @@
 ### Features
 
 * Implement analysis features for earnings, sales by category, and best-selling products ([fcc5b08](https://github.com/hossainchisty/eCommerce-Backend-API/commit/fcc5b08aef668e23ab055c3d3802f26d27a207bf))
-
-
-
-## [1.33.4](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.3...v1.33.4) (2023-07-02)
-
-
-### Performance Improvements
-
-* Improve product listing ([3883612](https://github.com/hossainchisty/eCommerce-Backend-API/commit/388361228b929966b146a64bf4ccfc9b9a8d670b))
 
 
 
