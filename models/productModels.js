@@ -88,7 +88,7 @@ const productSchema = mongoose.Schema(
 // static methods to the schema for filtering and sorting
 productSchema.statics.filterAndSort = async function (
   filterOptions,
-  sortOptions
+  sortOptions,
 ) {
   const query = this.find();
 
@@ -127,7 +127,7 @@ productSchema.statics.filterAndSort = async function (
         query.sort({ price: -1 });
         break;
       default:
-        // Handle default case or omit it if not necessary
+      // Handle default case or omit it if not necessary
     }
 
     switch (sortOptions.popularity) {
@@ -138,7 +138,7 @@ productSchema.statics.filterAndSort = async function (
         query.sort({ reviews: -1 });
         break;
       default:
-        // Handle default case or omit it if not necessary
+      // Handle default case or omit it if not necessary
     }
   }
 

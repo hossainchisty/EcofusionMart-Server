@@ -241,7 +241,7 @@ const loginUser = asyncHandler(async (req, res) => {
     // Check if the user exists
     const user = await User.findOne(
       { email, roles: "user" },
-      { password: 1 }
+      { password: 1 },
     ).lean();
 
     if (!user) {
