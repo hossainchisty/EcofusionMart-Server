@@ -90,45 +90,59 @@ productSchema.statics.filterAndSort = async function (
   filterOptions,
   sortOptions,
 ) {
-  let query = this.find();
+  const query = this.find();
 
   if (filterOptions) {
+    const filters = {};
+
     if (filterOptions.category) {
-      query = query.where("category", filterOptions.category);
+      filters.category = filterOptions.category;
     }
 
     if (filterOptions.priceMin) {
-      query = query.where("price").gte(filterOptions.priceMin);
+      filters.price = { $gte: filterOptions.priceMin };
     }
 
     if (filterOptions.priceMax) {
-      query = query.where("price").lte(filterOptions.priceMax);
+      filters.price = { ...filters.price, $lte: filterOptions.priceMax };
     }
 
     if (filterOptions.brand) {
-      query = query.where("brand", filterOptions.brand);
+      filters.brand = filterOptions.brand;
     }
 
     if (filterOptions.title) {
-      query = query.where("title", filterOptions.title);
+      filters.title = filterOptions.title;
     }
+
+    query.where(filters);
   }
 
   if (sortOptions) {
-    if (sortOptions.price === "asc") {
-      query = query.sort({ price: 1 });
-    } else if (sortOptions.price === "desc") {
-      query = query.sort({ price: -1 });
+    switch (sortOptions.price) {
+      case "asc":
+        query.sort({ price: 1 });
+        break;
+      case "desc":
+        query.sort({ price: -1 });
+        break;
+      default:
+      // Handle default case or omit it if not necessary
     }
 
-    if (sortOptions.popularity === "asc") {
-      query = query.sort({ reviews: 1 });
-    } else if (sortOptions.popularity === "desc") {
-      query = query.sort({ reviews: -1 });
+    switch (sortOptions.popularity) {
+      case "asc":
+        query.sort({ reviews: 1 });
+        break;
+      case "desc":
+        query.sort({ reviews: -1 });
+        break;
+      default:
+      // Handle default case or omit it if not necessary
     }
   }
 
-  return await query.exec();
+  return await query.lean().exec();
 };
 
 module.exports = mongoose.model("Product", productSchema);
