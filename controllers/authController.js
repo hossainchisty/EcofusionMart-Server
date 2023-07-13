@@ -104,19 +104,13 @@ const registerSeller = asyncHandler(async (req, res) => {
     avatar,
   } = req.body;
 
-  // Hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-
   try {
     // Check if user exists
     let user = await User.findOne({ email });
 
     if (user) {
-      // User already exists
+      // User already exists, update user data
       user.roles = ["user", "seller"];
-
-      // Update user data
       user.full_name = full_name;
       user.phone_number = phone_number;
       user.NID = NID;
@@ -124,59 +118,59 @@ const registerSeller = asyncHandler(async (req, res) => {
       user.bank_account = bank_account;
       user.avatar = avatar;
 
-      await user.save();
-
       // Update hashed password if provided
       if (password) {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         user.password = hashedPassword;
-        await user.save();
       }
+
+      await user.save();
 
       return res.status(200).json({
         message:
           "User role updated to seller successfully. Please wait for approval.",
       });
-    } else {
-      // Create new seller account
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password, salt);
-
-      user = new User({
-        full_name,
-        phone_number,
-        email,
-        NID,
-        address,
-        bank_account,
-        password: hashedPassword,
-        avatar,
-        roles: ["seller"],
-        verificationToken: crypto.randomBytes(20).toString("hex"),
-        verificationTokenExpiry: Date.now() + 3600000, // 1 hour from now
-      });
-      await user.save();
-
-      // Send verification email
-      const verificationLink = `${req.protocol}://${req.get(
-        "host",
-      )}/api/v2/users/auth/verify?token=${user.verificationToken}`;
-      sendVerificationEmail(user.email, verificationLink);
-
-      // Set token in a cookie
-      const token = generateToken(user._id);
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "Strict",
-      });
-
-      return res.status(201).json({
-        message:
-          "Seller registered successfully. Please check your email to verify your account and wait for approval.",
-      });
     }
+
+    // Create new seller account
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    user = new User({
+      full_name,
+      phone_number,
+      email,
+      NID,
+      address,
+      bank_account,
+      password: hashedPassword,
+      avatar,
+      roles: ["seller"],
+      verificationToken: crypto.randomBytes(20).toString("hex"),
+      verificationTokenExpiry: Date.now() + 3600000, // 1 hour from now
+    });
+
+    await user.save();
+
+    // Send verification email
+    const verificationLink = `${req.protocol}://${req.get(
+      "host",
+    )}/api/v2/users/auth/verify?token=${user.verificationToken}`;
+    sendVerificationEmail(user.email, verificationLink);
+
+    // Set token in a cookie
+    const token = generateToken(user._id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+    });
+
+    return res.status(201).json({
+      message:
+        "Seller registered successfully. Please check your email to verify your account and wait for approval.",
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
