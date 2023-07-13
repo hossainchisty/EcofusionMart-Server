@@ -93,16 +93,15 @@ const searchProducts = asyncHandler(async (req, res) => {
     };
 
     const products = await Product.filterAndSort(filterOptions, sortOptions);
-    
+
     // Exclude subdocuments from caching
     const productsWithoutSubdocuments = products.map((product) => {
       const { reviews, ...productWithoutReviews } = product;
       return productWithoutReviews;
     });
 
-     
     /* Explanation: By excluding subdocuments, we ensure that only the relevant fields of the parent document are cached, reducing memory usage and potential errors when retrieving cached results. */
-    
+
     cache.set(cacheKey, productsWithoutSubdocuments);
 
     res.status(200).json({ result: productsWithoutSubdocuments });
