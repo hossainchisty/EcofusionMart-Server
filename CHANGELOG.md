@@ -1,3 +1,12 @@
+## [1.34.8](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.7...v1.34.8) (2023-07-13)
+
+
+### Performance Improvements
+
+* Improve product search response tested with 1M products ([5a8661b](https://github.com/hossainchisty/eCommerce-Backend-API/commit/5a8661b0286612f565e210149f1b89bfeb75e0e9))
+
+
+
 ## [1.34.7](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.34.6...v1.34.7) (2023-07-13)
 
 
@@ -37,15 +46,6 @@
 ### Performance Improvements
 
 * Improve product listing ([3883612](https://github.com/hossainchisty/eCommerce-Backend-API/commit/388361228b929966b146a64bf4ccfc9b9a8d670b))
-
-
-
-## [1.33.3](https://github.com/hossainchisty/eCommerce-Backend-API/compare/v1.33.2...v1.33.3) (2023-06-27)
-
-
-### Performance Improvements
-
-* Implement caching for product search API endpoint ([5e0d700](https://github.com/hossainchisty/eCommerce-Backend-API/commit/5e0d700eed15daa32d04295bf5a3192e3674c18b))
 
 
 
