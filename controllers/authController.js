@@ -231,34 +231,40 @@ const emailVerify = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
+  // Validate email format
+  const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: "Invalid email format" });
+  }
+
   try {
-    let user;
     // Check if the user exists
-    if (validator.isEmail(email)) {
-      user = await User.findOne({ email: email, roles: "user" }).lean();
-    }
+    const user = await User.findOne(
+      { email, roles: "user" },
+      { password: 1 }
+    ).lean();
 
     if (!user) {
-      return res.status(401).json({ message: "Invalid email" });
+      return res.status(401).json({ error: "Invalid email" });
     }
 
     // Compare the provided password with the hashed password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid password" });
+      return res.status(401).json({ error: "Invalid password" });
     }
 
-    if (user) {
-      const token = generateToken(user._id);
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "Strict",
-      });
-      return res.status(200).json({ message: "Login successful" });
-    }
+    // Generate and set the token as a cookie
+    const token = generateToken(user._id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "Strict",
+    });
+
+    return res.status(200).json({ message: "Login successful" });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ error: error.message });
   }
 });
 
