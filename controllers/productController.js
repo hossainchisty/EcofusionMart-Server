@@ -79,8 +79,8 @@ const searchProducts = asyncHandler(async (req, res) => {
       return res.status(200).json({ result: cachedResults });
     }
 
-  const cacheKey = JSON.stringify(req.query);
-  const cachedResults = cache.get(cacheKey);
+    const cacheKey = JSON.stringify(req.query);
+    const cachedResults = cache.get(cacheKey);
 
     const filterOptions = {
       category: req.query.category
@@ -116,7 +116,6 @@ const searchProducts = asyncHandler(async (req, res) => {
       return productWithoutReviews;
     });
 
-
     cache.set(cacheKey, productsWithoutSubdocuments);
 
     res.status(200).json({
@@ -136,7 +135,6 @@ const searchProducts = asyncHandler(async (req, res) => {
     cache.set(cacheKey, productsWithoutSubdocuments);
 
     res.status(200).json({ result: productsWithoutSubdocuments });
-
   }
 });
 
