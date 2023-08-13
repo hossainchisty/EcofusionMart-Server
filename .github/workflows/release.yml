@@ -1,6 +1,9 @@
 name: 🎉Release
 on:
   push:
+    paths-ignore:
+      - 'docs/**'
+      - 'test/**'
     branches:
       - master
 jobs:

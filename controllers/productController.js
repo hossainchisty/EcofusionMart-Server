@@ -79,6 +79,9 @@ const searchProducts = asyncHandler(async (req, res) => {
       return res.status(200).json({ result: cachedResults });
     }
 
+  const cacheKey = JSON.stringify(req.query);
+  const cachedResults = cache.get(cacheKey);
+
     const filterOptions = {
       category: req.query.category
         ? { $regex: new RegExp(req.query.category, "i") }
@@ -109,10 +112,10 @@ const searchProducts = asyncHandler(async (req, res) => {
     }
 
     const productsWithoutSubdocuments = products.map((product) => {
-      const productObject = product.toObject();
-      delete productObject.reviews;
-      return productObject;
+      const { reviews, ...productWithoutReviews } = product;
+      return productWithoutReviews;
     });
+
 
     cache.set(cacheKey, productsWithoutSubdocuments);
 
@@ -127,6 +130,13 @@ const searchProducts = asyncHandler(async (req, res) => {
       code: 500,
       message: "Internal server error.",
     });
+
+    /* Explanation: By excluding subdocuments, we ensure that only the relevant fields of the parent document are cached, reducing memory usage and potential errors when retrieving cached results. */
+
+    cache.set(cacheKey, productsWithoutSubdocuments);
+
+    res.status(200).json({ result: productsWithoutSubdocuments });
+
   }
 });
 

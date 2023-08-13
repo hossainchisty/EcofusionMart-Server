@@ -27,17 +27,25 @@ const createAccountLimiter = rateLimit({
 
 const forgetPasswordLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 4, // Limit each IP to 4 create account requests per `window` (here, per hour)
+  max: 4, // Limit each IP to 4 requests per `window` (here, per hour)
   message:
     "Too many password rest mail send from this IP, please try again after an hour",
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
+const verifyLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5, // Limit each IP to 5 requests per `window` (here, per hour)
+  message:
+    "Too many request to verfiy email from this IP, please try again after an hour",
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
 // Routing Implement
 router.post("/login", loginUser);
 router.get("/me", protect, userProfile);
-router.post("/verify", emailVerify);
+router.post("/verify", verifyLimiter, emailVerify);
 router.post("/logout", protect, logoutUser);
 router.post("/reset-password", resetPassword);
 router.post("/register", createAccountLimiter, registerUser);
