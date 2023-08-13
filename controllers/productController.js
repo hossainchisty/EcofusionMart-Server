@@ -43,6 +43,9 @@ const productLists = asyncHandler(async (req, res) => {
   const totalPages = Math.ceil(totalProducts / validatedLimit);
 
   res.status(200).json({
+    status: "success",
+    code: 200,
+    message: "Data retrieved successfully",
     products,
     currentPage: validatedPage,
     totalPages,
@@ -67,13 +70,15 @@ const productLists = asyncHandler(async (req, res) => {
  */
 
 const searchProducts = asyncHandler(async (req, res) => {
-  const cacheKey = JSON.stringify(req.query);
+  try {
+    const cacheKey = JSON.stringify(req.query);
 
-  const cachedResults = cache.get(cacheKey);
+    const cachedResults = cache.get(cacheKey);
 
-  if (cachedResults) {
-    res.status(200).json({ result: cachedResults });
-  } else {
+    if (cachedResults) {
+      return res.status(200).json({ result: cachedResults });
+    }
+
     const filterOptions = {
       category: req.query.category
         ? { $regex: new RegExp(req.query.category, "i") }
@@ -95,21 +100,33 @@ const searchProducts = asyncHandler(async (req, res) => {
 
     const products = await Product.filterAndSort(filterOptions, sortOptions);
 
-    // Exclude subdocuments from caching
+    if (products.length === 0) {
+      return res.status(404).json({
+        status: 'error',
+        code: 404,
+        message: 'No products found.',
+      });
+    }
+
     const productsWithoutSubdocuments = products.map((product) => {
       const productObject = product.toObject();
       delete productObject.reviews;
       return productObject;
     });
 
-    /*
-     * Explanation: 
-       By excluding subdocuments, we ensure that only the relevant fields of the parent document are cached, reducing memory usage and potential errors when retrieving cached results.
-     */
-
     cache.set(cacheKey, productsWithoutSubdocuments);
 
-    res.status(200).json({ result: products });
+    res.status(200).json({ 
+      status: 'success',
+      code: 200,
+      result: productsWithoutSubdocuments,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: 'error',
+      code: 500,
+      message: 'Internal server error.',
+    });
   }
 });
 
