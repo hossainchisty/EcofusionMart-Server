@@ -6,14 +6,6 @@ The objective of this project is to develop an advanced e-commerce platform that
 
 ![System Design Multi-Vendor eCommerce](https://github.com/hossainchisty/eCommerce-Backend-API/assets/62835101/8e56d397-e2d3-48ac-9eb1-8c24c9163323)
 
-
-
-## **Live**
-
-Visit Frontend [https://ecommerce-3w.vercel.app/](https://ecommerce-3w.vercel.app/)
-
-Visit [https://3w-ecommerce.vercel.app/](https://3w-ecommerce.vercel.app/)
-
 ## **Documentation**
 
 Visit [API docs](./docs/api-docs.md) for full API documentation.
